@@ -200,7 +200,7 @@ html, body {
   bottom: 0;
   left: 50%;
   width: 10px;
-  background: url("images/timeline_custom.png") repeat-y center;
+  background: url("images/shapes/timeline_custom.png") repeat-y center;
 }
 
 /* Each row in the timeline (event) */
