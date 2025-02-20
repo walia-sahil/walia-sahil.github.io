@@ -198,3 +198,40 @@ html, body {
   }
 }
 
+/* ======================================== */
+/*           Contact Me Section            */
+/* ======================================== */
+#contact-me {
+  background: #0a1c3e; /* Match the dark navy or tweak as desired */
+  padding: 40px 20px;
+  text-align: center;
+}
+
+#contact-me .contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#contact-me h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+#contact-me p {
+  font-size: 16px;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+#contact-me p a {
+  color: #00bfff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+#contact-me p a:hover {
+  color: #fff;
+}
+
