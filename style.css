@@ -164,6 +164,106 @@ html, body {
   height: auto;
   object-fit: contain;
 }
+/* ===========================
+   Timeline Section Styles
+=========================== */
+
+.timeline-section {
+  margin-top: 100px; /* space for a fixed navbar, if needed */
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(to right, #0a1c3e, #153873);
+  border-radius: 8px;
+}
+
+.timeline-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  margin-left: 40px; /* or text-align: center, etc. */
+  color: #fff;
+}
+
+/* The wrapper that holds all timeline items */
+.timeline-wrapper {
+  position: relative;
+  padding: 20px 0;
+}
+
+/* The vertical line down the center */
+.timeline-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  background: url("images/timeline_custom.png") repeat-y center;
+}
+
+/* Each row in the timeline (event) */
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* Left, Center, Right columns */
+.timeline-left,
+.timeline-center,
+.timeline-right {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+}
+
+.timeline-center {
+  align-items: center;
+  position: relative;
+}
+
+.timeline-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* The circle in the center line */
+.timeline-node {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #00bfff;
+  z-index: 1;
+  box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.3);
+}
+
+/* Basic responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-wrapper::before {
+    /* Hide or shift the center line if desired on small screens */
+    left: 10px;
+  }
+  .timeline-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .timeline-left,
+  .timeline-center,
+  .timeline-right {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .timeline-right {
+    align-items: flex-start;
+  }
+}
+
 
 /* ======================================== */
 /*           Contact / Footer Section       */
@@ -430,4 +530,3 @@ html, body {
     font-size: 20px;
   }
 }
-
