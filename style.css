@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sahil Walia</title>
+  <!-- Link to your CSS file -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -29,11 +30,14 @@
         <img src="images/profile.jpg" alt="Sahil Walia" class="profile-photo" />
         <h1 class="hero-title">Sahil Walia</h1>
         <p class="hero-description">
-          Business Analytics professional merging Business Intelligence with AI 
-          and Machine Learning solutions. Proven track record of leading 
-          innovative BI projects at an enterprise level.
+          Business Analytics professional merging Business Intelligence 
+          with AI and Machine Learning solutions. Proven track record 
+          of leading innovative BI projects at an enterprise level.
         </p>
         <img src="images/signature.png" alt="Signature" class="signature" />
+
+        <!-- "Contact Me" button links down to footer section -->
+        <a href="#contact-me" class="contact-button">Contact Me</a>
       </div>
 
       <!-- Right Column: Illustration -->
@@ -48,10 +52,10 @@
     <div class="contact-container">
       <h2>Contact Me</h2>
       <p>
-        Email: 
-        <a href="mailto:swalia10@asu.edu">swalia10@asu.edu</a> 
-        | 
-        <a href="mailto:sahilwalia2598@gmail.com">sahilwalia2598@gmail.com</a>
+        Work: 
+        <a href="mailto:sahilwalia2598@gmail.com">sahilwalia2598@gmail.com</a> 
+        | School: 
+        <a href="mailto:swalia10@asu.edu">swalia10@asu.edu</a>
       </p>
     </div>
   </footer>
