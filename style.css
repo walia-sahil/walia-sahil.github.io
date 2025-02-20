@@ -245,29 +245,52 @@ html, body {
     height: 150px;
   }
 }
-
 /* ======================================== */
 /*       Work Experience Main Section       */
 /* ======================================== */
-.experience-section {
-  /* Make room for fixed navbar */
-  margin-top: 100px; 
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 40px 20px;
 
-  /* You can use a gradient background if you like */
+/* Overall section styling */
+.experience-section {
+  margin-top: 100px; /* leaves space for fixed navbar */
+  padding: 40px 20px;
   background: linear-gradient(to right, #0a1c3e, #153873);
   border-radius: 8px;
 }
 
-/* Title: "Professional Experience" */
-.experience-section h1 {
-  text-align: center;
+/* The two-column container */
+.experience-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;          /* spacing between left and right columns */
+  align-items: flex-start;
+}
+
+/* Left Column (heading + items) */
+.experience-left {
+  flex: 1;           /* takes available space */
+}
+
+/* Right Column (the SVG graphic) */
+.experience-right {
+  flex: 1;           /* also takes available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The SVG graphic itself */
+.experience-graphic {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Heading: "Professional Experience" */
+.experience-left h1 {
   font-size: 36px;
-  margin-bottom: 40px;
   font-weight: bold;
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 /* Each experience entry container */
@@ -278,7 +301,7 @@ html, body {
   margin-bottom: 30px;
 }
 
-/* The heading row for company + date range */
+/* Heading row for company + date range */
 .experience-header {
   display: flex;
   justify-content: space-between;
@@ -302,7 +325,7 @@ html, body {
   margin-bottom: 10px;
 }
 
-/* Links for "Know More" */
+/* Link styling for "Know More" */
 .experience-item a {
   color: #00bfff;
   text-decoration: none;
@@ -316,7 +339,22 @@ html, body {
 /* ======================================== */
 /*            Responsive Adjustments        */
 /* ======================================== */
+@media (max-width: 992px) {
+  .experience-container {
+    flex-direction: column;
+  }
+
+  .experience-left {
+    margin-bottom: 30px;
+  }
+}
+
 @media (max-width: 768px) {
+  .experience-left h1 {
+    font-size: 28px;
+    text-align: center;
+  }
+
   .experience-header {
     flex-direction: column;
     align-items: flex-start;
@@ -325,8 +363,5 @@ html, body {
   .experience-header h2 {
     margin-bottom: 5px;
   }
-
-  .experience-section h1 {
-    font-size: 28px;
-  }
 }
+
