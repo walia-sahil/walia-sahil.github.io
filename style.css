@@ -1,15 +1,35 @@
+/* ======================================== */
+/*              Global Styles               */
+/* ======================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    font-family: Arial, sans-serif;
 }
 
-/* Navigation Styling */
+body {
+    background: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ======================================== */
+/*              Navigation Styling          */
+/* ======================================== */
+
 nav {
     background: #333;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
@@ -20,84 +40,247 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li a.active {
     color: #00bfff;
+    border-bottom: 3px solid #00bfff;
+    padding-bottom: 5px;
 }
 
-/* Work Experience Sections */
-section {
-    padding: 50px 20px;
+/* ======================================== */
+/*              Header Section              */
+/* ======================================== */
+
+header {
+    background: linear-gradient(to right, #333, #555);
+    color: #fff;
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    padding: 80px 20px;
+    margin-top: 60px;
 }
 
-section h2 {
-    color: #333;
-    font-size: 28px;
+header h1 {
+    font-size: 42px;
     margin-bottom: 10px;
 }
 
-section ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
+header p {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+/* ======================================== */
+/*              Work Experience             */
+/* ======================================== */
+
+section#work-experience {
+    padding: 70px 20px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 2px solid #ddd;
+}
+
+section#work-experience h2 {
+    font-size: 38px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    position: relative;
     display: inline-block;
 }
 
-section ul li {
-    margin: 5px 0;
+section#work-experience h2::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 4px;
+    background: #00bfff;
+    margin: 10px auto 0 auto;
+    border-radius: 5px;
 }
+
+section#work-experience .experience {
+    margin-bottom: 50px;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+section#work-experience .experience:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+section#work-experience .experience h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+section#work-experience .experience h3::before {
+    content: '💼';
+    margin-right: 10px;
+}
+
+section#work-experience .experience p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+section#work-experience .experience ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+section#work-experience .experience ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #444;
+}
+
+section#work-experience .experience ul li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #00bfff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* ======================================== */
+/*              Projects Section            */
+/* ======================================== */
+
+section#projects {
+    padding: 70px 20px;
+    text-align: center;
+    background: #f4f4f4;
+    border-bottom: 2px solid #ddd;
+}
+
+section#projects h2 {
+    font-size: 38px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.project {
+    display: inline-block;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 15px;
+    overflow: hidden;
+    background: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.project:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.project img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.project h3 {
+    font-size: 22px;
+    color: #333;
+    padding: 10px 15px 5px;
+}
+
+.project p {
+    font-size: 16px;
+    color: #555;
+    padding: 0 15px 15px;
+}
+
+/* ======================================== */
+/*              Buttons                     */
+/* ======================================== */
 
 .btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
+    margin-top: 15px;
+    padding: 12px 25px;
     background: #333;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .btn:hover {
     background: #00bfff;
+    transform: scale(1.05);
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-}
-
-header {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 50px 0;
-}
-
-section {
-    padding: 50px 20px;
-    text-align: center;
-}
-
-.project {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 20px 0;
-}
+/* ======================================== */
+/*              Footer                      */
+/* ======================================== */
 
 footer {
     background: #333;
     color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
 }
+
+footer h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* ======================================== */
+/*              Responsive Design           */
+/* ======================================== */
+
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    section#work-experience .experience {
+        padding: 20px;
+    }
+
+    .project {
+        width: 100%;
+    }
+}
+
