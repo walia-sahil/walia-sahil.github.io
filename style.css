@@ -1,7 +1,6 @@
 /* ======================================== */
 /*              Global Styles               */
 /* ======================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -11,62 +10,21 @@
 }
 
 body {
-    background: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* ======================================== */
-/*              Navigation                  */
-/* ======================================== */
-
-nav {
     background: #333;
-    padding: 20px 0;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 20px;
-}
-
-nav ul li a {
     color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-}
-
-nav ul li a:hover, nav ul li a.active {
-    color: #00bfff;
-    border-bottom: 3px solid #00bfff;
-    padding-bottom: 5px;
+    line-height: 1.6;
 }
 
 /* ======================================== */
 /*              Hero Section                */
 /* ======================================== */
-
 #hero {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 90vh;
-    background: linear-gradient(to right, #333, #555);
-    color: #fff;
+    overflow: hidden;
     padding: 80px 20px;
 }
 
@@ -76,11 +34,7 @@ nav ul li a:hover, nav ul li a.active {
     gap: 50px;
     max-width: 1200px;
     width: 100%;
-}
-
-.hero-left {
-    text-align: center;
-    position: relative;
+    z-index: 2;
 }
 
 .profile-photo {
@@ -89,14 +43,18 @@ nav ul li a:hover, nav ul li a.active {
     border-radius: 50%;
     border: 4px solid #00bfff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
 .signature {
     width: 150px;
     margin-top: 15px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    bottom: -30px;
+    left: -40px;
+    opacity: 0.9;
+    z-index: 1;
 }
 
 .hero-right h1 {
@@ -110,33 +68,38 @@ nav ul li a:hover, nav ul li a.active {
     line-height: 1.8;
     color: #ddd;
     max-width: 600px;
-    margin-bottom: 25px;
 }
 
-.social-icons {
-    margin-top: 15px;
+/* Background Shapes */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
 }
 
-.social-icons a {
-    color: #fff;
-    font-size: 28px;
-    margin: 0 10px;
-    transition: color 0.3s ease, transform 0.3s ease;
+.circle.large {
+    width: 300px;
+    height: 300px;
+    top: 20%;
+    left: 10%;
 }
 
-.social-icons a:hover {
-    color: #00bfff;
-    transform: scale(1.2);
+.circle.small {
+    width: 150px;
+    height: 150px;
+    bottom: 10%;
+    right: 20%;
 }
 
 /* ======================================== */
 /*            Analytics Icons               */
 /* ======================================== */
-
 #analytics-icons {
     text-align: center;
     padding: 70px 20px;
     background: #f4f4f4;
+    color: #333;
 }
 
 .icons-container {
@@ -145,23 +108,52 @@ nav ul li a:hover, nav ul li a.active {
     gap: 50px;
 }
 
-.icon {
-    width: 80px;
-    height: 80px;
+.icon-box {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.icon:hover {
+.icon-box:hover {
     transform: scale(1.2);
 }
 
-/* ======================================== */
-/*              Footer                      */
-/* ======================================== */
+.icon-box img {
+    width: 80px;
+    height: 80px;
+    transition: filter 0.3s ease;
+}
 
-footer {
+.icon-box img:hover {
+    filter: drop-shadow(0 0 8px #00bfff);
+}
+
+.icon-box .tooltip {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
     background: #333;
     color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.icon-box:hover .tooltip {
+    opacity: 1;
+}
+
+/* ======================================== */
+/*            Footer Social Icons           */
+/* ======================================== */
+footer {
+    background: #333;
     text-align: center;
     padding: 30px 20px;
 }
@@ -174,6 +166,7 @@ footer h2 {
 footer p {
     font-size: 16px;
     font-weight: 300;
+    color: #ddd;
 }
 
 footer p a {
@@ -187,38 +180,27 @@ footer p a:hover {
     color: #fff;
 }
 
-/* ======================================== */
-/*            Responsive Design             */
-/* ======================================== */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
 
-@media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
+.social-icons a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
 
-    #hero {
-        flex-direction: column;
-        text-align: center;
-    }
+.social-icons a img {
+    width: 100%;
+    height: 100%;
+}
 
-    .hero-container {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .profile-photo {
-        width: 180px;
-        height: 180px;
-    }
-
-    .icons-container {
-        flex-wrap: wrap;
-    }
-
-    .icon {
-        width: 60px;
-        height: 60px;
-    }
+.social-icons a:hover {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px #00bfff);
 }
 
