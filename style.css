@@ -28,7 +28,8 @@ html, body {
   z-index: 999;
   display: flex;
   justify-content: center;
-  background: transparent; /* or rgba(0,0,0,0.2) for a slight overlay */
+  /* Use transparent or a slight overlay if desired */
+  background: transparent;
 }
 
 .navbar ul {
@@ -195,7 +196,7 @@ html, body {
 }
 
 /* ======================================== */
-/*              Responsive Design           */
+/*            Responsive: Hero etc.         */
 /* ======================================== */
 
 @media (max-width: 992px) {
@@ -245,11 +246,11 @@ html, body {
     height: 150px;
   }
 }
+
 /* ======================================== */
 /*       Work Experience Main Section       */
 /* ======================================== */
 
-/* Overall section styling */
 .experience-section {
   margin-top: 100px; /* leaves space for fixed navbar */
   padding: 40px 20px;
@@ -257,29 +258,27 @@ html, body {
   border-radius: 8px;
 }
 
-/* The two-column container */
+/* The two-column container for text & graphic */
 .experience-container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 40px;          /* spacing between left and right columns */
+  gap: 40px; /* spacing between columns */
   align-items: flex-start;
 }
 
-/* Left Column (heading + items) */
 .experience-left {
-  flex: 1;           /* takes available space */
+  flex: 1;
 }
 
-/* Right Column (the SVG graphic) */
 .experience-right {
-  flex: 1;           /* also takes available space */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* The SVG graphic itself */
+/* SVG graphic */
 .experience-graphic {
   max-width: 100%;
   height: auto;
@@ -336,9 +335,7 @@ html, body {
   text-decoration: underline;
 }
 
-/* ======================================== */
-/*            Responsive Adjustments        */
-/* ======================================== */
+/* Responsive for Work Experience */
 @media (max-width: 992px) {
   .experience-container {
     flex-direction: column;
@@ -362,6 +359,75 @@ html, body {
 
   .experience-header h2 {
     margin-bottom: 5px;
+  }
+}
+
+/* ======================================== */
+/*        Flagship Projects Section         */
+/* ======================================== */
+
+.projects-section {
+  margin-top: 100px; /* space for fixed navbar */
+  padding: 40px 20px;
+  background: linear-gradient(to right, #0a1c3e, #153873);
+  border-radius: 8px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.projects-section h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Each project container (similar style to experience items) */
+.project-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+/* Project titles */
+.project-item h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Paragraph text for each project */
+.project-item p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* "Learn More" button */
+.learn-more-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00bfff;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.learn-more-button:hover {
+  background-color: #00acee;
+}
+
+/* Responsive for Flagship Projects */
+@media (max-width: 768px) {
+  .projects-section h1 {
+    font-size: 28px;
+  }
+
+  .project-item h2 {
+    font-size: 20px;
   }
 }
 
