@@ -1,237 +1,60 @@
-/* ======================================== */
-/*              Global Styles               */
-/* ======================================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sahil Walia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">My Story</a></li>
+      <li><a href="#">Work Experience</a></li>
+      <li><a href="#">Flagship Projects</a></li>
+      <li><a href="#contact-me">Get in Touch</a></li>
+    </ul>
+  </nav>
 
-html, body {
-  height: 100%;
-  font-family: Arial, sans-serif;
-  background: #0a1c3e; /* Base background color */
-  color: #fff;
-}
+  <!-- Hero Section -->
+  <section id="hero">
+    <!-- Angled Background Shape -->
+    <div class="angled-shape"></div>
 
-/* ======================================== */
-/*              Navigation Bar              */
-/* ======================================== */
+    <div class="hero-content">
+      <!-- Left Column: Photo + Text -->
+      <div class="hero-left">
+        <img src="images/profile.jpg" alt="Sahil Walia" class="profile-photo" />
+        <h1 class="hero-title">Sahil Walia</h1>
+        <p class="hero-description">
+          Business Analytics professional merging Business Intelligence with AI 
+          and Machine Learning solutions. Proven track record of leading 
+          innovative BI projects at an enterprise level.
+        </p>
+        <img src="images/signature.png" alt="Signature" class="signature" />
+      </div>
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 20px 0;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  background: transparent; /* or rgba(0,0,0,0.2) if you want a slight overlay */
-}
+      <!-- Right Column: Illustration -->
+      <div class="hero-right">
+        <img src="images/illustration.png" alt="Analytics Illustration" class="illustration" />
+      </div>
+    </div>
+  </section>
 
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-.navbar ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-}
-
-.navbar ul li a:hover {
-  background: #00bfff;
-  color: #fff;
-  border-color: #00bfff;
-}
-
-/* ======================================== */
-/*              Hero Section                */
-/* ======================================== */
-
-#hero {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  margin-top: 80px; /* space for fixed nav */
-  overflow: hidden;
-  background: linear-gradient(to right, #0a1c3e, #153873); /* main gradient */
-}
-
-/* Angled Shape on the Right */
-.angled-shape {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60%;
-  height: 100%;
-  background: #1f2f5c; /* lighter navy shape */
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
-  z-index: 1;
-}
-
-/* Container for hero content */
-.hero-content {
-  position: relative;
-  z-index: 2; /* above angled shape */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 60px 20px;
-}
-
-/* Left Column: Photo + Text */
-.hero-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 500px;
-}
-
-/* Profile Photo */
-.profile-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 4px solid #00bfff;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
-}
-
-/* Hero Title and Description */
-.hero-title {
-  font-size: 38px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.hero-description {
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  color: #ddd;
-}
-
-/* Signature */
-.signature {
-  width: 120px;
-  margin-top: 10px;
-}
-
-/* Right Column: Illustration */
-.hero-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 600px;
-  flex-shrink: 0;
-}
-
-.illustration {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  object-fit: contain;
-}
-
-/* ======================================== */
-/*              Responsive Design           */
-/* ======================================== */
-
-@media (max-width: 992px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero-left {
-    align-items: center;
-  }
-
-  .hero-description {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .hero-right {
-    margin-top: 30px;
-  }
-
-  .angled-shape {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar ul {
-    gap: 20px;
-  }
-
-  .navbar ul li a {
-    font-size: 16px;
-    padding: 8px 16px;
-  }
-
-  .hero-title {
-    font-size: 28px;
-  }
-
-  .hero-description {
-    font-size: 16px;
-  }
-
-  .profile-photo {
-    width: 150px;
-    height: 150px;
-  }
-}
-
-/* ======================================== */
-/*           Contact Me Section            */
-/* ======================================== */
-#contact-me {
-  background: #0a1c3e; /* Match the dark navy or tweak as desired */
-  padding: 40px 20px;
-  text-align: center;
-}
-
-#contact-me .contact-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#contact-me h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-#contact-me p {
-  font-size: 16px;
-  color: #ddd;
-  line-height: 1.6;
-}
-
-#contact-me p a {
-  color: #00bfff;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-#contact-me p a:hover {
-  color: #fff;
-}
+  <!-- Contact Me Section -->
+  <footer id="contact-me">
+    <div class="contact-container">
+      <h2>Contact Me</h2>
+      <p>
+        Email: 
+        <a href="mailto:swalia10@asu.edu">swalia10@asu.edu</a> 
+        | 
+        <a href="mailto:sahilwalia2598@gmail.com">sahilwalia2598@gmail.com</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
 
