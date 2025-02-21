@@ -29,7 +29,7 @@ html, body {
   display: flex;
   justify-content: center;
   /* Use transparent or a slight overlay if desired */
-  background: transparent;
+  background: #0a1c3e;
 }
 
 .navbar ul {
