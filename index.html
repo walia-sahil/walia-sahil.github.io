@@ -17,9 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
-    /* ================= CSS Variables ================= */
+/* ================= CSS Variables ================= */
 :root {
-  /* Core brand colors - unchanged */
+  /* Core brand colors */
   --primary-purple: #7c3aed;
   --primary-blue: #3b82f6;
   --accent-purple: #8b5cf6;
@@ -42,18 +42,18 @@
   --nav-bg: rgba(255, 255, 255, 0.85);
   --nav-border: rgba(226, 232, 240, 0.8);
   
-  /* Gradients - unchanged */
+  /* Gradients */
   --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
   --gradient-secondary: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
   --gradient-text: linear-gradient(135deg, #7c3aed 0%, #3b82f6 50%, #8b5cf6 100%);
   --gradient-card: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
   
-  /* Shadows - updated for light theme */
+  /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
   
-  /* Layout constants - unchanged */
+  /* Layout constants */
   --nav-height: 72px;
   --radius: 12px;
   --radius-lg: 20px;
@@ -79,7 +79,1222 @@
   --shadow-sm: 0 2px 8px rgba(124, 58, 237, 0.1);
   --shadow-md: 0 8px 24px rgba(124, 58, 237, 0.15);
   --shadow-lg: 0 20px 40px rgba(124, 58, 237, 0.2);
-} 
+}
+
+/* ================= Base Styles ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ================= Loader ================= */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ================= Background Canvas ================= */
+.bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+}
+
+/* ================= Skip Link ================= */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary-purple);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* ================= Navigation ================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--nav-border);
+  z-index: 1000;
+  transition: all var(--transition-base);
+}
+
+.navbar.scrolled {
+  background: var(--nav-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-purple);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width var(--transition-fast);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color var(--transition-fast);
+}
+
+.menu-toggle:hover {
+  background: var(--bg-secondary);
+}
+
+.theme-toggle {
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: 20px;
+  width: 44px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-left: 1rem;
+}
+
+.theme-toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: transform var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: var(--primary-purple);
+}
+
+[data-theme="dark"] .theme-toggle-slider {
+  transform: translateX(20px);
+  background: white;
+}
+
+/* ================= Buttons ================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-fast);
+}
+
+.btn:hover svg {
+  transform: translateX(2px);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+.btn.expanded svg {
+  transform: rotate(180deg);
+}
+
+/* ================= Cards ================= */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-card);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* ================= Typography ================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* ================= Sections ================= */
+section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-label {
+  display: inline-block;
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ================= Hero Section ================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--nav-height);
+}
+
+.hero-content {
+  width: 100%;
+}
+
+.hero-image {
+  margin-bottom: 2rem;
+}
+
+.hero-image img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid var(--border-color);
+  transition: all var(--transition-base);
+}
+
+.hero-image img:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-purple);
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--gradient-secondary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.hero-title {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ================= Projects Grid ================= */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.project-hidden {
+  display: none;
+}
+
+.project-visible {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-header {
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.project-badge {
+  display: inline-block;
+  background: var(--primary-purple);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.project-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.project-type {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.project-content {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.project-metrics {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.metric-item {
+  text-align: center;
+}
+
+.metric-value {
+  display: block;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--primary-purple);
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tech-tag {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  padding: 8px 0;
+}
+
+.project-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.project-link:hover {
+  color: var(--primary-blue);
+  transform: translateX(2px);
+}
+
+/* ================= Journey Timeline ================= */
+.journey-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline-line-vertical {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gradient-primary);
+  z-index: 1;
+}
+
+.journey-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 5rem;
+}
+
+.journey-dot {
+  position: absolute;
+  left: 16px;
+  top: 2rem;
+  width: 16px;
+  height: 16px;
+  background: var(--primary-purple);
+  border-radius: 50%;
+  z-index: 2;
+  border: 4px solid var(--bg-primary);
+  box-shadow: 0 0 0 2px var(--primary-purple);
+}
+
+.journey-card-modern {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.journey-card-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.journey-card-header {
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.journey-title-modern {
+  font-size: 1.375rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.journey-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.journey-institution {
+  color: var(--primary-purple);
+  font-weight: 600;
+}
+
+.journey-period-modern {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.journey-gpa {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.journey-card-content {
+  padding: 2rem;
+}
+
+.journey-summary {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.read-more-btn-modern {
+  background: none;
+  border: none;
+  color: var(--primary-purple);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  padding: 8px 0;
+}
+
+.read-more-btn-modern svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.read-more-btn-modern:hover {
+  color: var(--primary-blue);
+}
+
+.read-more-btn-modern.expanded svg {
+  transform: rotate(180deg);
+}
+
+.journey-details-modern {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow);
+}
+
+.journey-details-modern.visible {
+  max-height: 1000px;
+  margin-top: 1.5rem;
+}
+
+.details-content {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.details-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.details-list {
+  color: var(--text-secondary);
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+
+.details-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.journey-achievements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.achievement-tag {
+  background: var(--gradient-secondary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ================= Skills Section ================= */
+.skills-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.skill-category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skill-category-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skill-percentage {
+  font-weight: 600;
+  color: var(--primary-purple);
+  font-size: 0.9rem;
+}
+
+.skill-progress-bar {
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width 1s ease-out;
+  border-radius: 4px;
+}
+
+/* ================= Certifications ================= */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.cert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  padding: 0;
+}
+
+.cert-hidden {
+  display: none;
+}
+
+.cert-visible {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.cert-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.cert-card:hover .cert-image img {
+  transform: scale(1.05);
+}
+
+.cert-content {
+  padding: 1.5rem;
+}
+
+.cert-title {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.cert-issuer {
+  color: var(--primary-purple);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.cert-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.cert-link {
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.cert-link:hover {
+  color: var(--primary-blue);
+}
+
+/* ================= Interests ================= */
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.interest-card {
+  text-align: center;
+}
+
+.interest-image {
+  height: 250px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.interest-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.interest-card:hover .interest-image img {
+  transform: scale(1.05);
+}
+
+/* ================= Contact ================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.contact-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.contact-label {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.contact-value {
+  color: var(--text-secondary);
+}
+
+.contact-value a {
+  color: var(--primary-purple);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.contact-value a:hover {
+  color: var(--primary-blue);
+}
+
+/* ================= Animations ================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= Responsive Design ================= */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--nav-border);
+    flex-direction: column;
+    padding: 2rem 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .theme-toggle {
+    margin-left: 0.5rem;
+  }
+
+  .hero {
+    padding-top: calc(var(--nav-height) + 2rem);
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stats-bar {
+    gap: 2rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .projects-grid,
+  .skills-showcase,
+  .interests-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .journey-item {
+    padding-left: 3rem;
+  }
+
+  .timeline-line-vertical {
+    left: 16px;
+  }
+
+  .journey-dot {
+    left: 8px;
+  }
+
+  .journey-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .project-metrics {
+    gap: 1rem;
+  }
+
+  .metric-value {
+    font-size: 1rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .stats-bar {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .project-content,
+  .journey-card-content {
+    padding: 1.5rem;
+  }
+
+  .project-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .journey-card-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+}
+
+/* ================= Print Styles ================= */
+@media print {
+  .navbar,
+  .theme-toggle,
+  .menu-toggle,
+  .loader,
+  .bg-canvas {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .card,
+  .project-card,
+  .cert-card {
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+
+  section {
+    padding: 2rem 0 !important;
+  }
+}
+
+/* ================= Accessibility ================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f0f1a;
+    --bg-secondary: #1a1a2e;
+    --bg-card: rgba(26, 26, 46, 0.6);
+    --bg-card-hover: rgba(26, 26, 46, 0.8);
+    --text-primary: #f8f9ff;
+    --text-secondary: #c3c8e3;
+    --text-muted: #8b92b9;
+    --border-color: rgba(167, 139, 250, 0.1);
+    --border-hover: rgba(167, 139, 250, 0.3);
+    --nav-bg: rgba(15, 15, 26, 0.8);
+    --nav-border: rgba(167, 139, 250, 0.1);
+    --gradient-card: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    --shadow-sm: 0 2px 8px rgba(124, 58, 237, 0.1);
+    --shadow-md: 0 8px 24px rgba(124, 58, 237, 0.15);
+    --shadow-lg: 0 20px 40px rgba(124, 58, 237, 0.2);
+  }
+}
 </style>
 </head>
 <body data-theme="light">
@@ -94,26 +1309,26 @@
 
   <!-- Nav -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="container nav-content">
-      <div class="logo"><div class="logo-icon">SW</div><span>Sahil Walia</span></div>
-      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#journey">Experience</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#beyond">Beyond Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-        <div class="theme-toggle-slider">☀️</div>
-      </button>
-    </div>
-  </nav>
+  <div class="container nav-content">
+    <div class="logo"><div class="logo-icon">SW</div><span>Sahil Walia</span></div>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#journey">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#beyond">Beyond Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+      <div class="theme-toggle-slider">☀️</div>
+    </button>
+  </div>
+</nav>
 
   <main id="main">
     <!-- ================= Hero ================= -->
@@ -177,6 +1392,7 @@
     </section>
 
 <!-- ================= Projects ================= -->
+<!-- ================= Projects ================= -->
 <section id="projects" aria-label="Featured Projects">
   <div class="container">
     <div class="section-header fade-in">
@@ -222,12 +1438,12 @@
           
           <div class="project-links">
             <a href="#" class="project-link" aria-label="View project">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m7-5l5 5m0 0l5-5m-5 5V3"/></svg>
               <span>View Project</span>
             </a>
-            <a href="#" class="project-link" aria-label="Read case study">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              <span>Case Study</span>
+            <a href="#" class="project-link" aria-label="View solutions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Solutions</span>
             </a>
           </div>
         </div>
@@ -281,57 +1497,57 @@
       </article>
 
       <!-- Project 3 - Hidden by default -->
-<article class="project-card fade-in project-hidden">
-  <div class="project-header">
-    <span class="project-badge">Enterprise</span>
-    <div class="project-icon">📊</div>
-    <h3 class="project-title">Cross-Industry BI Solutions</h3>
-    <div class="project-type">Business Intelligence • Data Visualization</div>
-  </div>
-  <div class="project-content">
-    <p class="project-description">Built and maintained BI solutions across healthcare, marketing, manufacturing & operations domains. From dynamic Tableau dashboards for pharma clients to Power BI visualizations, translating data into actionable stories.</p>
-    
-    <div class="project-metrics">
-      <div class="metric-item">
-        <span class="metric-value">Multiple</span>
-        <div class="metric-label">Industries</div>
-      </div>
-      <div class="metric-item">
-        <span class="metric-value">Real-time</span>
-        <div class="metric-label">Insights</div>
-      </div>
-      <div class="metric-item">
-        <span class="metric-value">Scalable</span>
-        <div class="metric-label">Solutions</div>
-      </div>
-    </div>
-    
-    <div class="tech-stack">
-      <span class="tech-tag">Tableau</span>
-      <span class="tech-tag">Power BI</span>
-      <span class="tech-tag">SQL</span>
-      <span class="tech-tag">Python</span>
-      <span class="tech-tag">Snowflake</span>
-    </div>
-    
-    <div class="project-links">
-      <a href="#" class="project-link" aria-label="Live demo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/></svg>
-        <span>Live Demo</span>
-      </a>
-      <a href="#" class="project-link" aria-label="Read case study">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        <span>Case Study</span>
-      </a>
-    </div>
-  </div>
-</article>
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Enterprise</span>
+          <div class="project-icon">📊</div>
+          <h3 class="project-title">Cross-Industry BI Solutions</h3>
+          <div class="project-type">Business Intelligence • Data Visualization</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Built and maintained BI solutions across healthcare, marketing, manufacturing & operations domains. From dynamic Tableau dashboards for pharma clients to Power BI visualizations, translating data into actionable stories.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">Multiple</span>
+              <div class="metric-label">Industries</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Real-time</span>
+              <div class="metric-label">Insights</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Scalable</span>
+              <div class="metric-label">Solutions</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Snowflake</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="Live demo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/></svg>
+              <span>Live Demo</span>
+            </a>
+            <a href="#" class="project-link" aria-label="Read case study">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Case Study</span>
+            </a>
+          </div>
+        </div>
+      </article>
 
       <!-- Project 4 - Hidden by default -->
       <article class="project-card fade-in project-hidden">
         <div class="project-header">
           <span class="project-badge">Academic</span>
-          <div class="project-icon">🏠</div>
+          <div class="project-icon">🏢</div>
           <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
           <div class="project-type">Data Analysis • Urban Planning</div>
         </div>
@@ -456,16 +1672,123 @@
           
           <div class="project-links">
             <a href="#" class="project-link" aria-label="View project">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m7-5l5 5m0 0l5-5m-5 5V3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m7-5l5 5m0 0l5-5m-5 5V3"/>
+              </svg>
               <span>View Project</span>
             </a>
-            <a href="#" class="project-link" aria-label="View solutions">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span>Solutions</span>
+            <a href="#" class="project-link" aria-label="View analysis">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+              <span>GitHub</span>
             </a>
           </div>
         </div>
       </article>
+
+      <!-- Project 7 - Hidden by default -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Clinical Research</span>
+          <div class="project-icon">🔬</div>
+          <h3 class="project-title">Clinical Trial Risk-Based Monitoring</h3>
+          <div class="project-type">Healthcare Analytics • Quality Assurance</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Implemented automated monitoring systems for clinical trials ensuring GCP compliance. Built predictive models to identify potential data quality issues and protocol deviations before they impact study integrity.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">15+</span>
+              <div class="metric-label">Clinical Studies</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">99%</span>
+              <div class="metric-label">Compliance Rate</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">50%</span>
+              <div class="metric-label">Efficiency Gain</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Clinical Data</span>
+            <span class="tech-tag">Risk Assessment</span>
+            <span class="tech-tag">GCP Compliance</span>
+            <span class="tech-tag">Quality Metrics</span>
+            <span class="tech-tag">Tableau</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="#" class="project-link" aria-label="View methodology">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+              </svg>
+              <span>Methodology</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 8 - Hidden by default -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">ETL Pipeline</span>
+          <div class="project-icon">⚙️</div>
+          <h3 class="project-title">Automated Data Pipeline Architecture</h3>
+          <div class="project-type">Data Engineering • Process Automation</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Designed and implemented scalable ETL pipelines processing multi-source pharmaceutical data. Automated data quality checks, transformation workflows, and real-time monitoring reducing manual effort by 40%.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">TB+</span>
+              <div class="metric-label">Data Processed</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">24/7</span>
+              <div class="metric-label">Monitoring</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">40%</span>
+              <div class="metric-label">Time Savings</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Apache Airflow</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">Data Quality</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View architecture">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h8"/>
+              </svg>
+              <span>Architecture</span>
+            </a>
+            <a href="#" class="project-link" aria-label="View documentation">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+              </svg>
+              <span>Documentation</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
     </div>
 
     <!-- View All Projects Button -->
@@ -1276,6 +2599,7 @@
       heroTitle.textContent = '';
       let i = 0; (function type() { if (i < text.length) { heroTitle.textContent += text.charAt(i++); setTimeout(type, 45); } })();
     }
+    
     // Certifications collapse/expand functionality
     const viewAllCertsBtn = document.getElementById('viewAllCertsBtn');
     const certBtnText = document.getElementById('certBtnText');
@@ -1283,65 +2607,66 @@
     const hiddenCerts = document.querySelectorAll('.cert-hidden');
     let certsExpanded = false;
 
-if (viewAllCertsBtn) {
-  viewAllCertsBtn.addEventListener('click', function() {
-    if (!certsExpanded) {
-      // Show all certifications
-      hiddenCerts.forEach(cert => {
-        cert.style.display = 'flex';
-        cert.classList.remove('cert-hidden');
-        cert.classList.add('cert-visible');
-      });
-      certBtnText.textContent = 'Show Less';
-      viewAllCertsBtn.classList.add('expanded');
-      certsExpanded = true;
-    } else {
-      // Hide extra certifications
-      hiddenCerts.forEach(cert => {
-        cert.style.display = 'none';
-        cert.classList.remove('cert-visible');
-        cert.classList.add('cert-hidden');
-      });
-      certBtnText.textContent = 'View All 11 Certifications';
-      viewAllCertsBtn.classList.remove('expanded');
-      certsExpanded = false;
-      
-      // Smooth scroll to certifications section
-      document.getElementById('certifications').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+    if (viewAllCertsBtn) {
+      viewAllCertsBtn.addEventListener('click', function() {
+        if (!certsExpanded) {
+          // Show all certifications
+          hiddenCerts.forEach(cert => {
+            cert.style.display = 'flex';
+            cert.classList.remove('cert-hidden');
+            cert.classList.add('cert-visible');
+          });
+          certBtnText.textContent = 'Show Less';
+          viewAllCertsBtn.classList.add('expanded');
+          certsExpanded = true;
+        } else {
+          // Hide extra certifications
+          hiddenCerts.forEach(cert => {
+            cert.style.display = 'none';
+            cert.classList.remove('cert-visible');
+            cert.classList.add('cert-hidden');
+          });
+          certBtnText.textContent = 'View All 11 Certifications';
+          viewAllCertsBtn.classList.remove('expanded');
+          certsExpanded = false;
+          
+          // Smooth scroll to certifications section
+          document.getElementById('certifications').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       });
     }
-  });
-}
-// Journey cards read more functionality
-document.addEventListener('DOMContentLoaded', function() {
-  const readMoreBtns = document.querySelectorAll('.read-more-btn-modern');
-  
-  readMoreBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const targetId = this.getAttribute('data-target');
-      const details = document.getElementById(targetId);
-      const btnText = this.querySelector('span');
-      
-      if (details.classList.contains('visible')) {
-        details.classList.remove('visible');
-        btnText.textContent = 'Read More';
-        this.classList.remove('expanded');
-      } else {
-        details.classList.add('visible');
-        btnText.textContent = 'Show Less';
-        this.classList.add('expanded');
-      }
-    });
-  });
-});
 
-// Projects collapse/expand functionality
-const viewAllBtn = document.getElementById('viewAllBtn');
-const btnText = document.getElementById('btnText');
-const btnIcon = document.getElementById('btnIcon');
-const hiddenProjects = document.querySelectorAll('.project-hidden');
+    // Journey cards read more functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const readMoreBtns = document.querySelectorAll('.read-more-btn-modern');
+      
+      readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const details = document.getElementById(targetId);
+          const btnText = this.querySelector('span');
+          
+          if (details.classList.contains('visible')) {
+            details.classList.remove('visible');
+            btnText.textContent = 'Read More';
+            this.classList.remove('expanded');
+          } else {
+            details.classList.add('visible');
+            btnText.textContent = 'Show Less';
+            this.classList.add('expanded');
+          }
+        });
+      });
+    });
+
+    // Projects collapse/expand functionality
+    const viewAllBtn = document.getElementById('viewAllBtn');
+    const btnText = document.getElementById('btnText');
+    const btnIcon = document.getElementById('btnIcon');
+    const hiddenProjects = document.querySelectorAll('.project-hidden');
     let isExpanded = false;
 
     if (viewAllBtn) {
@@ -1375,6 +2700,262 @@ const hiddenProjects = document.querySelectorAll('.project-hidden');
         }
       });
     }
-</script>
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeSlider = themeToggle.querySelector('.theme-toggle-slider');
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      themeSlider.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+  </script>
 </body>
-</html>
+</html>2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/></svg>
+              <span>View Project</span>
+            </a>
+            <a href="#" class="project-link" aria-label="Read case study">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Case Study</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 - Always visible -->
+      <article class="project-card fade-in project-visible">
+        <div class="project-header">
+          <span class="project-badge">Research</span>
+          <div class="project-icon">🧠</div>
+          <h3 class="project-title">Breast Cancer Diagnosis using AI Models</h3>
+          <div class="project-type">Healthcare AI • Computer Vision Research</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Leading research project developing CNN models on the VinDr-Mammo dataset to enhance early tumor detection in mammograms through precise labeling and improved inference accuracy. Targeting research paper publication.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">5000+</span>
+              <div class="metric-label">Patients Dataset</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">CNN</span>
+              <div class="metric-label">Deep Learning</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Ongoing</span>
+              <div class="metric-label">Research</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">CNN</span>
+            <span class="tech-tag">Computer Vision</span>
+            <span class="tech-tag">Medical Imaging</span>
+            <span class="tech-tag">Deep Learning</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View research">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h8"/></svg>
+              <span>Research</span>
+            </a>
+            <a href="#" class="project-link" aria-label="View on GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3 - Hidden by default -->
+<article class="project-card fade-in project-hidden">
+  <div class="project-header">
+    <span class="project-badge">Enterprise</span>
+    <div class="project-icon">📊</div>
+    <h3 class="project-title">Cross-Industry BI Solutions</h3>
+    <div class="project-type">Business Intelligence • Data Visualization</div>
+  </div>
+  <div class="project-content">
+    <p class="project-description">Built and maintained BI solutions across healthcare, marketing, manufacturing & operations domains. From dynamic Tableau dashboards for pharma clients to Power BI visualizations, translating data into actionable stories.</p>
+    
+    <div class="project-metrics">
+      <div class="metric-item">
+        <span class="metric-value">Multiple</span>
+        <div class="metric-label">Industries</div>
+      </div>
+      <div class="metric-item">
+        <span class="metric-value">Real-time</span>
+        <div class="metric-label">Insights</div>
+      </div>
+      <div class="metric-item">
+        <span class="metric-value">Scalable</span>
+        <div class="metric-label">Solutions</div>
+      </div>
+    </div>
+    
+    <div class="tech-stack">
+      <span class="tech-tag">Tableau</span>
+      <span class="tech-tag">Power BI</span>
+      <span class="tech-tag">SQL</span>
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Snowflake</span>
+    </div>
+    
+    <div class="project-links">
+      <a href="#" class="project-link" aria-label="Live demo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6m0 0v6m0-6L10 14"/></svg>
+        <span>Live Demo</span>
+      </a>
+      <a href="#" class="project-link" aria-label="Read case study">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <span>Case Study</span>
+      </a>
+    </div>
+  </div>
+</article>
+
+      <!-- Project 4 - Hidden by default -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Academic</span>
+          <div class="project-icon">🏠</div>
+          <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
+          <div class="project-type">Data Analysis • Urban Planning</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Analyzed city complaint data to identify top and worst neighborhoods based on maintenance response and issue frequency. Used Python libraries to extract and visualize resident concerns and resolution times.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">City-wide</span>
+              <div class="metric-label">Data Analysis</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Multiple</span>
+              <div class="metric-label">Neighborhoods</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Actionable</span>
+              <div class="metric-label">Insights</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Matplotlib</span>
+            <span class="tech-tag">WordCloud</span>
+            <span class="tech-tag">Data Visualization</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View project">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m7-5l5 5m0 0l5-5m-5 5V3"/></svg>
+              <span>View Project</span>
+            </a>
+            <a href="#" class="project-link" aria-label="View on GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 5 - Hidden by default -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Marketing</span>
+          <div class="project-icon">🛍️</div>
+          <h3 class="project-title">Zudio Market Expansion Strategy</h3>
+          <div class="project-type">Marketing Analytics • Strategy</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Evaluated Zudio's India growth strategy and conducted feasibility study for U.S. market entry, assessing expansion risks, cultural fit, and supply chain needs. Recommended phased rollout via ethnic urban clusters.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">Market</span>
+              <div class="metric-label">Entry Analysis</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Strategic</span>
+              <div class="metric-label">Planning</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Phased</span>
+              <div class="metric-label">Rollout Plan</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Market Research</span>
+            <span class="tech-tag">Strategic Analysis</span>
+            <span class="tech-tag">Competitive Analysis</span>
+            <span class="tech-tag">Business Strategy</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View strategy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Strategy Report</span>
+            </a>
+            <a href="#" class="project-link" aria-label="View analysis">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h8"/></svg>
+              <span>Market Analysis</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 6 - Hidden by default -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Computer Vision</span>
+          <div class="project-icon">🅿️</div>
+          <h3 class="project-title">ASU Parking Problem Analysis</h3>
+          <div class="project-type">Computer Vision • Campus Solutions</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Applied computer vision to solve real-world parking challenges. Captured data to identify parking congestion and illegal usage zones on campus, proposing cost-effective mitigation strategies including app-guided parking and behavioral nudges.</p>
+          
+          <div class="project-metrics">
+            <div class="metric-item">
+              <span class="metric-value">Real-world</span>
+              <div class="metric-label">Data Collection</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">AI-powered</span>
+              <div class="metric-label">Analysis</div>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Cost-effective</span>
+              <div class="metric-label">Solutions</div>
+            </div>
+          </div>
+          
+          <div class="tech-stack">
+            <span class="tech-tag">Computer Vision</span>
+            <span class="tech-tag">Image Analysis</span>
+            <span class="tech-tag">Pattern Recognition</span>
+            <span class="tech-tag">Mobile Data</span>
+            <span class="tech-tag">AI Strategy</span>
+          </div>
+          
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View project">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a
