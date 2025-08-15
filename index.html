@@ -147,12 +147,283 @@
     .projects-grid { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); margin-top: 2rem; }
     .interests-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 2rem; }
     .cert-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 2rem; }
+/* ================= Journey Timeline Modern ================= */
+.journey-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 3rem auto 0;
+}
 
-    /* ================= Updated Project Cards - Vertical Layout ================= */
-    .project-card { 
-      background: var(--bg-card); 
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(167,139,250,.1); 
+.timeline-line-vertical {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
+  opacity: 0.4;
+  border-radius: 2px;
+}
+
+.journey-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 80px;
+}
+
+.journey-dot {
+  position: absolute;
+  left: 18px;
+  top: 2rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  border: 4px solid var(--bg-primary);
+  box-shadow: 0 0 0 8px rgba(124,58,237,.15);
+  z-index: 2;
+}
+
+.journey-card-modern {
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(167,139,250,.15);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.journey-card-modern:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(124,58,237,.25);
+  border-color: rgba(167,139,250,.3);
+}
+
+.journey-card-header {
+  background: var(--gradient-card);
+  padding: 2rem 2.5rem 1.5rem;
+  border-bottom: 1px solid rgba(167,139,250,.1);
+  position: relative;
+}
+
+.journey-title-modern {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  line-height: 1.3;
+}
+
+.journey-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.journey-institution {
+  color: #4ade80;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.journey-institution::before {
+  content: '•';
+  color: #4ade80;
+  font-size: 1.2rem;
+}
+
+.journey-period-modern {
+  color: #4ade80;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.journey-gpa {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.journey-card-content {
+  padding: 2rem 2.5rem;
+}
+
+.journey-summary {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+}
+
+.read-more-btn-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--accent-purple);
+  color: var(--accent-purple);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-bottom: 1rem;
+}
+
+.read-more-btn-modern:hover {
+  background: var(--accent-purple);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124,58,237,.3);
+}
+
+.read-more-btn-modern svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-base);
+}
+
+.read-more-btn-modern.expanded svg {
+  transform: rotate(180deg);
+}
+
+.journey-details-modern {
+  display: none;
+  margin-top: 1.5rem;
+}
+
+.journey-details-modern.visible {
+  display: block;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.details-content {
+  padding: 1.5rem;
+  background: rgba(167,139,250,.05);
+  border: 1px solid rgba(167,139,250,.1);
+  border-radius: var(--radius);
+  margin-top: 1rem;
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.details-list li {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.details-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.details-content p {
+  margin: 1.2rem 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.details-content p strong {
+  color: var(--accent-purple);
+  font-weight: 600;
+}
+
+.journey-achievements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(167,139,250,.1);
+}
+
+.achievement-tag {
+  padding: 0.4rem 0.8rem;
+  background: rgba(74,222,128,.1);
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,.2);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ================= Responsive Updates ================= */
+@media (max-width: 768px) {
+  .journey-item {
+    padding-left: 60px;
+  }
+  
+  .timeline-line-vertical {
+    left: 20px;
+  }
+  
+  .journey-dot {
+    left: 8px;
+  }
+  
+  .journey-card-header,
+  .journey-card-content {
+    padding: 1.5rem 1.5rem;
+  }
+  
+  .journey-title-modern {
+    font-size: 1.3rem;
+  }
+  
+  .journey-meta {
+    gap: 0.3rem;
+  }
+  
+  .journey-institution {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .journey-achievements {
+    gap: 0.3rem;
+  }
+  
+  .achievement-tag {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* ================= Updated Project Cards - Vertical Layout ================= */
+.project-card { 
+  background: var(--bg-card); 
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(167,139,250,.1); 
       border-radius: var(--radius-lg); 
       overflow: hidden; 
       transition: all var(--transition-base); 
@@ -863,88 +1134,165 @@
       <p class="section-subtitle">From engineering foundations to data analytics excellence</p>
     </div>
 
-    <div class="timeline">
-      <div class="timeline-line" aria-hidden="true"></div>
+    <div class="journey-timeline">
+      <div class="timeline-line-vertical" aria-hidden="true"></div>
 
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <div>
-              <h3 class="timeline-title">MS Business Analytics (STEM)</h3>
-              <p class="timeline-company">Arizona State University - W. P. Carey School</p>
+      <!-- Journey Item 1 -->
+      <div class="journey-item fade-in">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-card-modern">
+          <div class="journey-card-header">
+            <h3 class="journey-title-modern">Master of Science, Business Analytics (STEM)</h3>
+            <div class="journey-meta">
+              <span class="journey-institution">Arizona State University</span>
+              <span class="journey-period-modern">Aug 2024 – May 2025</span>
+              <span class="journey-gpa">CGPA: 3.89 / 4.0</span>
             </div>
-            <span class="timeline-period">Aug 2024 - May 2025</span>
           </div>
-          <p class="timeline-description">Advanced coursework in machine learning, statistical modeling, and business intelligence. Research focus on explainable AI applications in healthcare analytics with emphasis on breast cancer detection using computer vision.</p>
-          <div class="timeline-achievements">
-            <span class="achievement-tag">GPA: 3.8/4.0</span>
-            <span class="achievement-tag">Research Assistant</span>
-            <span class="achievement-tag">AI Healthcare</span>
+          <div class="journey-card-content">
+            <p class="journey-summary">Advanced coursework in machine learning, statistical modeling, and business intelligence. Research focus on explainable AI applications in healthcare analytics.</p>
+            
+            <button class="read-more-btn-modern" data-target="journey-1">
+              <span>Read More</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            
+            <div class="journey-details-modern" id="journey-1">
+              <div class="details-content">
+                <p><strong>Research Focus:</strong> Explainable AI applications in healthcare analytics with emphasis on breast cancer detection using computer vision and deep learning models.</p>
+                <p><strong>Key Coursework:</strong> Statistical modeling, machine learning algorithms, business intelligence systems, data visualization, and predictive analytics.</p>
+                <div class="journey-achievements">
+                  <span class="achievement-tag">Research Assistant</span>
+                  <span class="achievement-tag">AI Healthcare</span>
+                  <span class="achievement-tag">Dean's List</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <div>
-              <h3 class="timeline-title">Business Analyst 2</h3>
-              <p class="timeline-company">ZS Associates</p>
+      <!-- Journey Item 2 -->
+      <div class="journey-item fade-in">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-card-modern">
+          <div class="journey-card-header">
+            <h3 class="journey-title-modern">Decision Analytics Associate Consultant</h3>
+            <div class="journey-meta">
+              <span class="journey-institution">ZS Associates, New Delhi</span>
+              <span class="journey-period-modern">Dec 2023 – Jun 2024</span>
             </div>
-            <span class="timeline-period">Jan 2024 - Jun 2024</span>
           </div>
-          <p class="timeline-description">Led statistical modeling initiatives improving clinical trial representation by 20%. Managed high-uptime data pipelines processing 10M+ records daily. Mentored team of 5 junior analysts and implemented best practices for code review and documentation.</p>
-          <div class="timeline-achievements">
-            <span class="achievement-tag">Project Champion Award</span>
-            <span class="achievement-tag">20% Performance Boost</span>
-            <span class="achievement-tag">Team Lead</span>
+          <div class="journey-card-content">
+            <p class="journey-summary">Led high-impact, multi-source analytics to optimize clinical trial recruitment and diversity strategies. Stepped into a senior client-facing role managing cross-functional teams.</p>
+            
+            <button class="read-more-btn-modern" data-target="journey-2">
+              <span>Read More</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            
+            <div class="journey-details-modern" id="journey-2">
+              <div class="details-content">
+                <ul class="details-list">
+                  <li>Led a team of 4 analysts on initiatives that improved representation of underserved populations by 20% in key study cohorts</li>
+                  <li>Built & automated a BI pipeline (Python + SQL) consolidating clinical & real-world data, cutting prep time by 40%</li>
+                  <li>Served as Tableau SME across global geographies, resolving 90% of support tickets within 24 hours</li>
+                  <li>Delivered 20+ client decks & requirement docs, automated BRD creation via agent-based AI workflows</li>
+                  <li>Mentored analysts on data governance, visualization, and DEI analytics, reducing onboarding time by 40%</li>
+                </ul>
+                <div class="journey-achievements">
+                  <span class="achievement-tag">Project Champion Award</span>
+                  <span class="achievement-tag">Team Leadership</span>
+                  <span class="achievement-tag">Client Excellence</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <div>
-              <h3 class="timeline-title">Business Analyst 1</h3>
-              <p class="timeline-company">ZS Associates</p>
+      <!-- Journey Item 3 -->
+      <div class="journey-item fade-in">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-card-modern">
+          <div class="journey-card-header">
+            <h3 class="journey-title-modern">Decision Analytics Associate</h3>
+            <div class="journey-meta">
+              <span class="journey-institution">ZS Associates, India</span>
+              <span class="journey-period-modern">May 2021 – Dec 2023</span>
             </div>
-            <span class="timeline-period">May 2021 - Dec 2023</span>
           </div>
-          <p class="timeline-description">Developed 15+ BI dashboards for $100M+ pharmaceutical portfolios. Automated ETL processes reducing manual effort by 60%. Implemented RBQM/RBM methodologies for clinical trials monitoring across 10+ global sites.</p>
-          <div class="timeline-achievements">
-            <span class="achievement-tag">Tableau Expert</span>
-            <span class="achievement-tag">ETL Automation</span>
-            <span class="achievement-tag">60% Efficiency Gain</span>
+          <div class="journey-card-content">
+            <p class="journey-summary">Progressed from operational analytics to advanced BI and strategy support for leading pharmaceutical clients, enabling faster, more confident business decisions across $100M+ portfolios.</p>
+            
+            <button class="read-more-btn-modern" data-target="journey-3">
+              <span>Read More</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            
+            <div class="journey-details-modern" id="journey-3">
+              <div class="details-content">
+                <p><strong>Brand & Commercial Analytics:</strong> Developed and maintained 10+ Tableau dashboards for brand scorecards, field-force effectiveness, and initiative tracking.</p>
+                <p><strong>Security & Adoption:</strong> Implemented role-based filters and row-level security, increasing dashboard adoption by 150%.</p>
+                <p><strong>Real-time Insights:</strong> Built KPI monitors translating 25+ metrics into visual stories for senior leadership reviews.</p>
+                <p><strong>Clinical Operations:</strong> Created Tableau reports aligned with RBM guidelines, cutting manual monitoring effort by 50%.</p>
+                <div class="journey-achievements">
+                  <span class="achievement-tag">Tableau Expert</span>
+                  <span class="achievement-tag">ETL Automation</span>
+                  <span class="achievement-tag">Process Innovation</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <div>
-              <h3 class="timeline-title">B.Tech Mechanical Engineering</h3>
-              <p class="timeline-company">SRM Institute of Science & Technology</p>
+      <!-- Journey Item 4 -->
+      <div class="journey-item fade-in">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-card-modern">
+          <div class="journey-card-header">
+            <h3 class="journey-title-modern">Bachelor of Technology, Mechanical Engineering</h3>
+            <div class="journey-meta">
+              <span class="journey-institution">SRM Institute of Science & Technology</span>
+              <span class="journey-period-modern">Jul 2016 – Jun 2020</span>
+              <span class="journey-gpa">CGPA: 8.5 / 10</span>
             </div>
-            <span class="timeline-period">Jul 2016 - Jun 2020</span>
           </div>
-          <p class="timeline-description">Specialized in Automotive Engineering with focus on data-driven optimization. Completed industrial internship at Honda Cars India and dissertation at TVS Sundaram Clayton. Active member of college motorsports team developing telemetry systems.</p>
-          <div class="timeline-achievements">
-            <span class="achievement-tag">CGPA: 8.5/10</span>
-            <span class="achievement-tag">Honda Internship</span>
-            <span class="achievement-tag">Motorsports Team</span>
+          <div class="journey-card-content">
+            <p class="journey-summary">Specialized in Automotive Engineering with focus on data-driven optimization. Completed industrial internship and research projects combining engineering principles with analytics.</p>
+            
+            <button class="read-more-btn-modern" data-target="journey-4">
+              <span>Read More</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            
+            <div class="journey-details-modern" id="journey-4">
+              <div class="details-content">
+                <p><strong>Industrial Experience:</strong> Completed industrial internship at Honda Cars India, gaining hands-on experience in automotive manufacturing and quality control.</p>
+                <p><strong>Research:</strong> Dissertation at TVS Sundaram Clayton focusing on data-driven optimization techniques in automotive systems.</p>
+                <p><strong>Leadership:</strong> Active member of college motorsports team developing telemetry systems and performance analytics for racing vehicles.</p>
+                <div class="journey-achievements">
+                  <span class="achievement-tag">Honda Internship</span>
+                  <span class="achievement-tag">Motorsports Team</span>
+                  <span class="achievement-tag">Research Excellence</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
    <!-- ================= Skills ================= -->
 <section id="skills" aria-label="Technical Skills">
   <div class="container">
@@ -1611,11 +1959,34 @@ if (viewAllCertsBtn) {
     }
   });
 }
-    // Projects collapse/expand functionality
-    const viewAllBtn = document.getElementById('viewAllBtn');
-    const btnText = document.getElementById('btnText');
-    const btnIcon = document.getElementById('btnIcon');
-    const hiddenProjects = document.querySelectorAll('.project-hidden');
+// Journey cards read more functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const readMoreBtns = document.querySelectorAll('.read-more-btn-modern');
+  
+  readMoreBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const details = document.getElementById(targetId);
+      const btnText = this.querySelector('span');
+      
+      if (details.classList.contains('visible')) {
+        details.classList.remove('visible');
+        btnText.textContent = 'Read More';
+        this.classList.remove('expanded');
+      } else {
+        details.classList.add('visible');
+        btnText.textContent = 'Show Less';
+        this.classList.add('expanded');
+      }
+    });
+  });
+});
+
+// Projects collapse/expand functionality
+const viewAllBtn = document.getElementById('viewAllBtn');
+const btnText = document.getElementById('btnText');
+const btnIcon = document.getElementById('btnIcon');
+const hiddenProjects = document.querySelectorAll('.project-hidden');
     let isExpanded = false;
 
     if (viewAllBtn) {
