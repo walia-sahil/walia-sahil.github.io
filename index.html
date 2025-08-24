@@ -621,10 +621,10 @@ h1, h2, h3, h4, h5, h6 {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
-/* ================= Certifications Grid ================= */
+/* ================= Enhanced Certifications Grid ================= */
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
@@ -638,6 +638,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  position: relative;
 }
 
 .cert-hidden {
@@ -654,10 +656,30 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--border-hover);
 }
 
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-card);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cert-card:hover::before {
+  opacity: 1;
+}
+
 .cert-image {
   width: 100%;
   height: 200px;
   overflow: hidden;
+  position: relative;
+  z-index: 2;
 }
 
 .cert-image img {
@@ -677,41 +699,187 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
 }
 
 .cert-title {
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
   color: var(--text-primary);
   line-height: 1.3;
+  min-height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cert-issuer {
   color: var(--primary-purple);
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .cert-date {
   color: var(--text-muted);
   font-size: 0.85rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
-.cert-link {
-  color: var(--primary-purple);
+/* ================= Enhanced Certificate Link Buttons ================= */
+.cert-link-wrapper {
+  margin-top: auto;
+  width: 100%;
+}
+
+.cert-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: var(--gradient-primary);
+  color: white !important;
   text-decoration: none;
+  border-radius: var(--radius);
   font-weight: 600;
   font-size: 0.9rem;
-  transition: all var(--transition-fast);
-  margin-top: auto;
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+  overflow: hidden;
 }
 
-.cert-link:hover {
-  color: var(--accent-purple);
-  transform: translateX(4px);
+.cert-link-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
 }
+
+.cert-link-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.cert-link-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+  color: white !important;
+  text-decoration: none;
+}
+
+.cert-link-button:active {
+  transform: translateY(-1px);
+}
+
+.cert-link-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
+}
+
+.cert-link-button.disabled {
+  background: linear-gradient(135deg, var(--text-muted), #6b7280);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.cert-link-button.disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.2);
+}
+
+.cert-link-button.disabled::before {
+  display: none;
+}
+
+.cert-link-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.cert-link-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+  position: relative;
+  z-index: 1;
+}
+
+.cert-link-button:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.cert-link-button.disabled:hover svg {
+  transform: none;
+}
+
+/* ================= Responsive Adjustments ================= */
+@media (max-width: 768px) {
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .cert-card {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+  
+  .cert-image {
+    height: 180px;
+  }
+  
+  .cert-content {
+    padding: 1.25rem;
+  }
+  
+  .cert-link-button {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cert-image {
+    height: 160px;
+  }
+  
+  .cert-title {
+    font-size: 1rem;
+    min-height: 2.4rem;
+  }
+  
+  .cert-link-button {
+    padding: 10px 16px;
+  }
+}
+
+/* ================= Animation Enhancements ================= */
+.cert-card.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cert-card.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ================= Interests Grid ================= */
 .interests-grid {
   display: grid;
@@ -2645,100 +2813,182 @@ section {
     <div class="cert-grid" id="certGrid">
       <!-- Google BI Certification - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera-%20Foundations%20of%20BI%20-%20Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Coursera-%20Foundations%20of%20BI%20-%20Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Foundations of Business Intelligence</h3>
           <p class="cert-issuer">Google via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./documents/certifications/Coursera- Foundations of BI - Google.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Coursera- Foundations of BI - Google.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- IBM AI Introduction - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/IBM%20AI%20Foundations%20for%20Everyone%20Coursera%2081KHE539ONWB-1.png" alt="IBM AI Foundations for Everyone" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/IBM%20AI%20Foundations%20for%20Everyone%20Coursera%2081KHE539ONWB-1.png" alt="IBM AI Foundations for Everyone" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">AI Foundations for Everyone</h3>
           <p class="cert-issuer">IBM via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./documents/certifications/IBM AI Foundations for Everyone Coursera 81KHE539ONWB.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/IBM AI Foundations for Everyone Coursera 81KHE539ONWB.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- IBM Generative AI - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera-%20GenAI-%20Intro%20%26%20Applications-%20IBM%20CHKHEVSPNRSS-1.png" alt="IBM Generative AI Introduction and Applications" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Coursera-%20GenAI-%20Intro%20%26%20Applications-%20IBM%20CHKHEVSPNRSS-1.png" alt="IBM Generative AI Introduction and Applications" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Generative AI: Introduction and Applications</h3>
           <p class="cert-issuer">IBM via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./documents/certifications/Coursera- GenAI- Intro & Applications- IBM CHKHEVSPNRSS.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Coursera- GenAI- Intro & Applications- IBM CHKHEVSPNRSS.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Power BI Introduction - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Power BI Introduction</h3>
           <p class="cert-issuer">Coursera</p>
           <p class="cert-date">2024</p>
-          <a href="./documents/certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- AWS Proficiency - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop" alt="AWS Proficiency Certificates" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop" alt="AWS Proficiency Certificates" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">AWS Proficiency Certificates</h3>
           <p class="cert-issuer">AWS</p>
           <p class="cert-date">2022</p>
-          <a href="./documents/certifications/AWS_Proficiency_Certificates-1-6.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/AWS_Proficiency_Certificates-1-6.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Clinical Trials & Monitoring - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Clinical Trials & Monitoring Proficiency</h3>
           <p class="cert-issuer">Professional Certification</p>
           <p class="cert-date">2022</p>
-          <a href="./documents/certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
-     <!-- Tableau Data Analyst - Hidden by default -->
+      <!-- Tableau Data Analyst - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Tableau%20Certified%20Data%20Analyst%20certificate.png" alt="Tableau Certified Data Analyst" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Tableau%20Certified%20Data%20Analyst%20certificate.png" alt="Tableau Certified Data Analyst" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Tableau Certified Data Analyst</h3>
           <p class="cert-issuer">Salesforce</p>
           <p class="cert-date">2023</p>
-          <a href="./documents/certifications/Tableau Certified Data Analyst certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Tableau Certified Data Analyst certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Tableau Desktop Specialist - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Tableau%20Desktop%20Specialist%20certificate.png" alt="Tableau Desktop Specialist" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="./images/certifications/thumbnail%20images/Tableau%20Desktop%20Specialist%20certificate.png" alt="Tableau Desktop Specialist" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Tableau Desktop Specialist</h3>
           <p class="cert-issuer">Salesforce</p>
           <p class="cert-date">2022</p>
-          <a href="./documents/certifications/Tableau Desktop Specialist certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="./documents/certifications/Tableau Desktop Specialist certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">
+              <span>View Certificate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Six Sigma Green Belt - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop" alt="Six Sigma Green Belt" loading="lazy" /></div>
+        <div class="cert-image">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop" alt="Six Sigma Green Belt" loading="lazy" />
+        </div>
         <div class="cert-content">
           <h3 class="cert-title">Six Sigma - Green Belt</h3>
           <p class="cert-issuer">MSME (Govt. of India)</p>
           <p class="cert-date">2019</p>
-          <a href="#" class="cert-link">View Certificate →</a>
+          <div class="cert-link-wrapper">
+            <a href="#" class="cert-link-button disabled">
+              <span>Certificate Unavailable</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M15 9l-6 6M9 9l6 6"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
