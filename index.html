@@ -518,13 +518,16 @@ section {
 .stats-bar {
   display: flex;
   justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
+  gap: 4rem;
+  flex-wrap: nowrap;
   margin-top: 2rem;
+  align-items: center;
 }
 
 .stat-item {
   text-align: center;
+  flex-shrink: 0;
+  min-width: auto;
 }
 
 .stat-number {
@@ -535,12 +538,14 @@ section {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
+  white-space: nowrap;
 }
 
 .stat-label {
   font-size: 0.9rem;
   color: var(--text-muted);
   font-weight: 500;
+  white-space: nowrap;
 }
 
 /* ================= Projects Grid ================= */
@@ -1131,11 +1136,11 @@ section {
   }
 
   .stats-bar {
-    gap: 2rem;
+  gap: 2.5rem;
   }
 
   .stat-number {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   }
 
   .section-title {
@@ -1203,8 +1208,16 @@ section {
   }
 
   .stats-bar {
-    flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    flex-wrap: nowrap;
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
   }
 
   .cert-grid {
@@ -1358,25 +1371,21 @@ section {
         </a>
       </div>
 
-      <!-- Stats/KPIs Bar - Separate from buttons -->
-      <div class="stats-bar fade-in" aria-label="Key stats">
-        <div class="stat-item">
-          <div class="stat-number">3.5+</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">Projects Delivered</div>
-        </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Certifications</div>
-        </div>
-      </div>
-    </div>
+  <!-- Stats/KPIs Bar - Separate from buttons -->
+ <div class="stats-bar fade-in" aria-label="Key stats">
+  <div class="stat-item">
+    <div class="stat-number">3.5+</div>
+    <div class="stat-label">Years Experience</div>
   </div>
-</section>
+  <div class="stat-item">
+    <div class="stat-number">15+</div>
+    <div class="stat-label">Projects Delivered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Certifications</div>
+  </div>
+</div>
 
     <!-- ================= About ================= -->
     <section id="about" aria-label="About Me">
