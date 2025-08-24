@@ -3193,7 +3193,7 @@ section {
       <div class="contact-form card fade-in">
         <h3 class="contact-label" style="margin-bottom:1.5rem; font-size:1.3rem; color:var(--text-primary);">Send a Message</h3>
 
-        <form id="contactForm" action="https://formspree.io/f/xpwaqjro" method="POST" novalidate>
+        <form id="contactForm" action="https://formspree.io/f/mnnbadpg" method="POST" novalidate>
           <!-- Honeypot for spam protection -->
           <input type="text" name="_gotcha" style="display:none !important">
           
@@ -3512,25 +3512,50 @@ function animateCounters() {
   counters.forEach(counter => counterObserver.observe(counter));
 }
 
-// Enhanced Form Validation and Submission
+// ================= Enhanced Contact Form with Session Limiting =================
+let formSubmissionCount = 0;
+const MAX_SUBMISSIONS_PER_SESSION = 1;
+
 function setupContactForm() {
   const form = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
   const submitText = document.getElementById('submitText');
   const btnLoader = document.getElementById('btnLoader');
   const formNote = document.getElementById('formNote');
+  const sessionLimitNotice = document.getElementById('sessionLimit');
   
   if (!form) return;
+
+  // Check session storage for previous submissions
+  const sessionSubmissions = parseInt(sessionStorage.getItem('formSubmissions') || '0');
+  formSubmissionCount = sessionSubmissions;
+
+  // Check if limit reached on page load
+  if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
+    disableForm();
+  }
+
+  // Character counter for textarea
+  setupCharacterCounter();
 
   // Real-time validation
   const inputs = form.querySelectorAll('input, textarea');
   inputs.forEach(input => {
     input.addEventListener('blur', () => validateField(input));
-    input.addEventListener('input', () => clearFieldError(input));
+    input.addEventListener('input', () => {
+      clearFieldError(input);
+      if (input.name === 'message') updateCharCounter();
+    });
   });
 
+  // Form submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
+      showSessionLimitMessage();
+      return;
+    }
     
     if (isFormSubmitting) return;
     
@@ -3540,16 +3565,23 @@ function setupContactForm() {
       if (!validateField(input)) isValid = false;
     });
     
-    if (!isValid) return;
+    if (!isValid) {
+      showFormMessage('Please fix the errors above before submitting.', 'error');
+      return;
+    }
     
-    isFormSubmitting = true;
-    submitBtn.disabled = true;
-    submitText.style.display = 'none';
-    btnLoader.style.display = 'flex';
-    formNote.textContent = 'Sending your message...';
-    formNote.style.color = 'var(--text-secondary)';
+    await submitForm(form);
+  });
 
+  async function submitForm(form) {
+    isFormSubmitting = true;
+    setLoadingState(true);
+    
     const formData = new FormData(form);
+    
+    // Add timestamp and user agent for better tracking
+    formData.append('_timestamp', new Date().toISOString());
+    formData.append('_user_agent', navigator.userAgent);
 
     try {
       const response = await fetch(form.action, {
@@ -3561,26 +3593,129 @@ function setupContactForm() {
       });
 
       if (response.ok) {
-        form.reset();
-        formNote.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-        formNote.style.color = '#22c55e';
+        handleSuccess();
       } else {
-        throw new Error('Form submission failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Form submission failed');
       }
     } catch (error) {
-      formNote.textContent = 'Sorry, there was an error sending your message. Please try the email link below.';
-      formNote.style.color = '#ef4444';
+      console.error('Form submission error:', error);
+      handleError(error.message);
     } finally {
       isFormSubmitting = false;
-      submitBtn.disabled = false;
-      submitText.style.display = 'inline';
-      btnLoader.style.display = 'none';
-      
-      setTimeout(() => {
-        formNote.textContent = '';
-      }, 5000);
+      setLoadingState(false);
     }
-  });
+  }
+
+  function handleSuccess() {
+    formSubmissionCount++;
+    sessionStorage.setItem('formSubmissions', formSubmissionCount.toString());
+    
+    form.reset();
+    updateCharCounter();
+    
+    showFormMessage(
+      '✅ Message sent successfully! I\'ll get back to you within 24 hours.',
+      'success'
+    );
+    
+    // Disable form after successful submission
+    disableForm();
+    
+    // Track successful submission (optional analytics)
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'form_submit', {
+        event_category: 'Contact',
+        event_label: 'Portfolio Contact Form'
+      });
+    }
+  }
+
+  function handleError(errorMessage) {
+    showFormMessage(
+      `Sorry, there was an error sending your message: ${errorMessage}. Please try the direct email link below.`,
+      'error'
+    );
+  }
+
+  function disableForm() {
+    const inputs = form.querySelectorAll('input, textarea, button');
+    inputs.forEach(input => {
+      if (input.type !== 'hidden') {
+        input.disabled = true;
+      }
+    });
+    
+    showSessionLimitMessage();
+  }
+
+  function showSessionLimitMessage() {
+    if (sessionLimitNotice) {
+      sessionLimitNotice.innerHTML = `
+        <strong>Session Limit Reached</strong><br>
+        You've already sent a message in this session. Please use the direct email link below for additional messages or refresh the page after some time.
+      `;
+      sessionLimitNotice.style.display = 'block';
+    }
+  }
+
+  function setLoadingState(isLoading) {
+    if (submitBtn && submitText && btnLoader) {
+      submitBtn.disabled = isLoading;
+      if (isLoading) {
+        submitText.style.display = 'none';
+        btnLoader.style.display = 'flex';
+      } else {
+        submitText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+      }
+    }
+  }
+
+  function showFormMessage(message, type) {
+    if (formNote) {
+      formNote.innerHTML = message;
+      formNote.className = `form-note ${type}`;
+      formNote.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      if (type === 'success' || type === 'error') {
+        setTimeout(() => {
+          if (type !== 'success') { // Keep success message visible
+            formNote.style.display = 'none';
+          }
+        }, 10000);
+      }
+    }
+  }
+
+  function setupCharacterCounter() {
+    const messageField = document.getElementById('message');
+    const charCounter = document.getElementById('charCounter');
+    
+    if (messageField && charCounter) {
+      messageField.addEventListener('input', updateCharCounter);
+    }
+  }
+
+  function updateCharCounter() {
+    const messageField = document.getElementById('message');
+    const charCounter = document.getElementById('charCounter');
+    
+    if (messageField && charCounter) {
+      const currentLength = messageField.value.length;
+      const maxLength = messageField.getAttribute('maxlength') || 2000;
+      
+      charCounter.textContent = `${currentLength} / ${maxLength} characters`;
+      
+      // Color coding based on usage
+      charCounter.className = 'char-counter';
+      if (currentLength > maxLength * 0.9) {
+        charCounter.classList.add('danger');
+      } else if (currentLength > maxLength * 0.7) {
+        charCounter.classList.add('warning');
+      }
+    }
+  }
 }
 
 function validateField(field) {
@@ -3588,13 +3723,16 @@ function validateField(field) {
   if (!errorDiv) return true;
 
   let error = '';
+  const value = field.value.trim();
   
-  if (!field.value.trim()) {
-    error = 'This field is required';
-  } else if (field.type === 'email' && !isValidEmail(field.value)) {
+  if (!value) {
+    error = `${field.name.charAt(0).toUpperCase() + field.name.slice(1)} is required`;
+  } else if (field.type === 'email' && !isValidEmail(value)) {
     error = 'Please enter a valid email address';
-  } else if (field.hasAttribute('minlength') && field.value.length < field.getAttribute('minlength')) {
+  } else if (field.hasAttribute('minlength') && value.length < field.getAttribute('minlength')) {
     error = `Minimum ${field.getAttribute('minlength')} characters required`;
+  } else if (field.hasAttribute('maxlength') && value.length > field.getAttribute('maxlength')) {
+    error = `Maximum ${field.getAttribute('maxlength')} characters allowed`;
   }
   
   if (error) {
@@ -3618,8 +3756,15 @@ function clearFieldError(field) {
 }
 
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 254;
 }
+
+// Clear session data on page refresh (optional)
+window.addEventListener('beforeunload', () => {
+  // Uncomment next line if you want to reset limit on page refresh
+  // sessionStorage.removeItem('formSubmissions');
+});
 
 // Enhanced Projects Toggle
 const viewAllBtn = document.getElementById('viewAllBtn');
