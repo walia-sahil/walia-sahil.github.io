@@ -219,7 +219,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 1000;
+  z-index: 1100;
   transition: all var(--transition-base);
   transform: translateY(-100px);
   animation: slideInDown 1s ease forwards 0.5s;
@@ -2172,6 +2172,31 @@ section {
 
 </head>
 <body data-theme="light">
+<script>
+(function () {
+  const btn = document.getElementById('themeToggle');
+  const root = document.body;
+  const STORAGE_KEY = 'theme';
+
+  const sysPrefersDark = () =>
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const current = () => root.getAttribute('data-theme') || 'light';
+  const apply = (theme) => {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch {}
+    // (Optional) update icon/text inside the button
+    const icon = btn?.querySelector('[data-theme-icon]');
+    if (icon) icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+  };
+
+  // Initialize
+  const stored = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }})();
+  apply(stored || (sysPrefersDark() ? 'dark' : 'light'));
+
+  btn && btn.addEventListener('click', () => apply(current() === 'dark' ? 'light' : 'dark'));
+})();
+</script>
 
   <!-- Enhanced Loader -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -2192,18 +2217,16 @@ section {
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- ================= FIXED NAVIGATION SECTION ================= -->
-<!-- Replace your existing navbar section with this: -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="nav-content">
     <div class="logo">
       <div class="logo-icon">SW</div>
       <span>Sahil Walia</span>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18"/>
-      </svg>
-    </button>
+<button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="navLinks">
+  <span class="sr-only">Toggle menu</span>
+  <!-- icon -->
+</button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#home" class="nav-link active">Home</a></li>
       <li><a href="#about" class="nav-link">About</a></li>
@@ -3428,274 +3451,275 @@ section {
 
 <script>
 // ================= Enhanced Portfolio JavaScript with Bug Fixes =================
+<script>
+/* ======================== Portfolio JS (Consolidated & Fixed) ======================== */
+'use strict';
 
-// Global variables for cleanup
-let scrollObserver, navObserver, counterObserver, skillObserver;
-let scrollTimeout, navTimeout;
+// Global refs for cleanup
+let scrollObserver, navObserver, counterObserver;
+let scrollRaf = null;
 let isFormSubmitting = false;
 
-// Enhanced Loader with Progress
+/* ======================== Loader (progress text + safe teardown) ======================== */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
-  const loaderText = document.querySelector('.loader-text');
   const loaderSubtext = document.querySelector('.loader-subtext');
-  
+
   const messages = [
-    { main: 'Sahil Walia', sub: 'Initializing Analytics Dashboard...' },
-    { main: 'Sahil Walia', sub: 'Loading Data Visualizations...' },
-    { main: 'Sahil Walia', sub: 'Preparing Interactive Portfolio...' },
-    { main: 'Sahil Walia', sub: 'Almost Ready! Welcome...' }
+    'Initializing Analytics Dashboard...',
+    'Loading Data Visualizations...',
+    'Preparing Interactive Portfolio...',
+    'Almost Ready! Welcome...'
   ];
-  
-  let messageIndex = 0;
-  const messageInterval = setInterval(() => {
-    if (messageIndex < messages.length - 1) {
-      messageIndex++;
-      if (loaderSubtext) {
-        loaderSubtext.textContent = messages[messageIndex].sub;
-      }
-    }
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (!loaderSubtext) return;
+    i = Math.min(i + 1, messages.length - 1);
+    loaderSubtext.textContent = messages[i];
   }, 500);
 
+  // Dismiss loader after short delay (ensures first paint completes)
   setTimeout(() => {
-    clearInterval(messageInterval);
+    clearInterval(interval);
     if (loader) {
       loader.classList.add('hidden');
+      loader.setAttribute('aria-hidden', 'true');
+      // Remove after transition
+      setTimeout(() => loader.remove(), 400);
     }
     startPortfolioAnimations();
   }, 2000);
 });
 
-// Enhanced Portfolio Animations
+/* ======================== Start animations & observers ======================== */
 function startPortfolioAnimations() {
-  const heroElements = document.querySelectorAll('.hero .fade-in');
-  heroElements.forEach((el, index) => {
-    setTimeout(() => {
+  const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+  // Stagger hero fade-ins (motion-aware)
+  const heroEls = document.querySelectorAll('.hero .fade-in');
+  heroEls.forEach((el, idx) => {
+    if (prefersReduced) {
       el.classList.add('visible');
-    }, index * 150);
+    } else {
+      setTimeout(() => el.classList.add('visible'), idx * 150);
+    }
   });
 
-  animateCounters();
-  setupScrollAnimations();
+  setupScrollAnimations(prefersReduced);
+  animateCounters(prefersReduced);
 }
 
-// Mobile Touch Handling
+/* ======================== Touch swipe to hide/show navbar (mobile) ======================== */
 let touchStartY = 0;
 let touchEndY = 0;
 
-document.addEventListener('touchstart', e => {
+document.addEventListener('touchstart', (e) => {
+  if (!e.changedTouches?.[0]) return;
   touchStartY = e.changedTouches[0].screenY;
-});
-
-document.addEventListener('touchend', e => {
-  touchEndY = e.changedTouches[0].screenY;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  if (touchEndY < touchStartY - 50) {
-    // Swipe up - hide navbar
-    const navbar = document.querySelector('.navbar');
-    if (navbar && window.pageYOffset > 150) {
-      navbar.style.transform = 'translateY(-100%)';
-    }
-  }
-  if (touchEndY > touchStartY + 50) {
-    // Swipe down - show navbar
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-      navbar.style.transform = 'translateY(0)';
-    }
-  }
-}
-
-// Enhanced Mobile Menu Toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.getElementById('navLinks');
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-    
-    // Focus management for accessibility
-    if (isOpen) {
-      navLinks.style.transform = 'translateY(0)';
-      navLinks.style.opacity = '1';
-      navLinks.style.visibility = 'visible';
-      navLinks.querySelector('a')?.focus();
-    } else {
-      navLinks.style.transform = 'translateY(-100%)';
-      navLinks.style.opacity = '0';
-      setTimeout(() => {
-        navLinks.style.visibility = 'hidden';
-      }, 300);
-    }
-  });
-  
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-}
-
-// Throttled Navbar Scroll Effects
-const navbar = document.querySelector('.navbar');
-let lastScrollY = 0;
-
-function updateNavbar() {
-  if (!navbar) return;
-  
-  const scrollY = window.pageYOffset;
-  
-  if (scrollY > 100) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-  
-  // Only hide/show on desktop
-  if (window.innerWidth > 768) {
-    if (scrollY > lastScrollY && scrollY > 150) {
-      navbar.style.transform = 'translateY(-100%)';
-    } else {
-      navbar.style.transform = 'translateY(0)';
-    }
-  }
-  
-  lastScrollY = scrollY;
-}
-
-window.addEventListener('scroll', () => {
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateNavbar, 10);
 }, { passive: true });
 
-// Enhanced Active Navigation with cleanup
-const sections = document.querySelectorAll('section[id]');
-const navItems = document.querySelectorAll('.nav-links a');
+document.addEventListener('touchend', (e) => {
+  if (!e.changedTouches?.[0]) return;
+  touchEndY = e.changedTouches[0].screenY;
+  handleSwipe();
+}, { passive: true });
 
-if (sections.length && navItems.length) {
-  navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navItems.forEach(item => {
-          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { 
-    rootMargin: '-20% 0px -70% 0px',
-    threshold: [0, 0.25, 0.5, 0.75, 1]
-  });
-  
-  sections.forEach(section => navObserver.observe(section));
+function handleSwipe() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+
+  // Swipe up
+  if (touchEndY < touchStartY - 50 && (window.pageYOffset || 0) > 150) {
+    navbar.style.transform = 'translateY(-100%)';
+  }
+  // Swipe down
+  if (touchEndY > touchStartY + 50) {
+    navbar.style.transform = 'translateY(0)';
+  }
 }
 
-// Enhanced Scroll Animations with cleanup
-function setupScrollAnimations() {
-  const animatedElements = document.querySelectorAll('.fade-in');
-  
-  scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        
-        const children = entry.target.querySelectorAll('.fade-in:not(.visible)');
-        children.forEach((child, index) => {
-          setTimeout(() => {
-            child.classList.add('visible');
-          }, index * 100);
-        });
-        
-        scrollObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+/* ======================== Mobile menu toggle + a11y ======================== */
+(function setupMenu() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.getElementById('navLinks');
+  if (!menuToggle || !navLinks) return;
 
-  animatedElements.forEach(el => scrollObserver.observe(el));
-}
-
-// Enhanced Counter Animation with cleanup
-function animateCounters() {
-  const counters = document.querySelectorAll('.stat-number[data-count]');
-  
-  const animateValue = (counter, target, duration = 2000) => {
-    const start = performance.now();
-    const startValue = 0;
-    
-    const updateCounter = (currentTime) => {
-      const elapsed = currentTime - start;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const current = startValue + (target * easeOutQuart);
-      
-      if (target % 1 !== 0) {
-        counter.textContent = current.toFixed(1) + '+';
-      } else {
-        counter.textContent = Math.floor(current) + '+';
-      }
-      
-      if (progress < 1) {
-        requestAnimationFrame(updateCounter);
-      } else {
-        counter.textContent = target + '+';
-      }
-    };
-    
-    requestAnimationFrame(updateCounter);
+  const open = () => {
+    navLinks.classList.add('active');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    navLinks.style.transform = 'translateY(0)';
+    navLinks.style.opacity = '1';
+    navLinks.style.visibility = 'visible';
+    document.body.style.overflow = 'hidden';
+    // Focus first link for keyboard users
+    const firstLink = navLinks.querySelector('a,button');
+    firstLink && firstLink.focus();
   };
 
-  counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = parseFloat(entry.target.dataset.count);
-        animateValue(entry.target, target);
-        counterObserver.unobserve(entry.target);
+  const close = () => {
+    navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    navLinks.style.transform = 'translateY(-100%)';
+    navLinks.style.opacity = '0';
+    // Delay visibility toggle to allow fade
+    setTimeout(() => { navLinks.style.visibility = 'hidden'; }, 300);
+    document.body.style.overflow = '';
+  };
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.contains('active') ? close() : open();
+  });
+
+  // Close on link click (single-page anchors)
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', close);
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('active')) close();
+  });
+})();
+
+/* ======================== Navbar hide-on-scroll + scrolled state ======================== */
+(function setupNavbarScroll() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+
+  let lastY = window.pageYOffset || 0;
+
+  const onScroll = () => {
+    const y = window.pageYOffset || 0;
+
+    // Apply "scrolled" state for styling after threshold
+    if (y > 100) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+
+    // Only hide/show on desktop widths
+    if (window.innerWidth > 768) {
+      if (y > lastY && y > 150) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
       }
+    }
+
+    lastY = y;
+    scrollRaf = null;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(onScroll);
+  }, { passive: true });
+
+  // Initial state
+  onScroll();
+})();
+
+/* ======================== Active nav highlighting via IntersectionObserver ======================== */
+(function setupActiveNavHighlight() {
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!sections.length || !navItems.length) return;
+
+  navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      navItems.forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+      });
     });
-  }, { threshold: 0.5 });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
 
-  counters.forEach(counter => counterObserver.observe(counter));
-}
+  sections.forEach(section => navObserver.observe(section));
+})();
 
-// ================= Enhanced Contact Form with Session Limiting =================
-let formSubmissionCount = 0;
-let isFormSubmitting = false;
-const MAX_SUBMISSIONS_PER_SESSION = 1;
+/* ======================== Scroll-triggered fade-ins (motion-aware) ======================== */
+function setupScrollAnimations(prefersReduced) {
+  const animated = document.querySelectorAll('.fade-in');
+  if (!animated.length) return;
 
-function setupContactForm() {
-  const form = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const submitText = document.getElementById('submitText');
-  const btnLoader = document.getElementById('btnLoader');
-  const formNote = document.getElementById('formNote');
-  const sessionLimitNotice = document.getElementById('sessionLimit');
-  const successMessage = document.getElementById('successMessage');
-  
-  if (!form) return;
-
-  // Check session storage for previous submissions
-  const sessionSubmissions = parseInt(sessionStorage.getItem('formSubmissions') || '0');
-  formSubmissionCount = sessionSubmissions;
-
-  // Check if limit reached on page load
-  if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
-    disableForm();
+  if (prefersReduced) {
+    animated.forEach(el => el.classList.add('visible'));
     return;
   }
 
-  // Initialize character counter
-  setupCharacterCounter();
+  scrollObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const target = entry.target;
+      target.classList.add('visible');
 
-  // Real-time validation
-  const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea');
+      // Cascade children inside newly visible blocks
+      const children = target.querySelectorAll('.fade-in:not(.visible)');
+      children.forEach((child, idx) => {
+        setTimeout(() => child.classList.add('visible'), idx * 100);
+      });
+
+      obs.unobserve(target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  animated.forEach(el => scrollObserver.observe(el));
+}
+
+/* ======================== Stat counters (motion-aware, floats supported) ======================== */
+function animateCounters(prefersReduced) {
+  const counters = document.querySelectorAll('.stat-number[data-count]');
+  if (!counters.length) return;
+
+  const run = (node, target, duration = 2000) => {
+    if (prefersReduced) {
+      node.textContent = `${Number.isInteger(target) ? target : target.toFixed(1)}+`;
+      return;
+    }
+    const start = performance.now();
+
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - p, 4);
+      const value = target * easeOutQuart;
+      node.textContent = `${Number.isInteger(target) ? Math.floor(value) : value.toFixed(1)}+`;
+      if (p < 1) requestAnimationFrame(tick);
+      else node.textContent = `${Number.isInteger(target) ? target : target.toFixed(1)}+`;
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  counterObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const target = parseFloat(entry.target.dataset.count);
+      if (Number.isFinite(target)) run(entry.target, target);
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => counterObserver.observe(c));
+}
+
+/* ======================== Contact form (session limit + validation) ======================== */
+const MAX_SUBMISSIONS_PER_SESSION = 1;
+function setupContactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const submitBtn   = document.getElementById('submitBtn');
+  const submitText  = document.getElementById('submitText');
+  const btnLoader   = document.getElementById('btnLoader');
+  const formNote    = document.getElementById('formNote');
+  const sessionNote = document.getElementById('sessionLimit');
+
+  // Restore session submission count
+  let formSubmissionCount = parseInt(sessionStorage.getItem('formSubmissions') || '0', 10);
+  if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) disableForm();
+
+  // Real-time validation + char counter
+  const inputs = form.querySelectorAll('input, textarea');
   inputs.forEach(input => {
     input.addEventListener('blur', () => validateField(input));
     input.addEventListener('input', () => {
@@ -3704,226 +3728,182 @@ function setupContactForm() {
     });
   });
 
-  // Form submission handler
+  setupCharacterCounter();
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    // Check session limit
     if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
       showSessionLimitMessage();
       return;
     }
-    
     if (isFormSubmitting) return;
-    
-    // Validate all fields
-    let isValid = true;
-    inputs.forEach(input => {
-      if (!validateField(input)) isValid = false;
-    });
-    
-    if (!isValid) {
+
+    let ok = true;
+    inputs.forEach(inp => { if (!validateField(inp)) ok = false; });
+    if (!ok) {
       showFormMessage('Please fix the errors above before submitting.', 'error');
       return;
     }
-    
-    await submitForm(form);
+
+    await submitForm();
   });
 
-  async function submitForm(form) {
+  async function submitForm() {
     isFormSubmitting = true;
     setLoadingState(true);
-    
-    const formData = new FormData(form);
+
+    const data = new FormData(form);
+    data.append('_timestamp', new Date().toISOString());
+    data.append('_user_agent', navigator.userAgent);
 
     try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+      if (!res.ok) {
+        // Try JSON first; fallback to text
+        let message = 'Form submission failed';
+        try {
+          const err = await res.json();
+          message = err?.error || message;
+        } catch {
+          const t = await res.text();
+          message = t || message;
         }
-      });
-
-      if (response.ok) {
-        handleSuccess();
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Form submission failed');
+        throw new Error(message);
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      handleError(error.message);
+
+      // Success
+      formSubmissionCount++;
+      sessionStorage.setItem('formSubmissions', String(formSubmissionCount));
+
+      form.reset();
+      updateCharCounter();
+      showFormMessage('✅ Message sent successfully! I\'ll get back to you within 24 hours.', 'success');
+      disableForm();
+
+      // Optional analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'form_submit', { event_category: 'Contact', event_label: 'Portfolio Contact Form' });
+      }
+    } catch (err) {
+      showFormMessage(`Sorry, there was an error sending your message: ${err.message}. Please try the direct email link below.`, 'error');
     } finally {
       isFormSubmitting = false;
       setLoadingState(false);
     }
   }
 
-  function handleSuccess() {
-    formSubmissionCount++;
-    sessionStorage.setItem('formSubmissions', formSubmissionCount.toString());
-    
-    // Show success overlay
-    if (successMessage) {
-      successMessage.style.display = 'flex';
-      successMessage.style.animation = 'fadeIn 0.5s ease';
-    }
-    
-    // Disable form
-    setTimeout(disableForm, 1000);
-    
-    // Track success (if analytics available)
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'form_submit', {
-        event_category: 'Contact',
-        event_label: 'Portfolio Contact Form Success'
-      });
-    }
-  }
-
-  function handleError(errorMessage) {
-    showFormMessage(
-      `❌ Sorry, there was an error: ${errorMessage}. Please try the direct email link below.`,
-      'error'
-    );
-  }
-
   function disableForm() {
-    const allInputs = form.querySelectorAll('input:not([type="hidden"]), textarea, button');
-    allInputs.forEach(input => {
-      input.disabled = true;
+    form.querySelectorAll('input, textarea, button').forEach(el => {
+      if (el.type !== 'hidden') el.disabled = true;
     });
-    
-    if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
-      showSessionLimitMessage();
-    }
+    showSessionLimitMessage();
   }
 
   function showSessionLimitMessage() {
-    if (sessionLimitNotice) {
-      sessionLimitNotice.innerHTML = `
-        <strong>✋ Message Limit Reached</strong><br>
-        You've sent a message in this session. For additional messages, please use the direct contact options below.
-      `;
-      sessionLimitNotice.style.display = 'block';
-    }
+    if (!sessionNote) return;
+    sessionNote.innerHTML = `
+      <strong>Session Limit Reached</strong><br>
+      You've already sent a message in this session. Please use the direct email link below for additional messages or refresh the page later.
+    `;
+    sessionNote.style.display = 'block';
   }
 
-  function setLoadingState(isLoading) {
-    if (submitBtn && submitText && btnLoader) {
-      submitBtn.disabled = isLoading;
-      if (isLoading) {
-        submitText.style.display = 'none';
-        btnLoader.style.display = 'flex';
-      } else {
-        submitText.style.display = 'inline';
-        btnLoader.style.display = 'none';
-      }
-    }
+  function setLoadingState(loading) {
+    if (!submitBtn || !submitText || !btnLoader) return;
+    submitBtn.disabled = loading;
+    submitText.style.display = loading ? 'none' : 'inline';
+    btnLoader.style.display = loading ? 'flex' : 'none';
   }
 
   function showFormMessage(message, type) {
-    if (formNote) {
-      formNote.innerHTML = message;
-      formNote.className = `form-note ${type}`;
-      formNote.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
-      if (type !== 'success') {
-        setTimeout(() => {
-          formNote.style.display = 'none';
-        }, 8000);
-      }
+    if (!formNote) return;
+    formNote.innerHTML = message;
+    formNote.className = `form-note ${type}`;
+    formNote.style.display = 'block';
+    formNote.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Hide non-success after 10s
+    if (type !== 'success') {
+      setTimeout(() => { formNote.style.display = 'none'; }, 10000);
     }
   }
 
   function setupCharacterCounter() {
-    const messageField = document.getElementById('message');
-    if (messageField) {
-      messageField.addEventListener('input', updateCharCounter);
-      updateCharCounter();
-    }
+    const msg = document.getElementById('message');
+    const counter = document.getElementById('charCounter');
+    if (!msg || !counter) return;
+    msg.addEventListener('input', updateCharCounter);
+    updateCharCounter();
   }
 
   function updateCharCounter() {
-    const messageField = document.getElementById('message');
-    const charCounter = document.getElementById('charCounter');
-    
-    if (messageField && charCounter) {
-      const currentLength = messageField.value.length;
-      const maxLength = parseInt(messageField.getAttribute('maxlength') || '2000');
-      
-      charCounter.textContent = `${currentLength} / ${maxLength} characters`;
-      
-      charCounter.className = 'char-counter';
-      if (currentLength > maxLength * 0.9) {
-        charCounter.classList.add('danger');
-      } else if (currentLength > maxLength * 0.7) {
-        charCounter.classList.add('warning');
-      }
-    }
+    const msg = document.getElementById('message');
+    const counter = document.getElementById('charCounter');
+    if (!msg || !counter) return;
+    const max = Number(msg.getAttribute('maxlength') || 2000);
+    const len = msg.value.length;
+    counter.textContent = `${len} / ${max} characters`;
+    counter.className = 'char-counter'; // reset
+    if (len > max * 0.9) counter.classList.add('danger');
+    else if (len > max * 0.7) counter.classList.add('warning');
   }
 }
 
+/* ======================== Field validation helpers (shared) ======================== */
 function validateField(field) {
-  const errorDiv = document.getElementById(field.name + 'Error');
-  if (!errorDiv) return true;
+  const err = document.getElementById(field.name + 'Error');
+  if (!err) return true;
 
-  let error = '';
-  const value = field.value.trim();
-  
-  if (field.required && !value) {
-    error = `${getFieldDisplayName(field.name)} is required`;
-  } else if (field.type === 'email' && value && !isValidEmail(value)) {
-    error = 'Please enter a valid email address';
-  } else if (field.hasAttribute('minlength') && value && value.length < parseInt(field.getAttribute('minlength'))) {
-    error = `Minimum ${field.getAttribute('minlength')} characters required`;
-  } else if (field.hasAttribute('maxlength') && value.length > parseInt(field.getAttribute('maxlength'))) {
-    error = `Maximum ${field.getAttribute('maxlength')} characters allowed`;
+  const value = (field.value || '').trim();
+  let message = '';
+
+  if (!value) {
+    message = `${capitalize(field.name)} is required`;
+  } else if (field.type === 'email' && !isValidEmail(value)) {
+    message = 'Please enter a valid email address';
+  } else if (field.hasAttribute('minlength') && value.length < Number(field.getAttribute('minlength'))) {
+    message = `Minimum ${field.getAttribute('minlength')} characters required`;
+  } else if (field.hasAttribute('maxlength') && value.length > Number(field.getAttribute('maxlength'))) {
+    message = `Maximum ${field.getAttribute('maxlength')} characters allowed`;
   }
-  
-  if (error) {
-    errorDiv.textContent = error;
-    errorDiv.classList.add('visible');
+
+  if (message) {
+    err.textContent = message;
+    err.classList.add('visible');
     field.classList.add('error');
+    field.setAttribute('aria-invalid', 'true');
     return false;
   } else {
-    errorDiv.classList.remove('visible');
+    err.classList.remove('visible');
     field.classList.remove('error');
+    field.setAttribute('aria-invalid', 'false');
     return true;
   }
 }
 
-function getFieldDisplayName(fieldName) {
-  const displayNames = {
-    name: 'Name',
-    email: 'Email',
-    subject: 'Subject',
-    message: 'Message'
-  };
-  return displayNames[fieldName] || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
-}
-
 function clearFieldError(field) {
-  const errorDiv = document.getElementById(field.name + 'Error');
-  if (errorDiv) {
-    errorDiv.classList.remove('visible');
-    field.classList.remove('error');
-  }
+  const err = document.getElementById(field.name + 'Error');
+  if (!err) return;
+  err.classList.remove('visible');
+  field.classList.remove('error');
+  field.removeAttribute('aria-invalid');
 }
 
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email) && email.length <= 254;
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email) && email.length <= 254;
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', setupContactForm);
+function capitalize(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-};
+/* ======================== Initialize features that don't depend on window load ======================== */
+document.addEventListener('DOMContentLoaded', () => {
+  setupContactForm();
+});
+/* =================================================================================== */
+</script>
 
 // Enhanced Projects Toggle
 const viewAllBtn = document.getElementById('viewAllBtn');
@@ -4198,6 +4178,61 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+  // Give CSS a moment for first paint (prevents flash)
+  requestAnimationFrame(() => {
+    loader.classList.add('hidden');           // relies on existing .hidden { opacity:0; pointer-events:none }
+    loader.setAttribute('aria-hidden', 'true');
+    // Remove from DOM after transition (optional)
+    setTimeout(() => loader.remove(), 400);
+  });
+});
+</script>
+<script>
+(function () {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  const update = () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop || document.body.scrollTop);
+    const height = (h.scrollHeight - h.clientHeight);
+    const pct = height ? (scrolled / height) * 100 : 0;
+    bar.style.width = pct + '%';
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+})();
+</script>
+<script>
+(function () {
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  if (!toggle || !links) return;
+
+  const openClass = 'active';
+  const openMenu = () => {
+    links.classList.add(openClass);
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeMenu = () => {
+    links.classList.remove(openClass);
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+  toggle.addEventListener('click', () => {
+    links.classList.contains(openClass) ? closeMenu() : openMenu();
+  });
+  // Close on Escape and on link click (mobile)
+  document.addEventListener('keydown', (e) => (e.key === 'Escape') && closeMenu());
+  links.addEventListener('click', (e) => {
+    if (e.target.closest('a')) closeMenu();
+  });
+})();
 </script>
 
 </body>
