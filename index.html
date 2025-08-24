@@ -97,27 +97,9 @@ body {
   background: var(--bg-primary);
   overflow-x: hidden;
   transition: background-color var(--transition-base), color var(--transition-base);
-  cursor: none; /* Custom cursor */
+  cursor: auto; /* Custom cursor */
 }
 
-/* ================= Custom Cursor ================= */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  background: linear-gradient(45deg, var(--primary-purple), var(--primary-blue));
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.1s ease;
-}
-
-.custom-cursor.hover {
-  transform: scale(2);
-}
 
 /* ================= Enhanced Loader ================= */
 .loader {
@@ -1788,8 +1770,6 @@ section {
 
 </head>
 <body data-theme="light">
-  <!-- Custom Cursor -->
-  <div class="custom-cursor"></div>
 
   <!-- Enhanced Loader -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -2665,45 +2645,45 @@ section {
     <div class="cert-grid" id="certGrid">
       <!-- Google BI Certification - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Coursera- Foundations of BI - Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Coursera-%20Foundations%20of%20BI%20-%20Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">Foundations of Business Intelligence</h3>
           <p class="cert-issuer">Google via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./certifications/Coursera- Foundations of BI - Google.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <a href="./certifications/Coursera-%20Foundations%20of%20BI%20-%20Google.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
         </div>
       </div>
 
       <!-- IBM AI Introduction - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./certifications/thumbnail images/IBM AI Foundations for Everyone Coursera 81KHE539ONWB-1.png" alt="IBM AI Foundations for Everyone" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/IBM%20AI%20Foundations%20for%20Everyone%20Coursera%2081KHE539ONWB-1.png" alt="IBM AI Foundations for Everyone" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">AI Foundations for Everyone</h3>
           <p class="cert-issuer">IBM via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./certifications/IBM AI Foundations for Everyone Coursera 81KHE539ONWB.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <a href="./certifications/IBM%20AI%20Foundations%20for%20Everyone%20Coursera%2081KHE539ONWB.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
         </div>
       </div>
 
       <!-- IBM Generative AI - Always visible -->
       <div class="cert-card card fade-in cert-visible">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Coursera- GenAI- Intro & Applications- IBM CHKHEVSPNRSS-1.png" alt="IBM Generative AI Introduction and Applications" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Coursera-%20GenAI-%20Intro%20%26%20Applications-%20IBM%20CHKHEVSPNRSS-1.png" alt="IBM Generative AI Introduction and Applications" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">Generative AI: Introduction and Applications</h3>
           <p class="cert-issuer">IBM via Coursera</p>
           <p class="cert-date">2025</p>
-          <a href="./certifications/Coursera- GenAI- Intro & Applications- IBM CHKHEVSPNRSS.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <a href="./certifications/Coursera-%20GenAI-%20Intro%20%26%20Applications-%20IBM%20CHKHEVSPNRSS.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
         </div>
       </div>
 
       <!-- Power BI Introduction - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Coursera - Power BI Introduction LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">Power BI Introduction</h3>
           <p class="cert-issuer">Coursera</p>
           <p class="cert-date">2024</p>
-          <a href="./certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <a href="./certifications/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
         </div>
       </div>
 
@@ -2720,33 +2700,34 @@ section {
 
       <!-- Clinical Trials & Monitoring - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">Clinical Trials & Monitoring Proficiency</h3>
           <p class="cert-issuer">Professional Certification</p>
           <p class="cert-date">2022</p>
-          <a href="./certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <a href="./certifications/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
         </div>
       </div>
 
      <!-- Tableau Data Analyst - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Tableau Certified Data Analyst certificate.jpg" alt="Tableau Desktop Specialist" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Tableau%20Certified%20Data%20Analyst%20certificate.png" alt="Tableau Certified Data Analyst" loading="lazy" /></div>
         <div class="cert-content">
-          <h3 class="cert-title">Tableau Desktop Specialist</h3>
+          <h3 class="cert-title">Tableau Certified Data Analyst</h3>
           <p class="cert-issuer">Salesforce</p>
-          <p class="cert-date">2022</p>
-         <a href="./certifications/Tableau Certified Data Analyst certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+          <p class="cert-date">2023</p>
+         <a href="./certifications/Tableau%20Certified%20Data%20Analyst%20certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
        </div>
       </div>
+
       <!-- Tableau Desktop Specialist - Hidden by default -->
       <div class="cert-card card fade-in cert-hidden">
-        <div class="cert-image"><img src="./certifications/thumbnail images/Tableau Desktop Specialist certificate.jpg" alt="Tableau Desktop Specialist" loading="lazy" /></div>
+        <div class="cert-image"><img src="./certifications/thumbnail%20images/Tableau%20Desktop%20Specialist%20certificate.png" alt="Tableau Desktop Specialist" loading="lazy" /></div>
         <div class="cert-content">
           <h3 class="cert-title">Tableau Desktop Specialist</h3>
           <p class="cert-issuer">Salesforce</p>
           <p class="cert-date">2022</p>
-         <a href="./certifications/Tableau Desktop Specialist certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
+         <a href="./certifications/Tableau%20Desktop%20Specialist%20certificate.pdf" target="_blank" rel="noopener" class="cert-link">View Certificate →</a>
        </div>
       </div>
 
@@ -2765,7 +2746,7 @@ section {
     <!-- View All Certifications Button -->
     <div style="text-align: center; margin-top: 3rem;">
       <button id="viewAllCertsBtn" class="btn btn-secondary">
-        <span id="certBtnText">View All 8 Certifications</span>
+        <span id="certBtnText">View All 9 Certifications</span>
         <svg id="certBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M6 9l6 6 6-6"/>
         </svg>
@@ -3505,29 +3486,6 @@ if (heroTitle) {
   };
   
   setTimeout(typeWriter, 1000);
-}
-
-// Custom Cursor - Desktop Only
-if (window.innerWidth > 768) {
-  const cursor = document.querySelector('.custom-cursor');
-  const hoverElements = document.querySelectorAll('a, button, .card, .project-card, .cert-card');
-
-  if (cursor) {
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-  }
-} else {
-  // Hide custom cursor on mobile
-  const cursor = document.querySelector('.custom-cursor');
-  if (cursor) cursor.style.display = 'none';
-  document.body.style.cursor = 'auto';
 }
 
 // Scroll Progress Bar
