@@ -978,6 +978,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-form.card {
   padding: 2rem;
+  position: relative;
 }
 
 .form-group {
@@ -1013,13 +1014,14 @@ h1, h2, h3, h4, h5, h6 {
 .input:focus, .textarea:focus {
   border-color: var(--primary-purple);
   box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+  transform: translateY(-1px);
 }
 
 .textarea {
   min-height: 120px;
   resize: vertical;
   font-family: inherit;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .char-counter {
@@ -1027,6 +1029,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
   text-align: right;
   margin-top: -0.25rem;
+  font-weight: 500;
 }
 
 .char-counter.warning {
@@ -1035,6 +1038,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .char-counter.danger {
   color: #ef4444;
+  font-weight: 600;
 }
 
 .btn-submit {
@@ -1081,14 +1085,10 @@ h1, h2, h3, h4, h5, h6 {
   transform: none;
 }
 
-.btn-submit:disabled:hover {
-  transform: none;
-  box-shadow: none;
-}
-
 .btn-loader {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   position: relative;
   z-index: 1;
@@ -1109,10 +1109,20 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.25rem;
   display: none;
   font-weight: 500;
+  padding: 4px 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid #ef4444;
 }
 
 .form-error.visible {
   display: block;
+  animation: errorSlideIn 0.3s ease;
+}
+
+@keyframes errorSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .input.error, .textarea.error {
@@ -1153,13 +1163,120 @@ h1, h2, h3, h4, h5, h6 {
 
 .session-limit-notice {
   margin-top: 1rem;
-  padding: 12px 16px;
+  padding: 16px 20px;
   background: rgba(251, 191, 36, 0.1);
   border: 1px solid #fbbf24;
   color: #92400e;
   border-radius: var(--radius);
   font-size: 0.9rem;
   text-align: center;
+  line-height: 1.5;
+}
+
+.success-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.success-content {
+  text-align: center;
+  max-width: 300px;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: successBounce 0.6s ease;
+}
+
+@keyframes successBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-content h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.success-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.secondary-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all var(--transition-base);
+  border: 1px solid var(--border-color);
+}
+
+.secondary-contact-btn:hover {
+  background: var(--primary-purple);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.fallback-section {
+  transition: opacity var(--transition-base);
+}
+
+.fallback-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fallback-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all var(--transition-base);
+  border: 1px solid var(--border-color);
+}
+
+.fallback-link:hover {
+  background: var(--primary-purple);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
 /* Responsive */
@@ -1178,8 +1295,16 @@ h1, h2, h3, h4, h5, h6 {
   .form-group {
     margin-bottom: 1.25rem;
   }
+  
+  .fallback-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .success-actions {
+    gap: 0.5rem;
+  }
 }
-
 /* ================= Sections ================= */
 section {
   padding: 6rem 0;
@@ -3198,18 +3323,19 @@ section {
           <input type="text" name="_gotcha" style="display:none !important">
           
           <!-- Hidden fields for better email formatting -->
-          <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
-          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_subject" value="New Portfolio Contact - Sahil Walia">
+          <input type="hidden" name="_next" value="#contact">
+          <input type="hidden" name="_autoresponse" value="Thanks for your message! I'll get back to you soon.">
 
           <div class="form-group">
             <label class="form-label" for="name">Your Name *</label>
-            <input class="input" id="name" name="name" type="text" placeholder="Enter your full name" required minlength="2" maxlength="100" />
+            <input class="input" id="name" name="name" type="text" placeholder="Enter your full name" required minlength="2" maxlength="100" autocomplete="name" />
             <div class="form-error" id="nameError"></div>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="email">Your Email *</label>
-            <input class="input" id="email" name="email" type="email" placeholder="your.email@example.com" required maxlength="100" />
+            <input class="input" id="email" name="email" type="email" placeholder="your.email@example.com" required maxlength="100" autocomplete="email" />
             <div class="form-error" id="emailError"></div>
           </div>
 
@@ -3221,7 +3347,7 @@ section {
 
           <div class="form-group">
             <label class="form-label" for="message">Your Message *</label>
-            <textarea class="textarea" id="message" name="message" placeholder="Tell me about your project or opportunity..." required minlength="10" maxlength="2000"></textarea>
+            <textarea class="textarea" id="message" name="message" placeholder="Tell me about your project or opportunity..." required minlength="10" maxlength="2000" rows="6"></textarea>
             <div class="form-error" id="messageError"></div>
             <div class="char-counter" id="charCounter">0 / 2000 characters</div>
           </div>
@@ -3238,17 +3364,44 @@ section {
           <div id="sessionLimit" class="session-limit-notice" style="display: none;"></div>
         </form>
 
+        <!-- Success Message (Hidden initially) -->
+        <div id="successMessage" class="success-message" style="display: none;">
+          <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h4>Message Sent Successfully!</h4>
+            <p>Thank you for reaching out. I'll get back to you within 24 hours.</p>
+            <div class="success-actions">
+              <a href="mailto:sahilwalia2598@gmail.com" class="secondary-contact-btn">
+                📧 Email Directly
+              </a>
+              <a href="https://linkedin.com/in/sahilwalia1" target="_blank" class="secondary-contact-btn">
+                💼 Connect on LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Fallback -->
-        <div style="margin-top:1.5rem; text-align:center; padding-top:1rem; border-top:1px solid var(--border-color);">
-          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:0.5rem;">Prefer email directly?</p>
-          <a href="mailto:sahilwalia2598@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Sahil,%0D%0A%0D%0AI'd%20like%20to%20discuss..." 
-             class="project-link" style="display:inline-flex; align-items:center; gap:6px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            Open Email App
-          </a>
+        <div class="fallback-section" style="margin-top:1.5rem; text-align:center; padding-top:1rem; border-top:1px solid var(--border-color);">
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:0.75rem;">Prefer direct contact?</p>
+          <div class="fallback-links">
+            <a href="mailto:sahilwalia2598@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Sahil,%0D%0A%0D%0AI'd%20like%20to%20discuss..." 
+               class="fallback-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              Email App
+            </a>
+            <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer" class="fallback-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -3514,6 +3667,7 @@ function animateCounters() {
 
 // ================= Enhanced Contact Form with Session Limiting =================
 let formSubmissionCount = 0;
+let isFormSubmitting = false;
 const MAX_SUBMISSIONS_PER_SESSION = 1;
 
 function setupContactForm() {
@@ -3523,6 +3677,7 @@ function setupContactForm() {
   const btnLoader = document.getElementById('btnLoader');
   const formNote = document.getElementById('formNote');
   const sessionLimitNotice = document.getElementById('sessionLimit');
+  const successMessage = document.getElementById('successMessage');
   
   if (!form) return;
 
@@ -3533,13 +3688,14 @@ function setupContactForm() {
   // Check if limit reached on page load
   if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
     disableForm();
+    return;
   }
 
-  // Character counter for textarea
+  // Initialize character counter
   setupCharacterCounter();
 
   // Real-time validation
-  const inputs = form.querySelectorAll('input, textarea');
+  const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea');
   inputs.forEach(input => {
     input.addEventListener('blur', () => validateField(input));
     input.addEventListener('input', () => {
@@ -3548,10 +3704,11 @@ function setupContactForm() {
     });
   });
 
-  // Form submission
+  // Form submission handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // Check session limit
     if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
       showSessionLimitMessage();
       return;
@@ -3578,10 +3735,6 @@ function setupContactForm() {
     setLoadingState(true);
     
     const formData = new FormData(form);
-    
-    // Add timestamp and user agent for better tracking
-    formData.append('_timestamp', new Date().toISOString());
-    formData.append('_user_agent', navigator.userAgent);
 
     try {
       const response = await fetch(form.action, {
@@ -3595,7 +3748,7 @@ function setupContactForm() {
       if (response.ok) {
         handleSuccess();
       } else {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || 'Form submission failed');
       }
     } catch (error) {
@@ -3611,49 +3764,47 @@ function setupContactForm() {
     formSubmissionCount++;
     sessionStorage.setItem('formSubmissions', formSubmissionCount.toString());
     
-    form.reset();
-    updateCharCounter();
+    // Show success overlay
+    if (successMessage) {
+      successMessage.style.display = 'flex';
+      successMessage.style.animation = 'fadeIn 0.5s ease';
+    }
     
-    showFormMessage(
-      '✅ Message sent successfully! I\'ll get back to you within 24 hours.',
-      'success'
-    );
+    // Disable form
+    setTimeout(disableForm, 1000);
     
-    // Disable form after successful submission
-    disableForm();
-    
-    // Track successful submission (optional analytics)
+    // Track success (if analytics available)
     if (typeof gtag !== 'undefined') {
       gtag('event', 'form_submit', {
         event_category: 'Contact',
-        event_label: 'Portfolio Contact Form'
+        event_label: 'Portfolio Contact Form Success'
       });
     }
   }
 
   function handleError(errorMessage) {
     showFormMessage(
-      `Sorry, there was an error sending your message: ${errorMessage}. Please try the direct email link below.`,
+      `❌ Sorry, there was an error: ${errorMessage}. Please try the direct email link below.`,
       'error'
     );
   }
 
   function disableForm() {
-    const inputs = form.querySelectorAll('input, textarea, button');
-    inputs.forEach(input => {
-      if (input.type !== 'hidden') {
-        input.disabled = true;
-      }
+    const allInputs = form.querySelectorAll('input:not([type="hidden"]), textarea, button');
+    allInputs.forEach(input => {
+      input.disabled = true;
     });
     
-    showSessionLimitMessage();
+    if (formSubmissionCount >= MAX_SUBMISSIONS_PER_SESSION) {
+      showSessionLimitMessage();
+    }
   }
 
   function showSessionLimitMessage() {
     if (sessionLimitNotice) {
       sessionLimitNotice.innerHTML = `
-        <strong>Session Limit Reached</strong><br>
-        You've already sent a message in this session. Please use the direct email link below for additional messages or refresh the page after some time.
+        <strong>✋ Message Limit Reached</strong><br>
+        You've sent a message in this session. For additional messages, please use the direct contact options below.
       `;
       sessionLimitNotice.style.display = 'block';
     }
@@ -3678,22 +3829,19 @@ function setupContactForm() {
       formNote.className = `form-note ${type}`;
       formNote.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       
-      if (type === 'success' || type === 'error') {
+      if (type !== 'success') {
         setTimeout(() => {
-          if (type !== 'success') { // Keep success message visible
-            formNote.style.display = 'none';
-          }
-        }, 10000);
+          formNote.style.display = 'none';
+        }, 8000);
       }
     }
   }
 
   function setupCharacterCounter() {
     const messageField = document.getElementById('message');
-    const charCounter = document.getElementById('charCounter');
-    
-    if (messageField && charCounter) {
+    if (messageField) {
       messageField.addEventListener('input', updateCharCounter);
+      updateCharCounter();
     }
   }
 
@@ -3703,11 +3851,10 @@ function setupContactForm() {
     
     if (messageField && charCounter) {
       const currentLength = messageField.value.length;
-      const maxLength = messageField.getAttribute('maxlength') || 2000;
+      const maxLength = parseInt(messageField.getAttribute('maxlength') || '2000');
       
       charCounter.textContent = `${currentLength} / ${maxLength} characters`;
       
-      // Color coding based on usage
       charCounter.className = 'char-counter';
       if (currentLength > maxLength * 0.9) {
         charCounter.classList.add('danger');
@@ -3725,13 +3872,13 @@ function validateField(field) {
   let error = '';
   const value = field.value.trim();
   
-  if (!value) {
-    error = `${field.name.charAt(0).toUpperCase() + field.name.slice(1)} is required`;
-  } else if (field.type === 'email' && !isValidEmail(value)) {
+  if (field.required && !value) {
+    error = `${getFieldDisplayName(field.name)} is required`;
+  } else if (field.type === 'email' && value && !isValidEmail(value)) {
     error = 'Please enter a valid email address';
-  } else if (field.hasAttribute('minlength') && value.length < field.getAttribute('minlength')) {
+  } else if (field.hasAttribute('minlength') && value && value.length < parseInt(field.getAttribute('minlength'))) {
     error = `Minimum ${field.getAttribute('minlength')} characters required`;
-  } else if (field.hasAttribute('maxlength') && value.length > field.getAttribute('maxlength')) {
+  } else if (field.hasAttribute('maxlength') && value.length > parseInt(field.getAttribute('maxlength'))) {
     error = `Maximum ${field.getAttribute('maxlength')} characters allowed`;
   }
   
@@ -3747,6 +3894,16 @@ function validateField(field) {
   }
 }
 
+function getFieldDisplayName(fieldName) {
+  const displayNames = {
+    name: 'Name',
+    email: 'Email',
+    subject: 'Subject',
+    message: 'Message'
+  };
+  return displayNames[fieldName] || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+}
+
 function clearFieldError(field) {
   const errorDiv = document.getElementById(field.name + 'Error');
   if (errorDiv) {
@@ -3760,11 +3917,13 @@ function isValidEmail(email) {
   return emailRegex.test(email) && email.length <= 254;
 }
 
-// Clear session data on page refresh (optional)
-window.addEventListener('beforeunload', () => {
-  // Uncomment next line if you want to reset limit on page refresh
-  // sessionStorage.removeItem('formSubmissions');
-});
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', setupContactForm);
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+};
 
 // Enhanced Projects Toggle
 const viewAllBtn = document.getElementById('viewAllBtn');
