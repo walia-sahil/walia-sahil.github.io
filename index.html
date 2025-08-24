@@ -6,7 +6,7 @@
   <title>Sahil Walia | Business Analytics & AI Expert</title>
 
   <!-- SEO -->
-  <meta name="description" content="Business Intelligence Expert specializing in data analytics, machine learning, and AI-driven solutions. MS Business Analytics at ASU." />
+  <meta name="description" content="Business Analytics Professional specializing in data analytics, machine learning, and AI-driven solutions. MS Business Analytics at ASU." />
   <meta name="keywords" content="Business Analyst, Data Analytics, Machine Learning, Business Intelligence, Tableau, Python, Healthcare AI" />
   <meta name="author" content="Sahil Walia" />
   <meta property="og:title" content="Sahil Walia - Business Analytics Portfolio" />
@@ -210,14 +210,221 @@ section{padding:6rem 0;position:relative}
 .interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
 .interest-card{text-align:center}
 
-/* Contact */
-.contact-two-col{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start;max-width:1000px;margin:0 auto}
-.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:1.5rem;max-width:800px;margin:0 auto}
-.contact-card{text-align:center;padding:2rem}
-.contact-icon{font-size:2.25rem;margin-bottom:.75rem;display:block;opacity:.85}
-.contact-label{font-size:1.1rem;margin-bottom:.35rem;color:var(--text-primary)}
-.contact-value a{color:var(--primary-purple);text-decoration:none;font-weight:600}
-.contact-value a:hover{text-decoration:underline}
+/* Modern Contact Section Styles */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-cards-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-card-modern {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card-modern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.contact-card-modern:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.contact-card-modern:hover::before {
+  opacity: 1;
+}
+
+.contact-icon-modern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius);
+  color: #fff;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.contact-card-modern:hover .contact-icon-modern {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.contact-info-modern {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-label-modern {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-link-modern {
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  word-break: break-all;
+}
+
+.contact-link-modern:hover {
+  color: var(--accent-purple);
+  text-decoration: underline;
+}
+
+.contact-text-modern {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.contact-form-modern {
+  position: relative;
+}
+
+.contact-form-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fallback-section-modern {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.fallback-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.fallback-links-modern {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fallback-link-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.fallback-link-modern:hover {
+  background: var(--primary-purple);
+  color: #fff;
+  border-color: var(--primary-purple);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-cards-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-cards-modern {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-card-modern {
+    padding: 1rem;
+  }
+  
+  .contact-icon-modern {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .fallback-links-modern {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fallback-link-modern {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-layout {
+    gap: 1.5rem;
+  }
+  
+  .contact-card-modern {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .contact-info-modern {
+    text-align: center;
+  }
+}
 
 .contact-form.card{position:relative}
 .form-group{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.25rem}
@@ -329,7 +536,7 @@ section{padding:6rem 0;position:relative}
           </div>
           <div class="hero-badge">Graduate • Open to Opportunities</div>
           <h1 class="hero-title" id="heroTitle">Sahil Walia</h1>
-          <p class="hero-subtitle">Business Intelligence & Analytics Expert</p>
+          <p class="hero-subtitle">Business Intelligence & Analytics Professional</p>
           <p class="hero-description">
             Business Analytics professional specializing in statistical modeling and business intelligence.
             Experienced in designing BI and analytics frameworks that consolidate large datasets and deliver
@@ -565,8 +772,9 @@ section{padding:6rem 0;position:relative}
                 </button>
                 <div class="journey-details-modern" id="journey-current">
                   <div class="details-content">
-                    <p><strong>Focus:</strong> CNNs for breast cancer detection; XAI for clinical interpretability.</p>
-                    <p><strong>Highlight:</strong> Harley‑Davidson capstone — 100K+ comments via RoBERTa; executive dashboards.</p>
+                    <p><strong>Synopsis:</strong> This research project applies state-of-the-art Ultralytics YOLOv8–YOLOv12 models to medical imaging, focusing on detecting breast cancer abnormalities such as masses, calcifications, and distortions. 
+                      By leveraging ensembling methods on multi-class trained models, the study aims to improve accuracy and speed in computer-aided diagnosis. 
+                      The ultimate goal is to publish a peer-reviewed research paper in a data science journal, demonstrating how optimized YOLO models can advance early cancer detection and clinical decision support.</p>
                     <div class="journey-achievements"><span class="achievement-tag">Healthcare AI</span><span class="achievement-tag">Executive Briefing</span><span class="achievement-tag">Advanced Analytics</span></div>
                   </div>
                 </div>
@@ -579,17 +787,19 @@ section{padding:6rem 0;position:relative}
             <div class="journey-card-modern">
               <div class="journey-card-header">
                 <h3 class="journey-title-modern">M.S. Business Analytics (STEM)</h3>
-                <div class="journey-meta"><span class="journey-institution">Arizona State University</span><span class="journey-period-modern">Aug 2024 — May 2025</span><span class="journey-gpa">GPA: 3.78 / 4.0</span></div>
+                <div class="journey-meta"><span class="journey-institution">Arizona State University | WP Carey School of Business</span><span class="journey-period-modern">Aug 2024 — May 2025</span><span class="journey-gpa">GPA: 3.78 / 4.0</span></div>
               </div>
               <div class="journey-card-content">
-                <p class="journey-summary">Advanced ML, stats, and BI with XAI research track.</p>
+                <p class="journey-summary">In search of constant upskilling and learning, I moved to Arizona, USA, to pursue my Master's degree in Analytics.</p>
                 <button class="read-more-btn-modern" data-target="journey-1"><span>Read More</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </button>
                 <div class="journey-details-modern" id="journey-1">
                   <div class="details-content">
-                    <p><strong>Coursework:</strong> Descriptive/Predictive Stats, Python, ML in Business, AI & Ethics, Risk, Process Analytics.</p>
-                    <p><strong>Capstone:</strong> RoBERTa sentiment pipeline + exec dashboards for motorcycle OEM.</p>
+                    <p><strong>Synopsis:</strong> The MS Business Analytics helped me explore various courses, through gruntwork and real-world projects, it helped me deliver impactful projects including an AI Sentiment Analyzer for a leading motorcycle brand and Explainable AI models for breast cancer detection. 
+                     These projects spanning data engineering, machine learning, and executive storytelling, prepared me for global business impact.</p>
+                    <p><strong>Coursework:</strong>   
+                      <li>Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications,Data Visualization,Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business </li>
                     <div class="journey-achievements"><span class="achievement-tag">STEM</span><span class="achievement-tag">Research</span><span class="achievement-tag">Industry Partner</span></div>
                   </div>
                 </div>
@@ -605,16 +815,19 @@ section{padding:6rem 0;position:relative}
                 <div class="journey-meta"><span class="journey-institution">ZS Associates, India</span><span class="journey-period-modern">Jan 2024 — Jun 2024</span></div>
               </div>
               <div class="journey-card-content">
-                <p class="journey-summary">Led clinical analytics across multi‑source data; improved equity in recruitment/site selection by 40%.</p>
+                <p class="journey-summary">In this role, I stepped into a senior client-facing position, leading a team of analysts to deliver complex, multi-source data solutions in clinical trial operations. 
+                  My focus was on improving diversity recruitment, building scalable BI pipelines, and ensuring seamless adoption of analytics tools by clinical and strategy stakeholders.</p>
                 <button class="read-more-btn-modern" data-target="journey-2"><span>Read More</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </button>
                 <div class="journey-details-modern" id="journey-2">
                   <div class="details-content">
                     <ul class="details-list">
-                      <li>DEICT Tableau BI improved visibility of underrepresented populations by 20%+.</li>
-                      <li>Python/SQL ELT with scheduled refresh — 99.9% dashboard uptime.</li>
-                      <li>Executive‑ready insights driving site prioritization & budget allocations.</li>
+                    <li>Directed a 4-member analyst team on multi-source data projects, optimizing trial recruitment strategies and improving representation of underserved populations by 20% in priority study cohorts.</li>
+                    <li>Designed and automated BI pipelines (Python + SQL) integrating real-world and clinical datasets, cutting data preparation effort by 40% and enabling faster trial insights.</li>
+                    <li>Served as primary Tableau SME across global geographies, resolving 90% of stakeholder support requests within 24 hours to ensure uninterrupted access to dashboards.</li>
+                    <li>Developed 20+ client-facing decks and requirements documents, streamlining tool onboarding by 30% and automating BRD generation via agent-based AI workflows.</li>
+                    <li>Coached junior analysts on data governance, visualization standards, and DEI-driven analytics, reducing onboarding time by 40% and scaling team-wide BI expertise.</li>
                     </ul>
                     <div class="journey-achievements"><span class="achievement-tag">Clinical Analytics</span><span class="achievement-tag">Exec Enablement</span><span class="achievement-tag">Pipelines</span></div>
                   </div>
@@ -631,16 +844,19 @@ section{padding:6rem 0;position:relative}
                 <div class="journey-meta"><span class="journey-institution">ZS Associates, India</span><span class="journey-period-modern">Jan 2023 — Dec 2023</span></div>
               </div>
               <div class="journey-card-content">
-                <p class="journey-summary">Brand performance dashboards for $100M+ portfolios; 25% field force efficiency gain.</p>
+                <p class="journey-summary">In this role, I worked on clinical trial operations and risk monitoring, focusing on developing dashboards and standardized frameworks that streamlined audit readiness and compliance. 
+                  Partnering with global teams, I helped drive efficiency in regulatory preparation and advanced analytics adoption.</p>
                 <button class="read-more-btn-modern" data-target="journey-3"><span>Read More</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </button>
                 <div class="journey-details-modern" id="journey-3">
                   <div class="details-content">
                     <ul class="details-list">
-                      <li>Scorecards: TRx/NBRx, payer access, HCP/HCO segmentation.</li>
-                      <li>Reduced reporting delays by 60%; adoption up 150% (120+ users).</li>
-                      <li>Project Champion — dashboards shaping portfolio & trial monitoring.</li>
+                      <li> Created Tableau dashboards aligned with RBM guidelines, automating trial monitoring and reducing manual effort by 50% while strengthening audit readiness.</li>
+                      <li>Collaborated with global stakeholders to design risk-assessment tools ensuring ICH-GCP compliance, enabling proactive identification of trial risks.</li>
+                      <li>Standardized data cleaning, version control, and consistency checks, improving reporting accuracy and reducing turnaround time by 30%.</li>
+                      <li>Conducted internal training sessions on hybrid workplace onboarding and analytics proof-of-concepts, boosting adoption of BI practices across teams.</li>
+                      <li>Built portfolio tracking systems covering 110+ R&D initiatives, providing executives with visibility into a $75M+ pipeline and accelerating regulatory preparation timelines from weeks to days.</li>
                     </ul>
                     <div class="journey-achievements"><span class="achievement-tag">Award</span><span class="achievement-tag">Brand Analytics</span><span class="achievement-tag">Strategy</span></div>
                   </div>
@@ -653,19 +869,25 @@ section{padding:6rem 0;position:relative}
             <div class="journey-dot" aria-hidden="true"></div>
             <div class="journey-card-modern">
               <div class="journey-card-header">
-                <h3 class="journey-title-modern">Business Operations Associate — QORM Pod</h3>
+                <h3 class="journey-title-modern">Business Operations Associate</h3>
                 <div class="journey-meta"><span class="journey-institution">ZS Associates, India</span><span class="journey-period-modern">May 2021 — Dec 2022</span></div>
               </div>
               <div class="journey-card-content">
-                <p class="journey-summary">Trial monitoring & audit pilots — improved risk & readiness by 50%.</p>
+                <p class="journey-summary">I began my career in the Quality Operations & Risk Management (QORM) Pod, where I built clinical trial monitoring dashboards and audit readiness reports. 
+                  This hands-on experience established my foundation in risk-based monitoring, GCP compliance, and BI solutions for large-scale pharma clients.</p>
                 <button class="read-more-btn-modern" data-target="journey-4"><span>Read More</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </button>
                 <div class="journey-details-modern" id="journey-4">
                   <div class="details-content">
                     <ul class="details-list">
-                      <li>Oncology tracker (110+ initiatives); Excel↔Tableau integration.</li>
-                      <li>Standardized data processes — +30% accuracy, faster TAT.</li>
+                      
+                  <li>  Automated Clinical Trial Monitoring: Created Tableau dashboards aligned with RBM guidelines, cutting manual monitoring effort by 50% and strengthening audit readiness.</li>
+                  <li>	Risk & Compliance Alignment: Collaborated with global stakeholders to design risk-assessment and monitoring tools, ensuring adherence to ICH-GCP standards.</li>
+                  <li> 	Data Governance & Accuracy: Standardized data cleaning, version control, and consistency checks, improving reporting accuracy and reducing turnaround time by 30%.</li>
+                  <li>	Knowledge Sharing & Enablement: Conducted internal trainings on hybrid workplace onboarding and advanced analytics proof-of-concepts, fostering adoption of BI best practices.</li>
+                  <li>	Operational Visibility: Designed tracking systems for clinical portfolios (110+ R&D initiatives, $75M+ pipeline), giving executives real-time insight into trial readiness and risk exposure.</li>
+        
                     </ul>
                     <div class="journey-achievements"><span class="achievement-tag">Clinical Ops</span><span class="achievement-tag">Process</span><span class="achievement-tag">QA</span></div>
                   </div>
@@ -688,8 +910,9 @@ section{padding:6rem 0;position:relative}
                 </button>
                 <div class="journey-details-modern" id="journey-5">
                   <div class="details-content">
-                    <p><strong>Leadership:</strong> Led 15‑member team; secured ₹20L sponsorships.</p>
-                    <p><strong>Emphasis:</strong> Data‑driven design & performance analytics.</p>
+                    <p><strong>Leadership:</strong> Actively involved in college motorsports, starting at the bottom and eventually leading the team to win multiple national championship titles across 4 years.</p>
+                    <p><strong>Coursework:</strong> </p>
+                   <l> Mathematics I, Mathematics II, Probability & Statistics, Numerical Methods, Operations Research, Engineering Graphics, Strength of Materials, Applied Thermal Engineering, Vehicle Dynamics, Design of Automotive Components, Value Education & Professional Ethics, Advanced Verbal Ability. </l>
                     <div class="journey-achievements"><span class="achievement-tag">Leadership</span><span class="achievement-tag">Motorsports</span><span class="achievement-tag">Engineering</span></div>
                   </div>
                 </div>
@@ -719,8 +942,8 @@ section{padding:6rem 0;position:relative}
             </div>
             <div class="skill-list">
               <div class="skill-item"><div class="skill-info"><span class="skill-name">Tableau (Advanced/Certified)</span><span class="skill-percentage">95%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Excel (Advanced)</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">KPI Design</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Office</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span class="skill-name">Power BI</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
             </div>
           </div>
 
@@ -746,7 +969,7 @@ section{padding:6rem 0;position:relative}
             <div class="skill-list">
               <div class="skill-item"><div class="skill-info"><span class="skill-name">Machine Learning</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
               <div class="skill-item"><div class="skill-info"><span class="skill-name">Predictive Modeling</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">PyTorch</span><span class="skill-percentage">85%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span class="skill-name">PyTorch</span><span class="skill-percentage">75%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
             </div>
           </div>
 
@@ -757,7 +980,7 @@ section{padding:6rem 0;position:relative}
               <h3 style="color:var(--accent-purple);margin-bottom:1rem">Cloud & Platforms</h3>
             </div>
             <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">AWS (SageMaker, Comprehend Medical)</span><span class="skill-percentage">85%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span class="skill-name">AWS (Redshift, S3)</span><span class="skill-percentage">85%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
               <div class="skill-item"><div class="skill-info"><span class="skill-name">Data Warehousing</span><span class="skill-percentage">80%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
               <div class="skill-item"><div class="skill-info"><span class="skill-name">Azure Data Fundamentals</span><span class="skill-percentage">75%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:75%"></div></div></div>
             </div>
@@ -933,100 +1156,156 @@ section{padding:6rem 0;position:relative}
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" aria-label="Contact Information">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Connect</span>
-          <h2 class="section-title">Let's Collaborate</h2>
-          <p class="section-subtitle">Open to discussing analytics projects, opportunities, and innovative solutions</p>
+<section id="contact" aria-label="Contact Information">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Connect</span>
+      <h2 class="section-title">Let's Collaborate</h2>
+      <p class="section-subtitle">Open to discussing analytics projects, opportunities, and innovative solutions</p>
+    </div>
+
+    <div class="contact-layout">
+      <!-- Contact Cards - Modern Compact Design -->
+      <div class="contact-cards-modern">
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">Email</h3>
+            <a href="mailto:sahilwalia2598@gmail.com" class="contact-link-modern">sahilwalia2598@gmail.com</a>
+          </div>
         </div>
 
-        <div class="contact-two-col">
-          <div class="contact-grid">
-            <div class="contact-card card fade-in">
-              <div class="contact-icon" aria-hidden="true">📧</div>
-              <h3 class="contact-label">Email</h3>
-              <div class="contact-value"><a href="mailto:sahilwalia2598@gmail.com">sahilwalia2598@gmail.com</a></div>
-            </div>
-            <div class="contact-card card fade-in">
-              <div class="contact-icon" aria-hidden="true">💼</div>
-              <h3 class="contact-label">LinkedIn</h3>
-              <div class="contact-value"><a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer">linkedin.com/in/sahilwalia1</a></div>
-            </div>
-            <div class="contact-card card fade-in">
-              <div class="contact-icon" aria-hidden="true">📍</div>
-              <h3 class="contact-label">Location</h3>
-              <div class="contact-value">United States</div>
-            </div>
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
           </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">LinkedIn</h3>
+            <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer" class="contact-link-modern">linkedin.com/in/sahilwalia1</a>
+          </div>
+        </div>
 
-          <div class="contact-form card fade-in">
-            <h3 class="contact-label" style="margin-bottom:1.25rem;font-size:1.2rem">Send a Message</h3>
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">GitHub</h3>
+            <a href="https://github.com/sahilwalia15" target="_blank" rel="noopener noreferrer" class="contact-link-modern">github.com/sahilwalia15</a>
+          </div>
+        </div>
 
-            <form id="contactForm" action="https://formspree.io/f/mnnbadpg" method="POST" novalidate>
-              <input type="text" name="_gotcha" style="display:none!important" tabindex="-1" autocomplete="off">
-              <input type="hidden" name="_subject" value="New Portfolio Contact - Sahil Walia">
-              <input type="hidden" name="_next" value="#contact">
-              <input type="hidden" name="_autoresponse" value="Thanks for your message! I'll get back to you soon.">
-
-              <div class="form-group">
-                <label class="form-label" for="name">Your Name *</label>
-                <input class="input" id="name" name="name" type="text" placeholder="Enter your full name" required minlength="2" maxlength="100" autocomplete="name" />
-                <div class="form-error" id="nameError"></div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="email">Your Email *</label>
-                <input class="input" id="email" name="email" type="email" placeholder="your.email@example.com" required maxlength="100" autocomplete="email" />
-                <div class="form-error" id="emailError"></div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="subject">Subject *</label>
-                <input class="input" id="subject" name="subject" type="text" placeholder="What's this about?" required minlength="3" maxlength="150" />
-                <div class="form-error" id="subjectError"></div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="message">Your Message *</label>
-                <textarea class="textarea" id="message" name="message" placeholder="Tell me about your project or opportunity..." required minlength="10" maxlength="2000" rows="6"></textarea>
-                <div class="form-error" id="messageError"></div>
-                <div class="char-counter" id="charCounter">0 / 2000 characters</div>
-              </div>
-
-              <button type="submit" class="btn-submit" id="submitBtn">
-                <span id="submitText">Send Message</span>
-                <span class="btn-loader" id="btnLoader" style="display:none"><span class="spinner" aria-hidden="true"></span>Sending…</span>
-              </button>
-
-              <div id="formNote" class="form-note" aria-live="polite" style="display:none"></div>
-              <div id="sessionLimit" class="session-limit-notice" style="display:none"></div>
-            </form>
-
-            <div id="successMessage" class="success-message">
-              <div class="success-content">
-                <div class="success-icon">✅</div>
-                <h4>Message Sent Successfully!</h4>
-                <p>Thanks for reaching out. I’ll get back to you shortly.</p>
-                <div class="success-actions" style="display:flex;flex-direction:column;gap:.6rem">
-                  <a href="mailto:sahilwalia2598@gmail.com" class="fallback-link">📧 Email Directly</a>
-                  <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener" class="fallback-link">💼 Connect on LinkedIn</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="fallback-section" style="margin-top:1rem;text-align:center;padding-top:1rem;border-top:1px solid var(--border-color)">
-              <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:.5rem">Prefer direct contact?</p>
-              <div class="fallback-links">
-                <a href="mailto:sahilwalia2598@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Sahil,%0D%0A%0D%0AI'd%20like%20to%20discuss..." class="fallback-link">Open Email App</a>
-                <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer" class="fallback-link">Open LinkedIn</a>
-              </div>
-            </div>
-
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">Location</h3>
+            <span class="contact-text-modern">United States</span>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Contact Form - Unchanged Functionality -->
+      <div class="contact-form-modern card fade-in">
+        <h3 class="contact-form-title">Send a Message</h3>
+
+        <form id="contactForm" action="https://formspree.io/f/mnnbadpg" method="POST" novalidate>
+          <input type="text" name="_gotcha" style="display:none!important" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="_subject" value="New Portfolio Contact - Sahil Walia">
+          <input type="hidden" name="_next" value="#contact">
+          <input type="hidden" name="_autoresponse" value="Thanks for your message! I'll get back to you soon.">
+
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name *</label>
+            <input class="input" id="name" name="name" type="text" placeholder="Enter your full name" required minlength="2" maxlength="100" autocomplete="name" />
+            <div class="form-error" id="nameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Your Email *</label>
+            <input class="input" id="email" name="email" type="email" placeholder="your.email@example.com" required maxlength="100" autocomplete="email" />
+            <div class="form-error" id="emailError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject *</label>
+            <input class="input" id="subject" name="subject" type="text" placeholder="What's this about?" required minlength="3" maxlength="150" />
+            <div class="form-error" id="subjectError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Your Message *</label>
+            <textarea class="textarea" id="message" name="message" placeholder="Tell me about your project or opportunity..." required minlength="10" maxlength="2000" rows="6"></textarea>
+            <div class="form-error" id="messageError"></div>
+            <div class="char-counter" id="charCounter">0 / 2000 characters</div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span id="submitText">Send Message</span>
+            <span class="btn-loader" id="btnLoader" style="display:none"><span class="spinner" aria-hidden="true"></span>Sending…</span>
+          </button>
+
+          <div id="formNote" class="form-note" aria-live="polite" style="display:none"></div>
+          <div id="sessionLimit" class="session-limit-notice" style="display:none"></div>
+        </form>
+
+        <div id="successMessage" class="success-message">
+          <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h4>Message Sent Successfully!</h4>
+            <p>Thanks for reaching out. I'll get back to you shortly.</p>
+            <div class="success-actions" style="display:flex;flex-direction:column;gap:.6rem">
+              <a href="mailto:sahilwalia2598@gmail.com" class="fallback-link">📧 Email Directly</a>
+              <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener" class="fallback-link">💼 Connect on LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fallback-section-modern">
+          <p class="fallback-text">Prefer direct contact?</p>
+          <div class="fallback-links-modern">
+            <a href="mailto:sahilwalia2598@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Sahil,%0D%0A%0D%0AI'd%20like%20to%20discuss..." class="fallback-link-modern">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Email App
+            </a>
+            <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer" class="fallback-link-modern">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://github.com/sahilwalia15" target="_blank" rel="noopener noreferrer" class="fallback-link-modern">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   </main>
 
   <!-- Scroll to Top -->
