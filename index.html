@@ -1619,18 +1619,19 @@ section{padding:6rem 0;position:relative}
             </div>
           </div>
 
-          <div class="cert-card card fade-in cert-hidden">
-            <div class="cert-image"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop" alt="Six Sigma Green Belt" loading="lazy" /></div>
+            <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image">
+              <img src="./images/certifications/thumbnail%20images/six%20sigma%20green%20belt.png" alt="Six Sigma Green Belt" loading="lazy" />
+            </div>
             <div class="cert-content">
               <h3 class="cert-title">Six Sigma — Green Belt</h3>
               <p class="cert-issuer">MSME (Govt. of India)</p>
               <p class="cert-date">2019</p>
-              <a href="#" class="cert-link-button" style="pointer-events:none;opacity:.7">Certificate Unavailable</a>
+              <a href="./documents/certifications/six%20sigma%20green%20belt.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
           </div>
-        </div>
 
-        <div style="text-align:center;margin-top:2rem">
+        <div style="display:flex;justify-content:center;margin-top:2rem">
           <button id="viewAllCertsBtn" class="btn btn-secondary">
             <span id="certBtnText">View All Certifications</span>
             <svg id="certBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -1969,46 +1970,67 @@ function onScroll(){
     }
   });
 });
+// View all Projects
+const viewAllBtn = $('#viewAllBtn');
+const projectsGrid = $('#projectsGrid');
+const INIT_VISIBLE_PROJECTS = 2;
 
-  // View all Projects / Certs
-  const viewAllBtn = $('#viewAllBtn');
-  const projectsGrid = $('#projectsGrid');
-  viewAllBtn?.addEventListener('click', ()=>{
-    const hidden = $$('.project-hidden', projectsGrid);
-    const makeVisible = hidden.length > 0;
-    $$('.project-card', projectsGrid).forEach(card=>{
-      card.classList.toggle('project-hidden', !makeVisible);
-      card.classList.toggle('project-visible', makeVisible);
+viewAllBtn?.addEventListener('click', () => {
+  if (!projectsGrid) return;
+
+  const cards = $$('.project-card', projectsGrid);
+  const hasHidden = cards.some(c => c.classList.contains('project-hidden'));
+  const expandAll = hasHidden; // if any hidden -> expand, else collapse
+
+  if (expandAll) {
+    // show everything
+    cards.forEach(c => {
+      c.classList.remove('project-hidden');
+      c.classList.add('project-visible');
     });
-    $('#btnText').textContent = makeVisible ? 'Show Less' : 'View All Projects';
-    const icon = $('#btnIcon'); icon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
-  });
+  } else {
+    // collapse: keep first 2 visible, hide the rest
+    cards.forEach((card, idx) => {
+      const keepVisible = idx < INIT_VISIBLE_PROJECTS;
+      card.classList.toggle('project-visible', keepVisible);
+      card.classList.toggle('project-hidden', !keepVisible);
+    });
+  }
 
-// View all Certifications (FIXED)
+  const btnText = $('#btnText');
+  const btnIcon = $('#btnIcon');
+  if (btnText) btnText.textContent = expandAll ? 'Show Less' : 'View All Projects';
+  if (btnIcon) btnIcon.style.transform = expandAll ? 'rotate(180deg)' : 'rotate(0deg)';
+});
+// View all Certifications
 const viewAllCertsBtn = $('#viewAllCertsBtn');
 const certGrid = $('#certGrid');
-viewAllCertsBtn?.addEventListener('click', ()=>{
-  const hiddenCerts = $$('.cert-hidden', certGrid);
-  const makeVisible = hiddenCerts.length > 0;
-  
-  $$('.cert-card', certGrid).forEach(card=>{
-    if (makeVisible) {
-      // Show all certificates
-      card.classList.remove('cert-hidden');
-      card.classList.add('cert-visible');
-    } else {
-      // Hide all except first 3
-      const isInitiallyVisible = Array.from($$('.cert-card', certGrid)).indexOf(card) < 3;
-      if (!isInitiallyVisible) {
-        card.classList.add('cert-hidden');
-        card.classList.remove('cert-visible');
-      }
-    }
-  });
-  
+const INIT_VISIBLE_CERTS = 3;
+
+viewAllCertsBtn?.addEventListener('click', () => {
+  if (!certGrid) return;
+
+  const cards = $$('.cert-card', certGrid);
+  const hasHidden = cards.some(c => c.classList.contains('cert-hidden'));
+  const makeVisible = hasHidden; // expand if any hidden
+
+  if (makeVisible) {
+    cards.forEach(c => {
+      c.classList.remove('cert-hidden');
+      c.classList.add('cert-visible');
+    });
+  } else {
+    // collapse: keep the first N visible, hide the rest
+    cards.forEach((card, idx) => {
+      const keepVisible = idx < INIT_VISIBLE_CERTS;
+      card.classList.toggle('cert-visible', keepVisible);
+      card.classList.toggle('cert-hidden', !keepVisible);
+    });
+  }
+
   const btnText = $('#certBtnText');
   const btnIcon = $('#certBtnIcon');
-  if (btnText) btnText.textContent = makeVisible ? 'Show Less' : 'View All 9 Certifications';
+  if (btnText) btnText.textContent = makeVisible ? 'Show Less' : 'View All Certifications';
   if (btnIcon) btnIcon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
 });
   // Scroll-to-top
