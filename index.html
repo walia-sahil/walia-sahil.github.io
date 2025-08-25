@@ -173,6 +173,52 @@ section{padding:6rem 0;position:relative}
 .journey-card-content{padding:1.25rem 1.5rem}
 .journey-summary{color:var(--text-secondary);line-height:1.6;margin-bottom:.5rem}
 .read-more-btn-modern{background:none;border:0;color:var(--primary-purple);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px 0}
+/* Enhanced Read More Button Styles */
+.read-more-btn-modern {
+  background: none;
+  border: 0;
+  color: var(--primary-purple);
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  transition: all var(--transition-base);
+  white-space: nowrap; /* Ensures single line */
+  position: relative;
+  overflow: hidden;
+}
+
+.read-more-btn-modern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: var(--radius);
+}
+
+.read-more-btn-modern:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-purple);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.read-more-btn-modern:hover::before {
+  opacity: 1;
+}
+
+.read-more-btn-modern:hover svg {
+  transform: scale(1.1);
+}
+
+.read-more-btn-modern svg {transition: all var(--transition-base);flex-shrink: 0;}
+.read-more-btn-modern[aria-expanded="true"] svg {transform: rotate(180deg);}
+.read-more-btn-modern:active {transform: translateX(2px) scale(0.98);}
 .journey-details-modern{max-height:0;overflow:hidden;transition:max-height .45s ease,opacity .45s ease;margin-top:0;opacity:0}
 .journey-details-modern.visible{max-height:520px;opacity:1;margin-top:.5rem}
 .details-list{list-style:none;margin:1rem 0}
@@ -790,7 +836,7 @@ section{padding:6rem 0;position:relative}
                     <p><strong>Synopsis:</strong> The MS Business Analytics helped me explore various courses, through gruntwork and real-world projects, it helped me deliver impactful projects including an AI Sentiment Analyzer for a leading motorcycle brand and Explainable AI models for breast cancer detection. 
                      These projects spanning data engineering, machine learning, and executive storytelling, prepared me for global business impact.</p>
                     <p><strong>Coursework:</strong>   
-                      <li>Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications,Data Visualization,Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business </li>
+                    <li>Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications,Data Visualization,Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business </li>
                     <div class="journey-achievements"><span class="achievement-tag">STEM</span><span class="achievement-tag">Research</span><span class="achievement-tag">Industry Partner</span></div>
                   </div>
                 </div>
@@ -1428,14 +1474,22 @@ section{padding:6rem 0;position:relative}
   }
 
   // Read-more accordions (journey)
-  $$('.read-more-btn-modern').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const id = btn.getAttribute('data-target'); if (!id) return;
-      const panel = document.getElementById(id);
-      const open = panel.classList.toggle('visible');
-      btn.setAttribute('aria-expanded', String(open));
-    });
+ $$('.read-more-btn-modern').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-target'); 
+    if (!id) return;
+    
+    const panel = document.getElementById(id);
+    const textSpan = btn.querySelector('span');
+    const open = panel.classList.toggle('visible');
+    
+    // Update button text and aria-expanded
+    btn.setAttribute('aria-expanded', String(open));
+    if (textSpan) {
+      textSpan.textContent = open ? 'Hide' : 'Read More';
+    }
   });
+});
 
   // View all Projects / Certs
   const viewAllBtn = $('#viewAllBtn');
