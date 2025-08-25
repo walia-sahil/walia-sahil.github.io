@@ -16,7 +16,7 @@
   <!-- Performance: preconnect + font-display swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
 /* ================= CSS Variables ================= */
@@ -45,7 +45,7 @@
 /* Base */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;color:var(--text-primary);background:var(--bg-primary);transition:background-color var(--transition-base),color var(--transition-base)}
+body{font-family:'Inter',sans-serif;line-height:1.6;color:var(--text-primary);background:var(--bg-primary);transition:background-color var(--transition-base),color var(--transition-base)}
 img{max-width:100%;display:block}
 
 /* Loader */
@@ -73,7 +73,7 @@ img{max-width:100%;display:block}
 .navbar{position:fixed;top:0;inset-inline:0;background:rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1);z-index:1000;transition:all var(--transition-base)}
 .navbar.scrolled{background:var(--nav-bg);box-shadow:var(--shadow-md)}
 .nav-content{display:flex;align-items:center;justify-content:space-between;height:var(--nav-height);max-width:1400px;margin:0 auto;padding:0 2rem}
-.logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.25rem;color:var(--text-primary);font-family:'Space Grotesk',sans-serif}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.25rem;color:var(--text-primary);font-family:'Manrope',sans-serif}
 .logo-icon{width:40px;height:40px;background:var(--gradient-primary);border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:.9rem;transition:transform var(--transition-base),box-shadow var(--transition-base)}
 .logo-icon:hover{transform:rotate(360deg) scale(1.1);box-shadow:var(--shadow-glow)}
 .nav-links{display:flex;list-style:none;gap:2rem;align-items:center}
@@ -112,7 +112,7 @@ section{padding:6rem 0;position:relative}
 .section-header{text-align:center;margin-bottom:4rem}
 .section-label{display:inline-block;background:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem;position:relative}
 .section-label::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:50px;height:2px;background:var(--gradient-primary)}
-.section-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:3rem;margin-bottom:1rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.section-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:3rem;margin-bottom:1rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .section-subtitle{font-size:1.1rem;color:var(--text-secondary);max-width:700px;margin:0 auto}
 
 /* Hero */
@@ -522,6 +522,21 @@ section{padding:6rem 0;position:relative}
   .contact-grid{grid-template-columns:1fr}
   .project-metrics{grid-template-columns:1fr}
 }
+/* Tech/Code Font Styling */
+.tech-tag, .metric-label, .achievement-tag {
+  font-family: 'Source Code Pro', monospace !important;
+  font-weight: 500;
+}
+
+.contact-label-modern, .form-label {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
+}
+
+.stat-label, .cert-date {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 500;
+}
   </style>
 </head>
 
@@ -836,7 +851,7 @@ section{padding:6rem 0;position:relative}
                     <p><strong>Synopsis:</strong> The MS Business Analytics helped me explore various courses, through gruntwork and real-world projects, it helped me deliver impactful projects including an AI Sentiment Analyzer for a leading motorcycle brand and Explainable AI models for breast cancer detection. 
                      These projects spanning data engineering, machine learning, and executive storytelling, prepared me for global business impact.</p>
                     <p><strong>Coursework:</strong>   
-                    <li>Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications,Data Visualization,Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business </li>
+                    Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications,Data Visualization,Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business</p>
                     <div class="journey-achievements"><span class="achievement-tag">STEM</span><span class="achievement-tag">Research</span><span class="achievement-tag">Industry Partner</span></div>
                   </div>
                 </div>
