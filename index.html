@@ -818,136 +818,160 @@ section{padding:6rem 0;position:relative}
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" aria-label="Featured Projects">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Portfolio</span>
-          <h2 class="section-title">Featured Projects</h2>
-          <p class="section-subtitle">From NLP to healthcare diagnostics and urban analytics — solving real problems with data and strategy.</p>
+   <!-- PROJECTS -->
+<section id="projects" aria-label="Featured Projects">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Portfolio</span>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">From NLP to healthcare diagnostics and urban analytics — solving real problems with data and strategy.</p>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+      <!-- 1 -->
+      <article class="project-card fade-in project-visible">
+        <div class="project-header">
+          <span class="project-badge">Capstone</span>
+          <div class="project-icon">🤖</div>
+          <h3 class="project-title">Capstone — AI Sentiment Analyzer</h3>
+          <div class="project-type">ASU Capstone • NLP Analytics</div>
         </div>
-
-        <div class="projects-grid" id="projectsGrid">
-          <!-- 1 -->
-          <article class="project-card fade-in project-visible">
-            <div class="project-header">
-              <span class="project-badge">Capstone</span>
-              <h3 class="project-title">Capstone — AI Sentiment Analyzer</h3>
-              <div class="project-type">ASU Capstone • NLP Analytics</div>
-            </div>
-            <div class="project-content">
-              <p class="project-description">Built RoBERTa‑based NLP pipeline (Python, Tableau) analyzing 100K+ comments across Reddit/YouTube. Delivered executive dashboards surfacing brand perception and product pain points; presented to CIO & global leadership.</p>
-              <div class="project-metrics" aria-label="Key results">
-                <div class="metric-item"><span class="metric-value">100K+</span><div class="metric-label">Comments</div></div>
-                <div class="metric-item"><span class="metric-value">Executive</span><div class="metric-label">Presentation</div></div>
-                <div class="metric-item"><span class="metric-value">Multi‑platform</span><div class="metric-label">Sources</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Python</span><span class="tech-tag">RoBERTa</span><span class="tech-tag">Tableau</span><span class="tech-tag">NLP</span><span class="tech-tag">Sentiment</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- 2 -->
-          <article class="project-card fade-in project-visible">
-            <div class="project-header">
-              <span class="project-badge">Research</span>
-              <h3 class="project-title">Breast Cancer Detection with Explainable AI</h3>
-              <div class="project-type">Student Research • Healthcare AI</div>
-            </div>
-            <div class="project-content">
-              <p class="project-description">Trained YOLOv8 on 5,000+ mammograms (VinDr‑Mammo) for multi‑lesion detection (~85% accuracy). Applied Grad‑CAM, LIME, SHAP to enhance interpretability and clinician trust.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">5,000+</span><div class="metric-label">Images</div></div>
-                <div class="metric-item"><span class="metric-value">~85%</span><div class="metric-label">Accuracy</div></div>
-                <div class="metric-item"><span class="metric-value">XAI</span><div class="metric-label">Methods</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">YOLOv8</span><span class="tech-tag">Python</span><span class="tech-tag">Computer Vision</span><span class="tech-tag">Grad‑CAM</span><span class="tech-tag">LIME</span><span class="tech-tag">SHAP</span>
-              </div>
-          </article>
-
-          <!-- 3 (hidden by default) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Academic</span>
-              <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
-              <div class="project-type">Data Analysis • Urban Planning</div>
-            </div>
-            <div class="project-content">
-              <p class="project-description">Analyzed city complaint data to identify neighborhoods by response time & issue frequency; visualized concerns and resolution times with Python.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">City‑wide</span><div class="metric-label">Scope</div></div>
-                <div class="metric-item"><span class="metric-value">Multiple</span><div class="metric-label">Districts</div></div>
-                <div class="metric-item"><span class="metric-value">Actionable</span><div class="metric-label">Insights</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span><span class="tech-tag">Data Viz</span><span class="tech-tag">Urban Analytics</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix/blob/ffbae6768a13b7f30b8b53761052378f12c5556e/Property-Maintenance-Trends-in-Phoenix-Analysis.ipynb"/></svg><span>Analysis</span></a>
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix"/></svg><span>GitHub</span></a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 4 (hidden) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Strategy</span>
-              <h3 class="project-title">Zudio Market Expansion Strategy</h3>
-              <div class="project-type">Marketing Analytics • Business Strategy</div>
-            </div>
-            <div class="project-content">
-              <p class="project-description">Assessed US market entry: risks, cultural fit, supply chain; recommended phased rollout via ethnic urban clusters.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">Market</span><div class="metric-label">Assessment</div></div>
-                <div class="metric-item"><span class="metric-value">Strategic</span><div class="metric-label">Planning</div></div>
-                <div class="metric-item"><span class="metric-value">Phased</span><div class="metric-label">Rollout</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Market Research</span><span class="tech-tag">Competitive Analysis</span><span class="tech-tag">Business Planning</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="https://github.com/walia-sahil/Zudio-Marketing-Analysis/blob/main/Zudio_marketing_analysis.pdf"/></svg><span>Presentation</span></a>
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="https://github.com/walia-sahil/Zudio-Marketing-Analysis"/></svg><span>GitHub</span></a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 5 (hidden) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Computer Vision</span>
-              <h3 class="project-title">ASU Parking Problem Analysis</h3>
-              <div class="project-type">Computer Vision • Campus Solutions</div>
-            </div>
-            <div class="project-content">
-              <p class="project-description">Applied CV to detect congestion & illegal usage zones; proposed app‑guided parking and behavioral nudges.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">Real‑world</span><div class="metric-label">Impact</div></div>
-                <div class="metric-item"><span class="metric-value">CV</span><div class="metric-label">Approach</div></div>
-                <div class="metric-item"><span class="metric-value">Cost‑effective</span><div class="metric-label">Solutions</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Computer Vision</span><span class="tech-tag">Python</span><span class="tech-tag">Image Processing</span><span class="tech-tag">Data Analysis</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="https://github.com/walia-sahil/CV-Based-Parking-Solution/blob/2dad89f265a0d1a1941fbfe424ae6d9735b0619b/Team312_CV_Based_Parking_Monitoring_Solution_discussion.pdf"/></svg><span>Presentation</span></a>
-                <a href="#" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="https://github.com/walia-sahil/CV-Based-Parking-Solution"/></svg><span>GitHub</span></a>
-              </div>
-            </div>
-          </article>
+        <div class="project-content">
+          <p class="project-description">Developed a robust RoBERTa-powered NLP pipeline in Python that analyzed over 100,000 Reddit and YouTube comments. Created executive-grade dashboards in Tableau to surface product pain points and brand sentiment trends, culminating in a presentation to the CIO and global leadership.</p>
+          <div class="project-metrics" aria-label="Key results">
+            <div class="metric-item"><span class="metric-value">100K+</span><div class="metric-label">Comments</div></div>
+            <div class="metric-item"><span class="metric-value">Executive</span><div class="metric-label">Presentation</div></div>
+            <div class="metric-item"><span class="metric-value">Cross‑Platform</span><div class="metric-label">Sources</div></div>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span><span class="tech-tag">RoBERTa</span><span class="tech-tag">NLP</span><span class="tech-tag">Sentiment Analysis</span><span class="tech-tag">Tableau</span>
+          </div>
         </div>
+      </article>
 
-        <div style="text-align:center;margin-top:2rem">
-          <button id="viewAllBtn" class="btn btn-secondary">
-            <span id="btnText">View All Projects</span>
-            <svg id="btnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
+      <!-- 2 -->
+      <article class="project-card fade-in project-visible">
+        <div class="project-header">
+          <span class="project-badge">Research</span>
+          <div class="project-icon">🧠</div>
+          <h3 class="project-title">Breast Cancer Detection with Explainable AI</h3>
+          <div class="project-type">Student Research • Healthcare AI</div>
         </div>
-      </div>
-    </section>
+        <div class="project-content">
+          <p class="project-description">Engineered and trained a YOLOv8 model on a dataset of 5,000+ mammograms (VinDr-Mammo) for multi-lesion detection, achieving approximately 85% accuracy. Implemented Grad‑CAM, LIME, and SHAP to provide transparency and build clinician trust in diagnostic outputs.</p>
+          <div class="project-metrics">
+            <div class="metric-item"><span class="metric-value">5,000+</span><div class="metric-label">Images</div></div>
+            <div class="metric-item"><span class="metric-value">~85%</span><div class="metric-label">Accuracy</div></div>
+            <div class="metric-item"><span class="metric-value">XAI</span><div class="metric-label">Methods</div></div>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">YOLOv8</span><span class="tech-tag">Computer Vision</span><span class="tech-tag">Python</span><span class="tech-tag">Grad‑CAM</span><span class="tech-tag">LIME</span><span class="tech-tag">SHAP</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 (hidden by default) -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Academic</span>
+          <div class="project-icon">🏢</div>
+          <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
+          <div class="project-type">Data Analysis • Urban Planning</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Conducted a comprehensive analysis of city maintenance complaint data to map neighborhoods by issue frequency and response timelines. Delivered actionable visual dashboards using Python, enabling city planners to prioritize resources effectively.</p>
+          <div class="project-metrics">
+            <div class="metric-item"><span class="metric-value">City‑wide</span><div class="metric-label">Coverage</div></div>
+            <div class="metric-item"><span class="metric-value">Multiple</span><div class="metric-label">Districts</div></div>
+            <div class="metric-item"><span class="metric-value">Actionable</span><div class="metric-label">Insights</div></div>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span><span class="tech-tag">Data Visualization</span><span class="tech-tag">Urban Analytics</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix/blob/ffbae6768a13b7f30b8b53761052378f12c5556e/Property-Maintenance-Trends-in-Phoenix-Analysis.ipynb" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Analysis</span>
+            </a>
+            <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 (hidden) -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Strategy</span>
+          <div class="project-icon">🛍️</div>
+          <h3 class="project-title">Zudio Market Expansion Strategy</h3>
+          <div class="project-type">Marketing Analytics • Business Strategy</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Designed a strategic market entry plan for U.S. expansion of Zudio, evaluating risk profiles, cultural fit, and supply chain logistics. Proposed a phased rollout targeted at ethnic urban clusters for maximum cultural resonance and operational efficiency.</p>
+          <div class="project-metrics">
+            <div class="metric-item"><span class="metric-value">Market</span><div class="metric-label">Research</div></div>
+            <div class="metric-item"><span class="metric-value">Strategic</span><div class="metric-label">Planning</div></div>
+            <div class="metric-item"><span class="metric-value">Phased</span><div class="metric-label">Rollout</div></div>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">Market Research</span><span class="tech-tag">Competitive Analysis</span><span class="tech-tag">Business Strategy</span><span class="tech-tag">Strategic Planning</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/walia-sahil/Zudio-Marketing-Analysis/blob/main/Zudio_marketing_analysis.pdf" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Presentation</span>
+            </a>
+            <a href="https://github.com/walia-sahil/Zudio-Marketing-Analysis" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 (hidden) -->
+      <article class="project-card fade-in project-hidden">
+        <div class="project-header">
+          <span class="project-badge">Computer Vision</span>
+          <div class="project-icon">🅿️</div>
+          <h3 class="project-title">ASU Parking Problem Analysis</h3>
+          <div class="project-type">Computer Vision • Campus Solutions</div>
+        </div>
+        <div class="project-content">
+          <p class="project-description">Applied computer vision techniques to identify parking congestion and illegal zones on the ASU campus. Proposed a smart, cost-effective mobile app solution that guides users to available parking and nudges behavioral shifts in real time.</p>
+          <div class="project-metrics">
+            <div class="metric-item"><span class="metric-value">Real‑world</span><div class="metric-label">Impact</div></div>
+            <div class="metric-item"><span class="metric-value">Cost‑effective</span><div class="metric-label">Solutions</div></div>
+            <div class="metric-item"><span class="metric-value">Smart</span><div class="metric-label">Innovation</div></div>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-tag">Computer Vision</span><span class="tech-tag">Python</span><span class="tech-tag">Image Processing</span><span class="tech-tag">Data Analysis</span><span class="tech-tag">Mobile App Strategy</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/walia-sahil/CV-Based-Parking-Solution/blob/2dad89f265a0d1a1941fbfe424ae6d9735b0619b/Team312_CV_Based_Parking_Monitoring_Solution_discussion.pdf" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span>Presentation</span>
+            </a>
+            <a href="https://github.com/walia-sahil/CV-Based-Parking-Solution" target="_blank" rel="noopener noreferrer" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem">
+      <button id="viewAllBtn" class="btn btn-secondary">
+        <span id="btnText">View All Projects</span>
+        <svg id="btnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
 
     <!-- JOURNEY -->
     <section id="journey" aria-label="Professional Journey">
