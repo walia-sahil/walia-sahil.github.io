@@ -765,7 +765,6 @@ section{padding:6rem 0;position:relative}
           <article class="project-card fade-in project-visible">
             <div class="project-header">
               <span class="project-badge">Capstone</span>
-              <div class="project-icon">🤖</div>
               <h3 class="project-title">Capstone — AI Sentiment Analyzer</h3>
               <div class="project-type">ASU Capstone • NLP Analytics</div>
             </div>
@@ -786,7 +785,6 @@ section{padding:6rem 0;position:relative}
           <article class="project-card fade-in project-visible">
             <div class="project-header">
               <span class="project-badge">Research</span>
-              <div class="project-icon">🧠</div>
               <h3 class="project-title">Breast Cancer Detection with Explainable AI</h3>
               <div class="project-type">Student Research • Healthcare AI</div>
             </div>
@@ -806,7 +804,6 @@ section{padding:6rem 0;position:relative}
           <article class="project-card fade-in project-hidden">
             <div class="project-header">
               <span class="project-badge">Academic</span>
-              <div class="project-icon">🏢</div>
               <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
               <div class="project-type">Data Analysis • Urban Planning</div>
             </div>
@@ -831,7 +828,6 @@ section{padding:6rem 0;position:relative}
           <article class="project-card fade-in project-hidden">
             <div class="project-header">
               <span class="project-badge">Strategy</span>
-              <div class="project-icon">🛍️</div>
               <h3 class="project-title">Zudio Market Expansion Strategy</h3>
               <div class="project-type">Marketing Analytics • Business Strategy</div>
             </div>
@@ -856,7 +852,6 @@ section{padding:6rem 0;position:relative}
           <article class="project-card fade-in project-hidden">
             <div class="project-header">
               <span class="project-badge">Computer Vision</span>
-              <div class="project-icon">🅿️</div>
               <h3 class="project-title">ASU Parking Problem Analysis</h3>
               <div class="project-type">Computer Vision • Campus Solutions</div>
             </div>
@@ -1745,6 +1740,17 @@ viewAllCertsBtn?.addEventListener('click', ()=>{
       btnLoader.style.display = 'none';
     }
   });
+
+  // Touch gestures for navbar (optional but safe)
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, {passive:true});
+  document.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].screenY - touchStartY;
+    if (!navbar) return;
+    if (delta < -50 && window.pageYOffset > 150) navbar.style.transform = 'translateY(-100%)';
+    if (delta > 50) navbar.style.transform = 'translateY(0)';
+  }, {passive:true});
+})();
 </script>
 </body>
 </html>
