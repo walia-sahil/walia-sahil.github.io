@@ -26,9 +26,9 @@
   --text-primary:#1e293b;--text-secondary:#475569;--text-muted:#64748b;
   --border-color:rgba(226,232,240,.8);--border-hover:rgba(124,58,237,.3);
   --nav-bg:rgba(255,255,255,.95);--nav-border:rgba(226,232,240,.6);
-  --gradient-card:linear-gradient(135deg,rgba(124,58,237,.03) 0%,rgba(59,130,246,.03) 100%);
+  --gradient-card:linear-gradient(135deg,rgba(76,29,149,.03) 0%,rgba(30,64,175,.03) 100%);
   --shadow-sm:0 2px 8px rgba(0,0,0,.04);--shadow-md:0 8px 24px rgba(0,0,0,.06);--shadow-lg:0 20px 40px rgba(0,0,0,.08);--shadow-glow:0 0 30px rgba(124,58,237,.3);
-  --gradient-primary:linear-gradient(135deg,#7c3aed 0%,#3b82f6 100%);--gradient-secondary:linear-gradient(135deg,#a78bfa 0%,#60a5fa 100%);--gradient-text:linear-gradient(135deg,#7c3aed 0%,#3b82f6 50%,#8b5cf6 100%);
+  --gradient-primary:linear-gradient(135deg,#4c1d95 0%,#1e40af 100%);--gradient-secondary:linear-gradient(135deg,#7c3aed 0%,#2563eb 100%);--gradient-text:linear-gradient(135deg,#4c1d95 0%,#1e40af 50%,#6d28d9 100%);
   --nav-height:72px;--radius:12px;--radius-lg:20px;--transition-fast:200ms ease;--transition-base:300ms ease;--transition-slow:500ms ease;
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}}
@@ -121,7 +121,7 @@ section{padding:6rem 0;position:relative}
 .hero-image:hover{transform:scale(1.05);border-color:var(--primary-purple);box-shadow:var(--shadow-glow)}
 .hero-image img{width:100%;height:100%;object-fit:cover;border:none}
 .hero-badge{display:inline-block;background:var(--gradient-secondary);color:#fff;padding:10px 20px;border-radius:25px;font-size:.9rem;font-weight:600;margin-bottom:2rem}
-.hero-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:4.25rem;margin-bottom:1rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-title{font-family:'Inter',sans-serif;font-weight:500;font-size:4.25rem;margin-bottom:1rem;letter-spacing:-0.02em;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-subtitle{font-size:1.4rem;color:var(--text-secondary);margin-bottom:1rem;font-weight:600}
 .hero-description{font-size:1.1rem;color:var(--text-secondary);max-width:760px;margin:0 auto 2.5rem;line-height:1.7}
 
@@ -253,8 +253,57 @@ section{padding:6rem 0;position:relative}
 .cert-visible{display:flex}
 
 /* Beyond */
-.interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-.interest-card{text-align:center}
+.interests-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:2rem;
+  align-items:stretch;
+}
+
+.interest-card{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.interest-image{
+  width:100%;
+  height:250px;
+  overflow:hidden;
+  border-radius:var(--radius);
+  margin-bottom:1.5rem;
+  flex-shrink:0;
+}
+
+.interest-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform var(--transition-base);
+}
+
+.interest-card:hover .interest-image img{
+  transform:scale(1.05);
+}
+
+.interest-card h3{
+  color:var(--accent-purple);
+  margin-bottom:1rem;
+  font-size:1.25rem;
+  font-weight:600;
+  flex-shrink:0;
+}
+
+.interest-card p{
+  color:var(--text-secondary);
+  line-height:1.6;
+  flex-grow:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
 
 /* Modern Contact Section Styles */
 .contact-layout {
@@ -536,6 +585,47 @@ section{padding:6rem 0;position:relative}
 .stat-label, .cert-date {
   font-family: 'Source Code Pro', monospace;
   font-weight: 500;
+}
+/* Interest Button Styling */
+.interest-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all var(--transition-base);
+  font-family: 'Source Code Pro', monospace;
+}
+
+.interest-button:hover {
+  background: var(--primary-purple);
+  color: #fff;
+  border-color: var(--primary-purple);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.interest-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-base);
+}
+
+.interest-button:hover svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .interest-button {
+    width: 100%;
+    justify-content: center;
+  }
 }
   </style>
 </head>
@@ -985,85 +1075,97 @@ section{padding:6rem 0;position:relative}
           <p class="section-subtitle">A modern analytics toolkit</p>
         </div>
 
-        <div class="skills-showcase">
-          <!-- BI -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">📊</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Business Intelligence & Visualization</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Tableau (Advanced/Certified)</span><span class="skill-percentage">95%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Office</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Power BI</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-            </div>
-          </div>
+  <div class="skills-showcase">
+  <!-- BI -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">📊</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Business Intelligence</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Tableau (Advanced/Certified)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Excel (Advanced)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Data Visualization Design</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Power BI</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Business Intelligence Strategy</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+    </div>
+  </div>
 
-          <!-- Eng -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">💻</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Data Engineering & Programming</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Python (pandas, NumPy, scikit‑learn)</span><span class="skill-percentage">95%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">SQL (Snowflake, Postgres)</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">ETL/ELT Pipelines</span><span class="skill-percentage">88%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
-            </div>
-          </div>
+  <!-- Engineering -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">💻</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Data Engineering</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Python (pd,np,sci-kit)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">SQL (Multiple Platforms)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:92%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">ETL/ELT Pipelines</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Data Integration</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Database Management</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
+    </div>
+  </div>
 
-          <!-- ML -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">🤖</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Machine Learning & AI</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Machine Learning</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Predictive Modeling</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">PyTorch</span><span class="skill-percentage">75%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
-            </div>
-          </div>
+  <!-- ML & AI -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">🤖</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Machine Learning & AI</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Machine Learning</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Natural Language Processing</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Computer Vision</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Predictive Modeling</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:87%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Explainable AI (XAI)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:75%"></div></div></div>
+    </div>
+  </div>
 
-          <!-- Cloud -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">☁️</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Cloud & Platforms</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">AWS (Redshift, S3)</span><span class="skill-percentage">85%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Data Warehousing</span><span class="skill-percentage">80%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Azure Data Fundamentals</span><span class="skill-percentage">75%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:75%"></div></div></div>
-            </div>
-          </div>
+  <!-- Cloud -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">☁️</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Cloud & Platforms</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">AWS (Core Services)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:82%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Azure Fundamentals</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:75%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Data Warehousing</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Google Cloud Platform</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:70%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Snowflake</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
+    </div>
+  </div>
 
-          <!-- Stats -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">📈</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Statistical & Analytical Methods</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Statistical Analysis</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Statistical Modeling</span><span class="skill-percentage">88%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Process Improvement</span><span class="skill-percentage">85%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
-            </div>
-          </div>
+  <!-- Statistical -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">📈</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Statistical & Analytical Methods</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Statistical Analysis</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Descriptive & Predictive Statistics</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">A/B Testing & Experimentation</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:80%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Risk Analysis</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Process Improvement</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+    </div>
+  </div>
 
-          <!-- Healthcare -->
-          <div class="card fade-in">
-            <div class="skill-category-header">
-              <div class="skill-category-icon" aria-hidden="true">🏥</div>
-              <h3 style="color:var(--accent-purple);margin-bottom:1rem">Healthcare & Clinical Analytics</h3>
-            </div>
-            <div class="skill-list">
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Healthcare Analytics</span><span class="skill-percentage">95%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Clinical Trials</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-              <div class="skill-item"><div class="skill-info"><span class="skill-name">Risk‑Based Monitoring</span><span class="skill-percentage">90%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
-            </div>
-          </div>
-        </div>
+  <!-- Healthcare -->
+  <div class="card fade-in">
+    <div class="skill-category-header">
+      <div class="skill-category-icon" aria-hidden="true">🏥</div>
+      <h3 style="color:var(--accent-purple);margin-bottom:1rem">Healthcare & Clinical Analytics</h3>
+    </div>
+    <div class="skill-list">
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Clinical Trials Analytics</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:95%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Risk‑Based Monitoring</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:92%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Healthcare Data Analysis</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:90%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Regulatory Compliance (ICH-GCP)</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-info"><span class="skill-name">Medical Device/Pharma Analytics</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" style="width:88%"></div></div></div>
+    </div>
+  </div>
+</div>
       </div>
     </section>
 
@@ -1179,33 +1281,65 @@ section{padding:6rem 0;position:relative}
       </div>
     </section>
 
-    <!-- BEYOND WORK -->
-    <section id="beyond" aria-label="Beyond Work">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Personal</span>
-          <h2 class="section-title">Beyond Work</h2>
-          <p class="section-subtitle">Interests that fuel creativity</p>
-        </div>
-        <div class="interests-grid">
-          <div class="interest-card card fade-in">
-            <div class="interest-image"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=250&fit=crop" alt="Technology & Innovation" loading="lazy" /></div>
-            <h3 style="color:var(--accent-purple);margin-bottom:1rem">Technology & Innovation</h3>
-            <p style="color:var(--text-secondary)">Passionate about emerging tech, AI, and fresh dataviz techniques; active in tech communities and open source.</p>
-          </div>
-          <div class="interest-card card fade-in">
-            <div class="interest-image"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Automotive Engineering" loading="lazy" /></div>
-            <h3 style="color:var(--accent-purple);margin-bottom:1rem">Automotive Engineering</h3>
-            <p style="color:var(--text-secondary)">Lifelong motorsports fan; former collegiate team lead; fascinated by data‑driven performance optimization.</p>
-          </div>
-          <div class="interest-card card fade-in">
-            <div class="interest-image"><img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&h=250&fit=crop" alt="Community & Mentorship" loading="lazy" /></div>
-            <h3 style="color:var(--accent-purple);margin-bottom:1rem">Community & Mentorship</h3>
-            <p style="color:var(--text-secondary)">Mentoring aspiring analysts; workshops and STEM initiatives to help others navigate analytics careers.</p>
-          </div>
+  <!-- BEYOND WORK -->
+<section id="beyond" aria-label="Beyond Work">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Personal</span>
+      <h2 class="section-title">Beyond Work</h2>
+      <p class="section-subtitle">Interests that fuel creativity</p>
+    </div>
+    <div class="interests-grid">
+      <div class="interest-card card fade-in">
+     <div class="interest-image"><img src="images/medium%20profile%20SW.png" alt="Technology & Innovation" loading="lazy" /></div>
+        <h3 style="color:var(--accent-purple);margin-bottom:1rem">Technology & Innovation</h3>
+        <p style="color:var(--text-secondary)">An active contributor to data forums such as Tableau and Google Cloud, I stay engaged with emerging technological trends and recently began publishing data-driven insights on Medium.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://medium.com/@sahilwalia1" target="_blank" rel="noopener noreferrer" class="interest-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+            <span>Read on Medium</span>
+          </a>
         </div>
       </div>
-    </section>
+      
+      <div class="interest-card card fade-in">
+        <div class="interest-image"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Automotive Engineering" loading="lazy" /></div>
+        <h3 style="color:var(--accent-purple);margin-bottom:1rem">Automotive Engineering</h3>
+        <p style="color:var(--text-secondary)">Lifelong motorsports enthusiast with extensive experience in student motorsports. Led Team Enigmatic Plodder through multiple collegiate championships, applying data‑driven performance optimization to racing dynamics.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://www.instagram.com/team_enigmaticplodder/" target="_blank" rel="noopener noreferrer" class="interest-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <path d="M17.5 6.5h.01"/>
+            </svg>
+            <span>Team Instagram</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="interest-card card fade-in">
+  <div class="interest-image"><img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&h=250&fit=crop" alt="Community & Mentorship" loading="lazy" /></div>
+  <h3 style="color:var(--accent-purple);margin-bottom:1rem">Community & Mentorship</h3>
+  <p style="color:var(--text-secondary)">Mentoring aspiring analysts through workshops and collaborations. Previously involved in CSR programs (ZS Cares, Blooming Beacon), contributing to educational outreach through structured guidance.</p>
+  <div style="margin-top:1.5rem;">
+    <a href="https://www.zs.com/life-at-zs-insights/zs-cares-day-2023" target="_blank" rel="noopener noreferrer" class="interest-button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2v-5.5A4.5 4.5 0 0 1 7.5 9h1a4.5 4.5 0 0 1 4.5 4.5V19a2 2 0 0 1-2 2Z"/>
+        <path d="M12 9V7a3 3 0 0 0-6 0v2"/>
+        <path d="M15 17h.01"/>
+        <path d="M12 17h.01"/>
+        <path d="M9 17h.01"/>
+      </svg>
+      <span>Learn More</span>
+    </a>
+  </div>
+</div>
+  </div>
+</section>
 
     <!-- CONTACT -->
 <section id="contact" aria-label="Contact Information">
