@@ -1553,24 +1553,21 @@ section{padding:6rem 0;position:relative}
     menuToggle?.setAttribute('aria-expanded','false');
   }));
 
-  // Navbar show/hide on scroll + progress
-  const navbar = $('.navbar');
-  let lastY = window.scrollY;
-  const progress = $('#scrollProgress');
-  function onScroll(){
-    const y = window.scrollY;
-    if (navbar){
-      if (y > 100) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
-      if (window.innerWidth > 768){
-        navbar.style.transform = (y > lastY && y > 150) ? 'translateY(-100%)' : 'translateY(0)';
-      }
-    }
-    const h = document.documentElement;
-    const pct = (h.scrollTop /(h.scrollHeight - h.clientHeight)) * 100;
-    if (progress) progress.style.width = pct + '%';
-    lastY = y;
-    toggleTopBtn();
+  // Navbar show/hide on scroll + progress (FIXED: Removed auto-hide)
+const navbar = $('.navbar');
+const progress = $('#scrollProgress');
+function onScroll(){
+  const y = window.scrollY;
+  if (navbar){
+    if (y > 100) navbar.classList.add('scrolled'); 
+    else navbar.classList.remove('scrolled');
+    // REMOVED: Auto-hide logic that was hiding navbar on scroll
   }
+  const h = document.documentElement;
+  const pct = (h.scrollTop /(h.scrollHeight - h.clientHeight)) * 100;
+  if (progress) progress.style.width = pct + '%';
+  toggleTopBtn();
+}
   document.addEventListener('scroll', onScroll, {passive:true});
 
   // Active link syncing
@@ -1654,19 +1651,33 @@ section{padding:6rem 0;position:relative}
     const icon = $('#btnIcon'); icon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
   });
 
-  const viewAllCertsBtn = $('#viewAllCertsBtn');
-  const certGrid = $('#certGrid');
-  viewAllCertsBtn?.addEventListener('click', ()=>{
-    const hidden = $$('.cert-hidden', certGrid);
-    const makeVisible = hidden.length > 0;
-    $$('.cert-card', certGrid).forEach(card=>{
-      card.classList.toggle('cert-hidden', !makeVisible && !card.classList.contains('cert-visible'));
-      if (makeVisible) card.classList.add('cert-visible');
-    });
-    $('#certBtnText').textContent = makeVisible ? 'Show Less' : 'View All 9 Certifications';
-    const icon = $('#certBtnIcon'); icon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+// View all Certifications (FIXED)
+const viewAllCertsBtn = $('#viewAllCertsBtn');
+const certGrid = $('#certGrid');
+viewAllCertsBtn?.addEventListener('click', ()=>{
+  const hiddenCerts = $$('.cert-hidden', certGrid);
+  const makeVisible = hiddenCerts.length > 0;
+  
+  $$('.cert-card', certGrid).forEach(card=>{
+    if (makeVisible) {
+      // Show all certificates
+      card.classList.remove('cert-hidden');
+      card.classList.add('cert-visible');
+    } else {
+      // Hide all except first 3
+      const isInitiallyVisible = Array.from($$('.cert-card', certGrid)).indexOf(card) < 3;
+      if (!isInitiallyVisible) {
+        card.classList.add('cert-hidden');
+        card.classList.remove('cert-visible');
+      }
+    }
   });
-
+  
+  const btnText = $('#certBtnText');
+  const btnIcon = $('#certBtnIcon');
+  if (btnText) btnText.textContent = makeVisible ? 'Show Less' : 'View All 9 Certifications';
+  if (btnIcon) btnIcon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+});
   // Scroll-to-top
   const topBtn = $('#scrollToTop');
   function toggleTopBtn(){ if (!topBtn) return; const show = window.scrollY > 600; topBtn.classList.toggle('visible', show); }
@@ -1734,17 +1745,6 @@ section{padding:6rem 0;position:relative}
       btnLoader.style.display = 'none';
     }
   });
-
-  // Touch gestures for navbar (optional but safe)
-  let touchStartY = 0;
-  document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, {passive:true});
-  document.addEventListener('touchend', e => {
-    const delta = e.changedTouches[0].screenY - touchStartY;
-    if (!navbar) return;
-    if (delta < -50 && window.pageYOffset > 150) navbar.style.transform = 'translateY(-100%)';
-    if (delta > 50) navbar.style.transform = 'translateY(0)';
-  }, {passive:true});
-})();
 </script>
 </body>
 </html>
