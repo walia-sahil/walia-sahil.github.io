@@ -230,15 +230,31 @@ section{padding:6rem 0;position:relative}
 /* Skills */
 .skills-showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
 .skill-list{display:flex;flex-direction:column;gap:1.25rem}
-.skill-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
-.skill-name{font-weight:700}
-.skill-name-main{font-weight:700}
-.skill-name-sub{font-weight:400;color:var(--text-muted)}
-.skill-percentage{font-size:.9rem;font-weight:700;color:var(--primary-purple);min-width:40px;text-align:right}
-.skill-progress-bar{width:100%;height:8px;background:var(--bg-secondary);border-radius:4px;overflow:hidden}
-.skill-progress-fill{height:100%;background:var(--gradient-primary);border-radius:4px;position:relative}
-.skill-progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 2s infinite}
+.skill-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;gap:1rem}
+.skill-name{font-weight:700;font-size:0.85rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.skill-name-main{font-weight:700;font-size:0.85rem}
+.skill-name-sub{font-weight:400;color:var(--text-muted);font-size:0.75rem}
+.skill-percentage{font-size:.85rem;font-weight:700;color:var(--primary-purple);min-width:45px;text-align:right;flex-shrink:0}
+.skill-progress-bar{width:100%;height:4px;background:var(--bg-secondary);border-radius:2px;overflow:hidden}
+.skill-progress-fill{height:100%;background:var(--gradient-primary);border-radius:2px;position:relative}
+.skill-progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);transition:transform 0s}
+.skill-item:hover .skill-progress-fill::after{animation:shimmer 2s infinite}
 @keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+/* Responsive adjustments for smaller screens */
+@media(max-width:768px){
+.skill-name{font-size:0.8rem}
+.skill-name-main{font-size:0.8rem}
+.skill-name-sub{font-size:0.7rem}
+.skill-percentage{font-size:0.8rem;min-width:40px}
+}
+
+@media(max-width:480px){
+.skill-name{font-size:0.75rem}
+.skill-name-main{font-size:0.75rem}
+.skill-name-sub{font-size:0.65rem}
+.skill-percentage{font-size:0.75rem;min-width:35px}
+}
 
 /* Certifications */
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-bottom:2rem}
@@ -1014,7 +1030,7 @@ section{padding:6rem 0;position:relative}
       <div class="journey-meta"><span class="journey-institution">Arizona State University | W. P. Carey School of Business</span><span class="journey-period-modern">Aug 2024 — May 2025</span><span class="journey-gpa">GPA: 3.78 / 4.0</span></div>
     </div>
     <div class="journey-card-content">
-      <p class="journey-summary">Earned my Master's Degree, where I applied data science and advanced analytics to industry projects across healthcare, consumer sentiment, and business transformation. Unlearnt and learnt ways of doing business in the US markets through the means of effective collaborations with academic and industry partners.</p>
+      <p class="journey-summary">Earned my Master's Degree, where I applied data science and advanced analytics to industry projects across healthcare, consumer sentiment, and business transformation. Unlearning outdated business practices and adopting new approaches to succeed in US markets through effective collaborations with academic and industry partners.</p>
       <button class="read-more-btn-modern" data-target="journey-1"><span>Read More</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </button>
@@ -1214,7 +1230,7 @@ section{padding:6rem 0;position:relative}
           <div class="skill-item">
             <div class="skill-info">
               <span class="skill-name">
-                <span class="skill-name-main">Power BI</span>
+                <span class="skill-name-main">Power BI </span>
               </span>
               <span class="skill-percentage">85%</span>
             </div>
@@ -1223,7 +1239,8 @@ section{padding:6rem 0;position:relative}
           <div class="skill-item">
             <div class="skill-info">
               <span class="skill-name">
-                <span class="skill-name-main">Business Intelligence Strategy</span>
+                <span class="skill-name-main">Data Analysis Expressions </span>
+                <span class="skill-name-sub">(DAX)</span>
               </span>
               <span class="skill-percentage">85%</span>
             </div>
@@ -1242,7 +1259,7 @@ section{padding:6rem 0;position:relative}
             <div class="skill-info">
               <span class="skill-name">
                 <span class="skill-name-main">Python</span> 
-                <span class="skill-name-sub">(pd, np, sci-kit)</span>
+                <span class="skill-name-sub">(pandas, numpy, sci-kit)</span>
               </span>
               <span class="skill-percentage">95%</span>
             </div>
@@ -1252,7 +1269,7 @@ section{padding:6rem 0;position:relative}
             <div class="skill-info">
               <span class="skill-name">
                 <span class="skill-name-main">SQL</span> 
-                <span class="skill-name-sub">(Multiple Platforms)</span>
+                <span class="skill-name-sub">(MySQL | Snowflake)</span>
               </span>
               <span class="skill-percentage">92%</span>
             </div>
@@ -1461,7 +1478,7 @@ section{padding:6rem 0;position:relative}
           <div class="skill-item">
             <div class="skill-info">
               <span class="skill-name">
-                <span class="skill-name-main">Clinical Trials Analytics</span>
+                <span class="skill-name-main">Clinical Trials Operations</span>
               </span>
               <span class="skill-percentage">95%</span>
             </div>
@@ -1489,7 +1506,7 @@ section{padding:6rem 0;position:relative}
             <div class="skill-info">
               <span class="skill-name">
                 <span class="skill-name-main">Regulatory Compliance</span> 
-                <span class="skill-name-sub">(ICH-GCP)</span>
+                <span class="skill-name-sub">(GCP)</span>
               </span>
               <span class="skill-percentage">85%</span>
             </div>
@@ -1498,7 +1515,7 @@ section{padding:6rem 0;position:relative}
           <div class="skill-item">
             <div class="skill-info">
               <span class="skill-name">
-                <span class="skill-name-main">Medical Device/Pharma Analytics</span>
+                <span class="skill-name-main">Site Selection Strategies</span>
               </span>
               <span class="skill-percentage">88%</span>
             </div>
