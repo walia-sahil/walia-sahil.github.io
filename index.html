@@ -198,7 +198,421 @@ img {
     transform: translateY(0);
   }
 }
+/* ================= Tutorial Overlay ================= */
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
 
+.tutorial-overlay.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tutorial-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.tutorial-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tutorial Steps */
+.tutorial-step {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.tutorial-step.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.tutorial-step.exiting {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.9);
+}
+
+/* Tutorial Cards */
+.tutorial-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  max-width: 480px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.tutorial-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.tutorial-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tutorial-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: #fff;
+  animation: tutorialPulse 2s ease-in-out infinite;
+}
+
+.tutorial-step-welcome .tutorial-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.tutorial-card h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tutorial-card h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.tutorial-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Specific Step Styles */
+.tutorial-step-nav .tutorial-card {
+  max-width: 350px;
+  position: fixed;
+  top: 120px;
+  right: 50px;
+  transform-origin: top right;
+}
+
+.tutorial-step-scroll .tutorial-card {
+  max-width: 380px;
+  position: fixed;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tutorial-step-theme .tutorial-card {
+  max-width: 320px;
+  position: fixed;
+  top: 120px;
+  right: 50px;
+}
+
+.tutorial-step-top .tutorial-card {
+  max-width: 320px;
+  position: fixed;
+  bottom: 120px;
+  right: 80px;
+}
+
+/* Highlight Effects */
+.tutorial-highlight-nav,
+.tutorial-highlight-theme,
+.tutorial-highlight-top {
+  position: fixed;
+  pointer-events: none;
+  border: 3px solid var(--primary-purple);
+  border-radius: var(--radius);
+  background: rgba(124, 58, 237, 0.1);
+  animation: tutorialGlow 2s ease-in-out infinite;
+  z-index: 9999;
+}
+
+.tutorial-highlight-nav {
+  top: 10px;
+  right: 10px;
+  left: 10px;
+  height: 72px;
+  border-radius: var(--radius-lg);
+}
+
+.tutorial-highlight-theme {
+  top: 21px;
+  right: 20px;
+  width: 60px;
+  height: 38px;
+  border-radius: 25px;
+}
+
+.tutorial-highlight-top {
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+/* Scroll Indicator */
+.tutorial-scroll-indicator {
+  margin-top: 1rem;
+}
+
+.scroll-arrow-animated {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  color: #fff;
+  animation: tutorialBounce 2s ease-in-out infinite;
+}
+
+/* Tutorial Controls */
+.tutorial-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  min-width: 320px;
+}
+
+.tutorial-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.tutorial-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.tutorial-progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tutorial-step-counter {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-family: 'Source Code Pro', monospace;
+  min-width: 60px;
+  text-align: center;
+}
+
+.tutorial-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.tutorial-btn-skip {
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border-color);
+}
+
+.tutorial-nav-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.tutorial-btn {
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 0;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+  background: var(--gradient-primary);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.tutorial-btn::before {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s;
+  pointer-events: none;
+}
+
+.tutorial-btn:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.tutorial-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tutorial-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.tutorial-btn-prev {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Animations */
+@keyframes tutorialPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.3); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
+}
+
+@keyframes tutorialGlow {
+  0%, 100% { 
+    border-color: var(--primary-purple); 
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
+  }
+  50% { 
+    border-color: var(--accent-purple); 
+    box-shadow: 0 0 0 10px rgba(124, 58, 237, 0);
+  }
+}
+
+@keyframes tutorialBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .tutorial-card {
+    padding: 2rem 1.5rem;
+    max-width: calc(100vw - 2rem);
+    margin: 0 1rem;
+  }
+  
+  .tutorial-step-nav .tutorial-card,
+  .tutorial-step-theme .tutorial-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
+  
+  .tutorial-step-scroll .tutorial-card,
+  .tutorial-step-top .tutorial-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+  
+  .tutorial-highlight-nav {
+    top: 5px;
+    right: 5px;
+    left: 5px;
+  }
+  
+  .tutorial-highlight-theme {
+    top: 21px;
+    right: 15px;
+  }
+  
+  .tutorial-controls {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    transform: none;
+    min-width: auto;
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .tutorial-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .tutorial-nav-buttons {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .tutorial-btn {
+    flex: 1;
+  }
+}
 /* ================= Background ================= */
 .bg-canvas {
   position: fixed;
@@ -1953,7 +2367,109 @@ footer p:last-child {
 
   <!-- Background -->
   <div class="bg-canvas" aria-hidden="true"></div>
+<!-- Tutorial Overlay -->
+<div class="tutorial-overlay" id="tutorialOverlay" aria-hidden="true">
+  <div class="tutorial-backdrop"></div>
+  
+  <!-- Tutorial Content -->
+  <div class="tutorial-content">
+    <!-- Welcome Step -->
+    <div class="tutorial-step tutorial-step-welcome active" data-step="0">
+      <div class="tutorial-card">
+        <div class="tutorial-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11H5a2 2 0 0 0-2 2v3c0 3.5 2 5 5 5h1a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h1c3 0 5-1.5 5-5v-3a2 2 0 0 0-2-2h-4"/>
+            <path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </div>
+        <h3>Welcome to My Portfolio! 👋</h3>
+        <p>Let me give you a quick tour of the key features to help you navigate and explore my work.</p>
+      </div>
+    </div>
 
+    <!-- Navigation Step -->
+    <div class="tutorial-step tutorial-step-nav" data-step="1">
+      <div class="tutorial-card tutorial-card-nav">
+        <div class="tutorial-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M3 12h18M3 18h18"/>
+          </svg>
+        </div>
+        <h4>Navigation Menu</h4>
+        <p>Click any section to jump directly there, or use the mobile menu on smaller screens.</p>
+        <div class="tutorial-highlight-nav"></div>
+      </div>
+    </div>
+
+    <!-- Scroll Step -->
+    <div class="tutorial-step tutorial-step-scroll" data-step="2">
+      <div class="tutorial-card tutorial-card-scroll">
+        <div class="tutorial-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 13l3 3 7-7M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+          </svg>
+        </div>
+        <h4>Scroll to Explore</h4>
+        <p>Scroll down to discover my projects, experience, skills, and more!</p>
+        <div class="tutorial-scroll-indicator">
+          <div class="scroll-arrow-animated">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Toggle Step -->
+    <div class="tutorial-step tutorial-step-theme" data-step="3">
+      <div class="tutorial-card tutorial-card-theme">
+        <div class="tutorial-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </div>
+        <h4>Dark/Light Mode</h4>
+        <p>Toggle between light and dark themes for comfortable viewing.</p>
+        <div class="tutorial-highlight-theme"></div>
+      </div>
+    </div>
+
+    <!-- Back to Top Step -->
+    <div class="tutorial-step tutorial-step-top" data-step="4">
+      <div class="tutorial-card tutorial-card-top">
+        <div class="tutorial-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+        </div>
+        <h4>Back to Top</h4>
+        <p>When you scroll down, this button appears to quickly return to the top.</p>
+        <div class="tutorial-highlight-top"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tutorial Controls -->
+  <div class="tutorial-controls">
+    <div class="tutorial-progress">
+      <div class="tutorial-progress-bar">
+        <div class="tutorial-progress-fill"></div>
+      </div>
+      <span class="tutorial-step-counter">1 of 5</span>
+    </div>
+    
+    <div class="tutorial-buttons">
+      <button class="tutorial-btn tutorial-btn-skip" id="tutorialSkip">Skip Tour</button>
+      <div class="tutorial-nav-buttons">
+        <button class="tutorial-btn tutorial-btn-prev" id="tutorialPrev" disabled>Previous</button>
+        <button class="tutorial-btn tutorial-btn-next" id="tutorialNext">Next</button>
+        <button class="tutorial-btn tutorial-btn-start" id="tutorialStart" style="display: none;">Start Exploring</button>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Skip link -->
   <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -3071,11 +3587,304 @@ footer p:last-child {
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
   // Loader
-  window.addEventListener('load', () => {
-    const loader = $('#loader');
-    if (loader) loader.classList.add('hidden');
-    startAnimations();
+  // Enhanced startup with tutorial
+window.addEventListener('load', () => {
+  const loader = $('#loader');
+  if (loader) loader.classList.add('hidden');
+  
+  // Check if user has seen tutorial before
+  const hasSeenTutorial = localStorage.getItem('portfolioTutorialSeen');
+  
+  if (!hasSeenTutorial) {
+    // First time visitor - show tutorial after brief delay
+    setTimeout(() => {
+      showTutorial();
+    }, 800);
+  }
+  
+  startAnimations();
+});
+
+// Tutorial System
+function showTutorial() {
+  const overlay = $('#tutorialOverlay');
+  if (!overlay) return;
+  
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  
+  // Prevent page scrolling
+  document.body.style.overflow = 'hidden';
+  
+  initializeTutorial();
+}
+
+function hideTutorial() {
+  const overlay = $('#tutorialOverlay');
+  if (!overlay) return;
+  
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+  
+  // Restore page scrolling
+  document.body.style.overflow = '';
+  
+  // Mark as seen
+  localStorage.setItem('portfolioTutorialSeen', 'true');
+}
+
+let currentStep = 0;
+const totalSteps = 5;
+
+function initializeTutorial() {
+  const nextBtn = $('#tutorialNext');
+  const prevBtn = $('#tutorialPrev');
+  const skipBtn = $('#tutorialSkip');
+  const startBtn = $('#tutorialStart');
+  
+  // Event listeners
+  nextBtn?.addEventListener('click', nextStep);
+  prevBtn?.addEventListener('click', prevStep);
+  skipBtn?.addEventListener('click', skipTutorial);
+  startBtn?.addEventListener('click', completeTutorial);
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', handleTutorialKeydown);
+  
+  updateTutorialStep();
+}
+
+function handleTutorialKeydown(e) {
+  const overlay = $('#tutorialOverlay');
+  if (!overlay?.classList.contains('active')) return;
+  
+  switch(e.key) {
+    case 'ArrowRight':
+    case 'Space':
+      e.preventDefault();
+      nextStep();
+      break;
+    case 'ArrowLeft':
+      e.preventDefault();
+      prevStep();
+      break;
+    case 'Escape':
+      e.preventDefault();
+      skipTutorial();
+      break;
+  }
+}
+
+function nextStep() {
+  if (currentStep < totalSteps - 1) {
+    currentStep++;
+    updateTutorialStep();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    updateTutorialStep();
+  }
+}
+
+function updateTutorialStep() {
+  const steps = $$('.tutorial-step');
+  const progressFill = $('.tutorial-progress-fill');
+  const stepCounter = $('.tutorial-step-counter');
+  const nextBtn = $('#tutorialNext');
+  const prevBtn = $('#tutorialPrev');
+  const startBtn = $('#tutorialStart');
+  
+  // Update step visibility with smooth transitions
+  steps.forEach((step, index) => {
+    const isActive = index === currentStep;
+    const wasActive = step.classList.contains('active');
+    
+    if (isActive && !wasActive) {
+      // Entering step
+      step.classList.add('active');
+      step.classList.remove('exiting');
+    } else if (!isActive && wasActive) {
+      // Exiting step
+      step.classList.add('exiting');
+      setTimeout(() => {
+        step.classList.remove('active', 'exiting');
+      }, 250);
+    }
   });
+  
+  // Update progress bar
+  const progress = ((currentStep + 1) / totalSteps) * 100;
+  if (progressFill) progressFill.style.width = `${progress}%`;
+  
+  // Update step counter
+  if (stepCounter) stepCounter.textContent = `${currentStep + 1} of ${totalSteps}`;
+  
+  // Update navigation buttons
+  if (prevBtn) {
+    prevBtn.disabled = currentStep === 0;
+  }
+  
+  if (nextBtn && startBtn) {
+    if (currentStep === totalSteps - 1) {
+      nextBtn.style.display = 'none';
+      startBtn.style.display = 'inline-flex';
+    } else {
+      nextBtn.style.display = 'inline-flex';
+      startBtn.style.display = 'none';
+    }
+  }
+  
+  // Handle special highlighting for specific steps
+  handleStepHighlights();
+}
+
+function handleStepHighlights() {
+  // Remove all existing highlights
+  $$('.tutorial-highlight-nav, .tutorial-highlight-theme, .tutorial-highlight-top').forEach(el => {
+    el.style.display = 'none';
+  });
+  
+  switch(currentStep) {
+    case 1: // Navigation step
+      const navHighlight = $('.tutorial-highlight-nav');
+      if (navHighlight) navHighlight.style.display = 'block';
+      break;
+      
+    case 3: // Theme toggle step
+      const themeHighlight = $('.tutorial-highlight-theme');
+      if (themeHighlight) themeHighlight.style.display = 'block';
+      break;
+      
+    case 4: // Back to top step
+      const topHighlight = $('.tutorial-highlight-top');
+      if (topHighlight) {
+        topHighlight.style.display = 'block';
+        // Temporarily show the scroll-to-top button for demo
+        const topBtn = $('#scrollToTop');
+        if (topBtn) {
+          topBtn.classList.add('visible');
+          topBtn.style.opacity = '0.7';
+        }
+      }
+      break;
+  }
+}
+
+function skipTutorial() {
+  // Add skip animation
+  const overlay = $('#tutorialOverlay');
+  if (overlay) {
+    overlay.style.transform = 'scale(0.95)';
+    overlay.style.opacity = '0';
+  }
+  
+  setTimeout(hideTutorial, 300);
+}
+
+function completeTutorial() {
+  // Add completion animation
+  const overlay = $('#tutorialOverlay');
+  if (overlay) {
+    overlay.style.transform = 'scale(1.05)';
+    overlay.style.opacity = '0';
+  }
+  
+  setTimeout(() => {
+    hideTutorial();
+    // Reset scroll-to-top button
+    const topBtn = $('#scrollToTop');
+    if (topBtn) {
+      topBtn.classList.remove('visible');
+      topBtn.style.opacity = '';
+    }
+  }, 400);
+  
+  // Optional: Add a subtle welcome message
+  setTimeout(() => {
+    showWelcomeNotification();
+  }, 800);
+}
+
+function showWelcomeNotification() {
+  // Create and show a brief welcome notification
+  const notification = document.createElement('div');
+  notification.className = 'welcome-notification';
+  notification.innerHTML = `
+    <div class="welcome-content">
+      <span>🎉</span>
+      <span>Welcome! Feel free to explore my portfolio.</span>
+    </div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Add notification styles dynamically
+  const style = document.createElement('style');
+  style.textContent = `
+    .welcome-notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .welcome-notification.show {
+      transform: translateX(0);
+    }
+    .welcome-content {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    @media (max-width: 768px) {
+      .welcome-notification {
+        top: 80px;
+        right: 10px;
+        left: 10px;
+        transform: translateY(-100%);
+      }
+      .welcome-notification.show {
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Show notification
+  requestAnimationFrame(() => {
+    notification.classList.add('show');
+  });
+  
+  // Hide notification after 4 seconds
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+        document.head.removeChild(style);
+      }
+    }, 400);
+  }, 4000);
+}
+
+// Add manual tutorial trigger (for testing or re-showing)
+window.showPortfolioTutorial = function() {
+  currentStep = 0;
+  showTutorial();
+};
 
   // Theme
   const themeToggle = $('#themeToggle');
