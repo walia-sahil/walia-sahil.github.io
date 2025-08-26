@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-/* ================= CSS Variables (Optimized) ================= */
+/* ================= CSS Variables (Consolidated) ================= */
 :root {
   /* Colors */
   --primary-purple: #7c3aed;
@@ -86,6 +86,34 @@
   --shadow-lg: 0 20px 40px rgba(124, 58, 237, 0.2);
 }
 
+/* ================= Base Styles (Optimized) ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: background-color var(--transition-base), color var(--transition-base);
+  scroll-behavior: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -96,32 +124,6 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* ================= Base Styles ================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  transition: background-color var(--transition-base), color var(--transition-base);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
 }
 
 /* ================= Layout Components ================= */
@@ -137,482 +139,6 @@ img {
   }
 }
 
-/* ================= Loader ================= */
-.loader {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-.loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.loader-content {
-  text-align: center;
-  color: #fff;
-}
-
-.loader-spinner {
-  width: 80px;
-  height: 80px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top: 4px solid #fff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 2rem;
-}
-
-.loader-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards 0.3s;
-}
-
-.loader-subtext {
-  font-size: 1rem;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards 0.6s;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* ================= Tutorial Overlay ================= */
-.tutorial-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-}
-
-.tutorial-overlay.active {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: all;
-}
-
-.tutorial-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.tutorial-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Tutorial Steps */
-.tutorial-step {
-  position: absolute;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(30px) scale(0.9);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-}
-
-.tutorial-step.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  pointer-events: all;
-}
-
-.tutorial-step.exiting {
-  opacity: 0;
-  transform: translateY(-30px) scale(0.9);
-}
-
-/* Tutorial Cards */
-.tutorial-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
-  max-width: 480px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.tutorial-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gradient-card);
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.tutorial-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.tutorial-icon {
-  width: 80px;
-  height: 80px;
-  background: var(--gradient-primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  color: #fff;
-  animation: tutorialPulse 2s ease-in-out infinite;
-}
-
-.tutorial-step-welcome .tutorial-icon {
-  width: 100px;
-  height: 100px;
-}
-
-.tutorial-card h3 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.tutorial-card h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--text-primary);
-}
-
-.tutorial-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-/* Specific Step Styles */
-.tutorial-step-nav .tutorial-card {
-  max-width: 350px;
-  position: fixed;
-  top: 120px;
-  right: 50px;
-  transform-origin: top right;
-}
-
-.tutorial-step-scroll .tutorial-card {
-  max-width: 380px;
-  position: fixed;
-  bottom: 150px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.tutorial-step-theme .tutorial-card {
-  max-width: 320px;
-  position: fixed;
-  top: 120px;
-  right: 50px;
-}
-
-.tutorial-step-top .tutorial-card {
-  max-width: 320px;
-  position: fixed;
-  bottom: 120px;
-  right: 80px;
-}
-
-/* Highlight Effects */
-.tutorial-highlight-nav,
-.tutorial-highlight-theme,
-.tutorial-highlight-top {
-  position: fixed;
-  pointer-events: none;
-  border: 3px solid var(--primary-purple);
-  border-radius: var(--radius);
-  background: rgba(124, 58, 237, 0.1);
-  animation: tutorialGlow 2s ease-in-out infinite;
-  z-index: 9999;
-}
-
-.tutorial-highlight-nav {
-  top: 10px;
-  right: 10px;
-  left: 10px;
-  height: 72px;
-  border-radius: var(--radius-lg);
-}
-
-.tutorial-highlight-theme {
-  top: 21px;
-  right: 20px;
-  width: 60px;
-  height: 38px;
-  border-radius: 25px;
-}
-
-.tutorial-highlight-top {
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-/* Scroll Indicator */
-.tutorial-scroll-indicator {
-  margin-top: 1rem;
-}
-
-.scroll-arrow-animated {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: var(--gradient-primary);
-  border-radius: 50%;
-  color: #fff;
-  animation: tutorialBounce 2s ease-in-out infinite;
-}
-
-/* Tutorial Controls */
-.tutorial-controls {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  box-shadow: var(--shadow-lg);
-  min-width: 320px;
-}
-
-.tutorial-progress {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.tutorial-progress-bar {
-  flex: 1;
-  height: 6px;
-  background: var(--bg-secondary);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.tutorial-progress-fill {
-  height: 100%;
-  background: var(--gradient-primary);
-  border-radius: 3px;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tutorial-step-counter {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-family: 'Source Code Pro', monospace;
-  min-width: 60px;
-  text-align: center;
-}
-
-.tutorial-buttons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.tutorial-btn-skip {
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid var(--border-color);
-}
-
-.tutorial-nav-buttons {
-  display: flex;
-  gap: 0.75rem;
-  margin-left: auto;
-}
-
-.tutorial-btn {
-  padding: 10px 20px;
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: 0;
-  cursor: pointer;
-  transition: all var(--transition-base);
-  font-family: inherit;
-  background: var(--gradient-primary);
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.tutorial-btn::before {
-  content: '';
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.5s;
-  pointer-events: none;
-}
-
-.tutorial-btn:hover::before {
-  width: 200px;
-  height: 200px;
-}
-
-.tutorial-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.tutorial-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.tutorial-btn-prev {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-/* Animations */
-@keyframes tutorialPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.3); }
-  50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
-}
-
-@keyframes tutorialGlow {
-  0%, 100% { 
-    border-color: var(--primary-purple); 
-    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
-  }
-  50% { 
-    border-color: var(--accent-purple); 
-    box-shadow: 0 0 0 10px rgba(124, 58, 237, 0);
-  }
-}
-
-@keyframes tutorialBounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-8px); }
-  60% { transform: translateY(-4px); }
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .tutorial-card {
-    padding: 2rem 1.5rem;
-    max-width: calc(100vw - 2rem);
-    margin: 0 1rem;
-  }
-  
-  .tutorial-step-nav .tutorial-card,
-  .tutorial-step-theme .tutorial-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, -50%);
-  }
-  
-  .tutorial-step-scroll .tutorial-card,
-  .tutorial-step-top .tutorial-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    transform: translate(-50%, -50%);
-  }
-  
-  .tutorial-highlight-nav {
-    top: 5px;
-    right: 5px;
-    left: 5px;
-  }
-  
-  .tutorial-highlight-theme {
-    top: 21px;
-    right: 15px;
-  }
-  
-  .tutorial-controls {
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    transform: none;
-    min-width: auto;
-    padding: 1.25rem 1.5rem;
-  }
-  
-  .tutorial-buttons {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .tutorial-nav-buttons {
-    margin-left: 0;
-    width: 100%;
-  }
-  
-  .tutorial-btn {
-    flex: 1;
-  }
-}
 /* ================= Background ================= */
 .bg-canvas {
   position: fixed;
@@ -643,7 +169,7 @@ img {
   top: 6px;
 }
 
-/* ================= Navigation ================= */
+/* ================= Navigation (Optimized) ================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -1014,6 +540,8 @@ section {
   align-items: center;
   text-align: center;
   padding-top: var(--nav-height);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content {
@@ -1357,7 +885,7 @@ section {
   }
 }
 
-/* ================= Journey/Timeline Section ================= */
+/* ================= Journey/Timeline Section (Optimized) ================= */
 .journey-timeline {
   max-width: 800px;
   margin: 0 auto;
@@ -1672,12 +1200,8 @@ section {
 }
 
 @keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
 }
 
 /* Skills mobile adjustments */
@@ -1917,7 +1441,7 @@ section {
   }
 }
 
-/* ================= Contact Section (Optimized) ================= */
+/* ================= Contact Section (Simplified) ================= */
 .contact-layout {
   display: grid;
   grid-template-columns: 420px 1fr;
@@ -2349,129 +1873,405 @@ footer p:last-child {
   font-size: 0.9rem;
   opacity: 0.85;
 }
+/* ================= Enhanced Loader with Side-by-Side Sequential Cards (5s Total) ================= */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-backdrop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+  opacity: 0.08;
+}
+
+.loader-main {
+  position: absolute;
+  top: 25%; /* Position in upper portion of screen */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--text-primary);
+  z-index: 4; /* Higher than cards */
+  width: 100%;
+}
+
+.loader-main .loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-purple);
+  border-radius: 50%;
+  animation: loaderSpin 1s linear infinite;
+  margin: 0 auto 1rem; /* Reduced margin since no text above */
+}
+
+/* Hide the loader-text (name) since it's been removed */
+.loader-main .loader-text {
+  display: none;
+}
+
+/* Updated subtext - now the main text below spinner */
+.loader-main .loader-subtext {
+  font-size: 1.1rem; /* Slightly larger since it's the main text now */
+  font-weight: 600; /* Bolder for better visibility */
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards 0.4s; /* Slightly faster since no delay for title */
+  color: var(--bg-secondary); /* Better contrast color */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* Subtle shadow for definition */
+  margin-top: 0.5rem;
+}
+
+/* Dark theme override for loader text */
+[data-theme="dark"] .loader-main .loader-subtext {
+  color: var(--accent-purple);
+  text-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+}
+
+/* Introduction Cards - Side by Side Sequential */
+/* Also update intro-cards positioning to account for loader above */
+.intro-cards {
+  position: absolute;
+  top: 50%; /* Move cards to center/lower portion */
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
+  opacity: 1;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.intro-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  min-width: 240px;
+  max-width: 260px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intro-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.intro-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.intro-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.intro-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Sequential Side-by-Side Animation Classes */
+.intro-card-scroll {
+  order: 1; /* Left position */
+  animation: cardSlideIn 0.6s ease forwards 1s; /* 1 second delay */
+}
+
+.intro-card-nav {
+  order: 2; /* Center position */
+  animation: cardSlideIn 0.6s ease forwards 2s; /* 2 second delay */
+}
+
+.intro-card-theme {
+  order: 3; /* Right position */
+  animation: cardSlideIn 0.6s ease forwards 3s; /* 3 second delay */
+}
+
+/* Scroll Arrow Animation */
+.scroll-arrow-bounce {
+  animation: bounceDown 2s ease-in-out infinite;
+  color: var(--primary-purple);
+}
+
+/* Click Animation */
+.click-animation {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.click-pointer {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-purple);
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  animation: clickPulse 2s ease-in-out infinite;
+}
+
+.click-pointer::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid var(--primary-purple);
+  border-radius: 50%;
+  opacity: 0;
+  animation: clickRipple 2s ease-in-out infinite;
+}
+
+/* Theme Toggle Preview */
+.theme-toggle-preview {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  width: 60px;
+  height: 32px;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-slider-preview {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  transition: all var(--transition-base);
+  animation: themeSliderMove 3s ease-in-out infinite;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes iconPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(124, 58, 237, 0);
+  }
+}
+
+@keyframes cardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  50% {
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { 
+    transform: translateY(0); 
+  }
+  40% { 
+    transform: translateY(8px); 
+  }
+  60% { 
+    transform: translateY(4px); 
+  }
+}
+
+@keyframes clickPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+@keyframes clickRipple {
+  0% { 
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes themeSliderMove {
+  0%, 100% { 
+    left: 4px;
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% { 
+    left: 32px;
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .loader-main {
+    top: 20%;
+  }
+  
+  .intro-cards {
+    top: 55%;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .intro-card {
+    min-width: 280px;
+    max-width: calc(100vw - 2rem);
+    min-height: 160px;
+    padding: 1.5rem 1.25rem;
+  }
+  
+  /* Mobile: cards stack vertically with same timing */
+  .intro-card-scroll {
+    order: 1;
+  }
+  
+  .intro-card-nav {
+    order: 2;
+  }
+  
+  .intro-card-theme {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader-main {
+    top: 15%;
+  }
+  
+  .intro-cards {
+    top: 60%;
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .intro-card {
+    min-width: calc(100vw - 1.5rem);
+    padding: 1.5rem 1rem;
+    min-height: 150px;
+  }
+  
+  .theme-toggle-preview {
+    width: 50px;
+    height: 28px;
+  }
+  
+  .theme-toggle-slider-preview {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
   </style>
 </head>
 
 <body data-theme="light">
-  <!-- Loader -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-content">
-      <div class="loader-spinner" role="status" aria-label="Loading"></div>
-      <div class="loader-text">Sahil Walia</div>
-      <div class="loader-subtext">Loading Analytics Portfolio…</div>
-    </div>
-  </div>
 
-  <!-- Scroll Progress -->
-  <div class="scroll-progress" id="scrollProgress"></div>
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Background -->
-  <div class="bg-canvas" aria-hidden="true"></div>
-<!-- Tutorial Overlay -->
-<div class="tutorial-overlay" id="tutorialOverlay" aria-hidden="true">
-  <div class="tutorial-backdrop"></div>
-  
-  <!-- Tutorial Content -->
-  <div class="tutorial-content">
-    <!-- Welcome Step -->
-    <div class="tutorial-step tutorial-step-welcome active" data-step="0">
-      <div class="tutorial-card">
-        <div class="tutorial-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 11H5a2 2 0 0 0-2 2v3c0 3.5 2 5 5 5h1a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-1a2 2 0 0 1 2-2h1c3 0 5-1.5 5-5v-3a2 2 0 0 0-2-2h-4"/>
-            <path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/>
-          </svg>
-        </div>
-        <h3>Welcome to My Portfolio! 👋</h3>
-        <p>Let me give you a quick tour of the key features to help you navigate and explore my work.</p>
-      </div>
-    </div>
-
-    <!-- Navigation Step -->
-    <div class="tutorial-step tutorial-step-nav" data-step="1">
-      <div class="tutorial-card tutorial-card-nav">
-        <div class="tutorial-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 6h18M3 12h18M3 18h18"/>
-          </svg>
-        </div>
-        <h4>Navigation Menu</h4>
-        <p>Click any section to jump directly there, or use the mobile menu on smaller screens.</p>
-        <div class="tutorial-highlight-nav"></div>
-      </div>
-    </div>
-
-    <!-- Scroll Step -->
-    <div class="tutorial-step tutorial-step-scroll" data-step="2">
-      <div class="tutorial-card tutorial-card-scroll">
-        <div class="tutorial-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 13l3 3 7-7M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
-          </svg>
-        </div>
-        <h4>Scroll to Explore</h4>
-        <p>Scroll down to discover my projects, experience, skills, and more!</p>
-        <div class="tutorial-scroll-indicator">
-          <div class="scroll-arrow-animated">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Theme Toggle Step -->
-    <div class="tutorial-step tutorial-step-theme" data-step="3">
-      <div class="tutorial-card tutorial-card-theme">
-        <div class="tutorial-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
-        </div>
-        <h4>Dark/Light Mode</h4>
-        <p>Toggle between light and dark themes for comfortable viewing.</p>
-        <div class="tutorial-highlight-theme"></div>
-      </div>
-    </div>
-
-    <!-- Back to Top Step -->
-    <div class="tutorial-step tutorial-step-top" data-step="4">
-      <div class="tutorial-card tutorial-card-top">
-        <div class="tutorial-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 15l-6-6-6 6"/>
-          </svg>
-        </div>
-        <h4>Back to Top</h4>
-        <p>When you scroll down, this button appears to quickly return to the top.</p>
-        <div class="tutorial-highlight-top"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tutorial Controls -->
-  <div class="tutorial-controls">
-    <div class="tutorial-progress">
-      <div class="tutorial-progress-bar">
-        <div class="tutorial-progress-fill"></div>
-      </div>
-      <span class="tutorial-step-counter">1 of 5</span>
-    </div>
-    
-    <div class="tutorial-buttons">
-      <button class="tutorial-btn tutorial-btn-skip" id="tutorialSkip">Skip Tour</button>
-      <div class="tutorial-nav-buttons">
-        <button class="tutorial-btn tutorial-btn-prev" id="tutorialPrev" disabled>Previous</button>
-        <button class="tutorial-btn tutorial-btn-next" id="tutorialNext">Next</button>
-        <button class="tutorial-btn tutorial-btn-start" id="tutorialStart" style="display: none;">Start Exploring</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- Skip link -->
-  <a href="#main" class="skip-link">Skip to main content</a>
+<!-- Background -->
+<div class="bg-canvas" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -2500,7 +2300,67 @@ footer p:last-child {
       </button>
     </div>
   </nav>
+<!-- Enhanced Loader with Introduction Cards -->
+<div class="loader-overlay" id="loaderOverlay" aria-hidden="true">
+  <div class="loader-backdrop"></div>
+  
+  <!-- Main Loader Content -->
+  <div class="loader-main">
+    <div class="loader-spinner" role="status" aria-label="Loading"></div>
+    <div class="loader-subtext">Loading Analytics Portfolio…</div>
+  </div>
 
+  <!-- Introduction Cards -->
+  <div class="intro-cards" id="introCards">
+    <!-- Left Card - Scroll Down -->
+    <div class="intro-card intro-card-scroll">
+      <div class="intro-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l3 3 7-7"/>
+          <path d="M7 6l3 3 7-7"/>
+        </svg>
+      </div>
+      <h4>Scroll Down</h4>
+      <p>Explore the website</p>
+      <div class="scroll-arrow-bounce">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Center Card - Navigation -->
+    <div class="intro-card intro-card-nav">
+      <div class="intro-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </div>
+      <h4>Navigation Bar</h4>
+      <p>Quick access to sections</p>
+      <div class="click-animation">
+        <div class="click-pointer"></div>
+      </div>
+    </div>
+
+    <!-- Right Card - Theme Toggle -->
+ <!-- Right Card - Theme Toggle (Updated) -->
+<div class="intro-card intro-card-theme">
+  <div class="intro-icon">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  </div>
+  <h4>Theme Toggle</h4>
+  <p>Light / Dark mode</p>
+  <div class="theme-toggle-preview">
+    <div class="theme-toggle-slider-preview">☀️</div>
+  </div>
+</div>
+
+  </div>
+</div>
   <main id="main">
     <!-- HERO -->
     <section id="home" class="hero" aria-label="Intro">
@@ -2539,7 +2399,7 @@ footer p:last-child {
               <div class="stat-label">Projects Delivered</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number" data-count="10">0</div>
+              <div class="stat-number" data-count="9">0</div>
               <div class="stat-label">Certifications</div>
             </div>
           </div>
@@ -2593,7 +2453,7 @@ footer p:last-child {
           <div class="project-type">ASU Capstone • NLP Analytics</div>
         </div>
         <div class="project-content">
-          <p class="project-description">Developed a robust RoBERTa-powered NLP pipeline in Python that analyzed over 100,000 Reddit and YouTube comments. Presented the live demo to the Chief Information Officer and Capstone Faculty panel.</p>
+          <p class="project-description"> Enabled a global motorcycle manufacturer to shape marketing and R&D decisions by uncovering product-level consumer insights from social media comments, using advanced ML sentiment analysis (RoBERTa, BERT).</p>
           <div class="project-metrics" aria-label="Key results">
             <div class="metric-item"><span class="metric-value">100K+</span><div class="metric-label">Comments</div></div>
             <div class="metric-item"><span class="metric-value">Executive</span><div class="metric-label">Presentation</div></div>
@@ -2615,8 +2475,8 @@ footer p:last-child {
         <div class="project-content">
           <p class="project-description">Engineered and trained YOLO models on a dataset of 20k+ mammograms (VinDr-Mammo) for multi-lesion detection, facilitating explainability components in object detection algorithms for medical imaging.</p>
           <div class="project-metrics">
-            <div class="metric-item"><span class="metric-value">5,000+</span><div class="metric-label">Images</div></div>
-            <div class="metric-item"><span class="metric-value">~85%</span><div class="metric-label">Accuracy</div></div>
+            <div class="metric-item"><span class="metric-value">5,000+</span><div class="metric-label">Subjects</div></div>
+            <div class="metric-item"><span class="metric-value">Object</span><div class="metric-label">Detection</div></div>
             <div class="metric-item"><span class="metric-value">XAI</span><div class="metric-label">Methods</div></div>
           </div>
           <div class="tech-stack">
@@ -2643,9 +2503,9 @@ footer p:last-child {
             <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span><span class="tech-tag">Data Visualization</span>
           </div>
           <div class="project-links">
-            <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix/blob/ffbae6768a13b7f30b8b53761052378f12c5556e/Property-Maintenance-Trends-in-Phoenix-Analysis.ipynb" target="_blank" rel="noopener noreferrer" class="project-link">
+            <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix/blob/ffbae6768a13b7f30b8b53761052378f12c5556e/Property-Maintenance-Trends-in-Phoenix-Poster.pdf" target="_blank" rel="noopener noreferrer" class="project-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              <span>Analysis</span>
+              <span>Poster</span>
             </a>
             <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix" target="_blank" rel="noopener noreferrer" class="project-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
@@ -3581,568 +3441,400 @@ footer p:last-child {
   </footer>
 
 <script>
-/* ================= Portfolio JS (optimized, resilient) ================= */
+  // ==== JAVASCRIPT //
 (() => {
-  const $ = (sel, root=document) => root.querySelector(sel);
-  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  'use strict';
 
-  // Loader
-  // Enhanced startup with tutorial
+  // ==== Utilities (null-safe roots; tiny but important hardening) ====
+  const $  = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  // ==== State / Constants ====
+  const state = { formSubmitting: false };
+  const VISIBLE_PROJECTS = 2;
+  const VISIBLE_CERTS    = 3;
+  const prefersReduced   = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+
+  // Ensure we start at the top (your design expects this)
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+// Escape key loader cancellation
+let loaderActive = true;
+let loaderTimeout;
+
+function handleEscapeKey(event) {
+  if (event.key === 'Escape' && loaderActive) {
+    // Cancel the loader timeout
+    if (loaderTimeout) {
+      clearTimeout(loaderTimeout);
+    }
+    
+    // Hide loader immediately
+    const loaderOverlay = $('#loaderOverlay');
+    if (loaderOverlay) {
+      loaderOverlay.classList.add('hidden');
+    }
+    
+    // Initialize website
+    initializeAll();
+    
+    // Mark loader as inactive
+    loaderActive = false;
+    
+    // Remove event listener
+    document.removeEventListener('keydown', handleEscapeKey);
+  }
+}
+
+// ==== Boot ====
 window.addEventListener('load', () => {
-  const loader = $('#loader');
-  if (loader) loader.classList.add('hidden');
+  const loaderOverlay = $('#loaderOverlay');
   
-  // Check if user has seen tutorial before
-  const hasSeenTutorial = localStorage.getItem('portfolioTutorialSeen');
-  
-  if (!hasSeenTutorial) {
-    // First time visitor - show tutorial after brief delay
-    setTimeout(() => {
-      showTutorial();
-    }, 800);
+  if (loaderOverlay) {
+    // Add escape key listener
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Store timeout reference for cancellation
+    loaderTimeout = setTimeout(() => {
+      loaderOverlay.classList.add('hidden');
+      initializeAll();
+      loaderActive = false;
+      document.removeEventListener('keydown', handleEscapeKey);
+    }, 5000);
+  } else {
+    initializeAll();
   }
-  
-  startAnimations();
 });
 
-// Tutorial System
-function showTutorial() {
-  const overlay = $('#tutorialOverlay');
-  if (!overlay) return;
-  
-  overlay.classList.add('active');
-  overlay.setAttribute('aria-hidden', 'false');
-  
-  // Prevent page scrolling
-  document.body.style.overflow = 'hidden';
-  
-  initializeTutorial();
+function initializeAll() {
+  initTheme();
+  initNavigation();
+  initScrollHandling();
+  initAnimations();
+  initInteractions();
+  initContactForm();
 }
+  // ==== Theme ====
+  function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const slider = themeToggle ? themeToggle.querySelector('.theme-toggle-slider') : null;
 
-function hideTutorial() {
-  const overlay = $('#tutorialOverlay');
-  if (!overlay) return;
-  
-  overlay.classList.remove('active');
-  overlay.setAttribute('aria-hidden', 'true');
-  
-  // Restore page scrolling
-  document.body.style.overflow = '';
-  
-  // Mark as seen
-  localStorage.setItem('portfolioTutorialSeen', 'true');
-}
+    const apply = (mode) => {
+      document.body.setAttribute('data-theme', mode);
+      if (slider) slider.textContent = mode === 'dark' ? '🌙' : '☀️';
+    };
 
-let currentStep = 0;
-const totalSteps = 5;
+    // If the user has a saved choice, honor it. Otherwise, default to light.
+    const saved = (() => { try { return localStorage.getItem('theme'); } catch { return null; } })();
+    apply((saved === 'light' || saved === 'dark') ? saved : 'light');
 
-function initializeTutorial() {
-  const nextBtn = $('#tutorialNext');
-  const prevBtn = $('#tutorialPrev');
-  const skipBtn = $('#tutorialSkip');
-  const startBtn = $('#tutorialStart');
-  
-  // Event listeners
-  nextBtn?.addEventListener('click', nextStep);
-  prevBtn?.addEventListener('click', prevStep);
-  skipBtn?.addEventListener('click', skipTutorial);
-  startBtn?.addEventListener('click', completeTutorial);
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', handleTutorialKeydown);
-  
-  updateTutorialStep();
-}
-
-function handleTutorialKeydown(e) {
-  const overlay = $('#tutorialOverlay');
-  if (!overlay?.classList.contains('active')) return;
-  
-  switch(e.key) {
-    case 'ArrowRight':
-    case 'Space':
-      e.preventDefault();
-      nextStep();
-      break;
-    case 'ArrowLeft':
-      e.preventDefault();
-      prevStep();
-      break;
-    case 'Escape':
-      e.preventDefault();
-      skipTutorial();
-      break;
+    // Keep the toggle working; save only on user action.
+    themeToggle?.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch {}
+    });
   }
-}
 
-function nextStep() {
-  if (currentStep < totalSteps - 1) {
-    currentStep++;
-    updateTutorialStep();
+  // ==== Navigation ====
+  function initNavigation() {
+    const menuToggle = $('#menuToggle');
+    const navLinks   = $('#navLinks');
+    const navbar     = $('.navbar');
+
+    menuToggle?.addEventListener('click', () => {
+      if (!navLinks) return;
+      const isOpen = navLinks.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) navLinks.querySelector('a')?.focus();
+    });
+
+    $$('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks?.classList.remove('active');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    initActiveLinks();
+
+    let touchStartY = 0;
+    document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+    document.addEventListener('touchend',   e => {
+      const delta = e.changedTouches[0].screenY - touchStartY;
+      if (!navbar || Math.abs(delta) < 50) return;
+      if (delta < 0 && window.pageYOffset > 150) navbar.style.transform = 'translateY(-100%)';
+      else if (delta > 0)                       navbar.style.transform = 'translateY(0)';
+    }, { passive: true });
   }
-}
 
-function prevStep() {
-  if (currentStep > 0) {
-    currentStep--;
-    updateTutorialStep();
-  }
-}
+  function initActiveLinks() {
+    const sections = $$('section[id]');
+    const navItems = $$('.nav-links a');
+    if (!sections.length || !navItems.length) return;
 
-function updateTutorialStep() {
-  const steps = $$('.tutorial-step');
-  const progressFill = $('.tutorial-progress-fill');
-  const stepCounter = $('.tutorial-step-counter');
-  const nextBtn = $('#tutorialNext');
-  const prevBtn = $('#tutorialPrev');
-  const startBtn = $('#tutorialStart');
-  
-  // Update step visibility with smooth transitions
-  steps.forEach((step, index) => {
-    const isActive = index === currentStep;
-    const wasActive = step.classList.contains('active');
-    
-    if (isActive && !wasActive) {
-      // Entering step
-      step.classList.add('active');
-      step.classList.remove('exiting');
-    } else if (!isActive && wasActive) {
-      // Exiting step
-      step.classList.add('exiting');
-      setTimeout(() => {
-        step.classList.remove('active', 'exiting');
-      }, 250);
-    }
-  });
-  
-  // Update progress bar
-  const progress = ((currentStep + 1) / totalSteps) * 100;
-  if (progressFill) progressFill.style.width = `${progress}%`;
-  
-  // Update step counter
-  if (stepCounter) stepCounter.textContent = `${currentStep + 1} of ${totalSteps}`;
-  
-  // Update navigation buttons
-  if (prevBtn) {
-    prevBtn.disabled = currentStep === 0;
-  }
-  
-  if (nextBtn && startBtn) {
-    if (currentStep === totalSteps - 1) {
-      nextBtn.style.display = 'none';
-      startBtn.style.display = 'inline-flex';
-    } else {
-      nextBtn.style.display = 'inline-flex';
-      startBtn.style.display = 'none';
-    }
-  }
-  
-  // Handle special highlighting for specific steps
-  handleStepHighlights();
-}
-
-function handleStepHighlights() {
-  // Remove all existing highlights
-  $$('.tutorial-highlight-nav, .tutorial-highlight-theme, .tutorial-highlight-top').forEach(el => {
-    el.style.display = 'none';
-  });
-  
-  switch(currentStep) {
-    case 1: // Navigation step
-      const navHighlight = $('.tutorial-highlight-nav');
-      if (navHighlight) navHighlight.style.display = 'block';
-      break;
-      
-    case 3: // Theme toggle step
-      const themeHighlight = $('.tutorial-highlight-theme');
-      if (themeHighlight) themeHighlight.style.display = 'block';
-      break;
-      
-    case 4: // Back to top step
-      const topHighlight = $('.tutorial-highlight-top');
-      if (topHighlight) {
-        topHighlight.style.display = 'block';
-        // Temporarily show the scroll-to-top button for demo
-        const topBtn = $('#scrollToTop');
-        if (topBtn) {
-          topBtn.classList.add('visible');
-          topBtn.style.opacity = '0.7';
-        }
-      }
-      break;
-  }
-}
-
-function skipTutorial() {
-  // Add skip animation
-  const overlay = $('#tutorialOverlay');
-  if (overlay) {
-    overlay.style.transform = 'scale(0.95)';
-    overlay.style.opacity = '0';
-  }
-  
-  setTimeout(hideTutorial, 300);
-}
-
-function completeTutorial() {
-  // Add completion animation
-  const overlay = $('#tutorialOverlay');
-  if (overlay) {
-    overlay.style.transform = 'scale(1.05)';
-    overlay.style.opacity = '0';
-  }
-  
-  setTimeout(() => {
-    hideTutorial();
-    // Reset scroll-to-top button
-    const topBtn = $('#scrollToTop');
-    if (topBtn) {
-      topBtn.classList.remove('visible');
-      topBtn.style.opacity = '';
-    }
-  }, 400);
-  
-  // Optional: Add a subtle welcome message
-  setTimeout(() => {
-    showWelcomeNotification();
-  }, 800);
-}
-
-function showWelcomeNotification() {
-  // Create and show a brief welcome notification
-  const notification = document.createElement('div');
-  notification.className = 'welcome-notification';
-  notification.innerHTML = `
-    <div class="welcome-content">
-      <span>🎉</span>
-      <span>Welcome! Feel free to explore my portfolio.</span>
-    </div>
-  `;
-  
-  document.body.appendChild(notification);
-  
-  // Add notification styles dynamically
-  const style = document.createElement('style');
-  style.textContent = `
-    .welcome-notification {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 1rem 1.5rem;
-      box-shadow: var(--shadow-md);
-      z-index: 1000;
-      transform: translateX(100%);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .welcome-notification.show {
-      transform: translateX(0);
-    }
-    .welcome-content {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    @media (max-width: 768px) {
-      .welcome-notification {
-        top: 80px;
-        right: 10px;
-        left: 10px;
-        transform: translateY(-100%);
-      }
-      .welcome-notification.show {
-        transform: translateY(0);
-      }
-    }
-  `;
-  document.head.appendChild(style);
-  
-  // Show notification
-  requestAnimationFrame(() => {
-    notification.classList.add('show');
-  });
-  
-  // Hide notification after 4 seconds
-  setTimeout(() => {
-    notification.style.opacity = '0';
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-        document.head.removeChild(style);
-      }
-    }, 400);
-  }, 4000);
-}
-
-// Add manual tutorial trigger (for testing or re-showing)
-window.showPortfolioTutorial = function() {
-  currentStep = 0;
-  showTutorial();
-};
-
-  // Theme
-  const themeToggle = $('#themeToggle');
-  const slider = $('.theme-toggle-slider', themeToggle);
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  const savedTheme = localStorage.getItem('theme');
-  function applyTheme(mode){
-    document.body.setAttribute('data-theme', mode);
-    if (slider) slider.textContent = mode === 'dark' ? '🌙' : '☀️';
-  }
-  applyTheme(savedTheme || (prefersDark.matches ? 'dark' : 'light'));
-  prefersDark.addEventListener?.('change', (e)=> {
-    if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
-  });
-  themeToggle?.addEventListener('click', ()=>{
-    const current = document.body.getAttribute('data-theme') || 'light';
-    const next = current === 'light' ? 'dark' : 'light';
-    applyTheme(next);
-    localStorage.setItem('theme', next);
-  });
-
-  // Mobile menu
-  const menuToggle = $('#menuToggle');
-  const navLinks = $('#navLinks');
-  menuToggle?.addEventListener('click', ()=>{
-    const isOpen = navLinks.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-    if (isOpen) $('a', navLinks)?.focus();
-  });
-  $$('.nav-links a').forEach(a => a.addEventListener('click', ()=>{
-    navLinks.classList.remove('active');
-    menuToggle?.setAttribute('aria-expanded','false');
-  }));
-
-  // Navbar show/hide on scroll + progress (FIXED: Removed auto-hide)
-const navbar = $('.navbar');
-const progress = $('#scrollProgress');
-function onScroll(){
-  const y = window.scrollY;
-  if (navbar){
-    if (y > 100) navbar.classList.add('scrolled'); 
-    else navbar.classList.remove('scrolled');
-    // REMOVED: Auto-hide logic that was hiding navbar on scroll
-  }
-  const h = document.documentElement;
-  const pct = (h.scrollTop /(h.scrollHeight - h.clientHeight)) * 100;
-  if (progress) progress.style.width = pct + '%';
-  toggleTopBtn();
-}
-  document.addEventListener('scroll', onScroll, {passive:true});
-
-  // Active link syncing
-  const sections = $$('section[id]');
-  const navItems = $$('.nav-links a');
-  const navObserver = new IntersectionObserver(entries=>{
-    for (const e of entries){
-      if (e.isIntersecting){
-        const id = '#' + e.target.id;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = '#' + entry.target.id;
         navItems.forEach(item => item.classList.toggle('active', item.getAttribute('href') === id));
-      }
-    }
-  }, {rootMargin:'-20% 0px -70% 0px', threshold:[0, .25, .5, .75, 1]});
-  sections.forEach(s => navObserver.observe(s));
-
-  // Fade-in observer
-  function startAnimations(){
-    const animated = $$('.fade-in');
-    const obs = new IntersectionObserver(entries=>{
-      entries.forEach(en=>{
-        if (en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); }
       });
-    }, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
-    animated.forEach(el => obs.observe(el));
-    animateCounters();
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: [0, .25, .5, .75, 1] });
+
+    sections.forEach(section => observer.observe(section));
   }
 
-  // Counters
-  function animateCounters(){
+  // ==== Scroll / Progress / Back-to-top ====
+  function initScrollHandling() {
+    const navbar  = $('.navbar');
+    const bar     = $('#scrollProgress');
+    const topBtn  = $('#scrollToTop');
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (navbar) navbar.classList.toggle('scrolled', y > 100);
+
+        if (bar) {
+          const doc = document.documentElement;
+          const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+          bar.style.width = pct + '%';
+        }
+
+        if (topBtn) topBtn.classList.toggle('visible', y > 600);
+        ticking = false;
+      });
+      ticking = true;
+    };
+
+    document.addEventListener('scroll', onScroll, { passive: true });
+
+    topBtn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+    });
+  }
+
+  // ==== Animations ====
+  function initAnimations() {
+    initFadeInAnimations();
+    initCounterAnimations();
+  }
+
+  function initFadeInAnimations() {
+    const elements = $$('.fade-in');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    elements.forEach(el => observer.observe(el));
+  }
+
+  function initCounterAnimations() {
     const counters = $$('.stat-number[data-count]');
-    const obs = new IntersectionObserver(entries=>{
-      entries.forEach(({isIntersecting, target})=>{
+    if (!counters.length) return;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(({ isIntersecting, target }) => {
         if (!isIntersecting) return;
-        const end = parseFloat(target.dataset.count);
-        const isFloat = !Number.isInteger(end);
-        const duration = 1600;
-        const startTs = performance.now();
-        const startVal = 0;
-        const step = (ts)=>{
-          const p = Math.min(1, (ts - startTs)/duration);
-          const val = startVal + (end - startVal) * p;
+
+        const endValue = parseFloat(target.dataset.count);
+        const isFloat  = !Number.isInteger(endValue);
+
+        if (prefersReduced) {
+          target.textContent = isFloat ? endValue.toFixed(1) : Math.round(endValue);
+          observer.unobserve(target);
+          return;
+        }
+
+        const duration  = 1600;
+        const startTime = performance.now();
+
+        function tick(now) {
+          const p = Math.min(1, (now - startTime) / duration);
+          const val = endValue * p;
           target.textContent = isFloat ? val.toFixed(1) : Math.round(val);
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-        obs.unobserve(target);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        observer.unobserve(target);
       });
-    }, {threshold:.6});
-    counters.forEach(c => obs.observe(c));
+    }, { threshold: 0.6 });
+
+    counters.forEach(c => observer.observe(c));
   }
 
-  // Read-more accordions (journey)
- $$('.read-more-btn-modern').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const id = btn.getAttribute('data-target'); 
-    if (!id) return;
-    
-    const panel = document.getElementById(id);
-    const textSpan = btn.querySelector('span');
-    const open = panel.classList.toggle('visible');
-    
-    // Update button text and aria-expanded
-    btn.setAttribute('aria-expanded', String(open));
-    if (textSpan) {
-      textSpan.textContent = open ? 'Hide' : 'Read More';
-    }
-  });
-});
-// View all Projects
-const viewAllBtn = $('#viewAllBtn');
-const projectsGrid = $('#projectsGrid');
-const INIT_VISIBLE_PROJECTS = 2;
+  // ==== Interactions ====
+  function initInteractions() {
+    initReadMore();
+    initViewAllToggles();
+  }
 
-viewAllBtn?.addEventListener('click', () => {
-  if (!projectsGrid) return;
+  function initReadMore() {
+    $$('.read-more-btn-modern').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        if (!targetId) return;
+        const panel = document.getElementById(targetId);
+        if (!panel) return;
 
-  const cards = $$('.project-card', projectsGrid);
-  const hasHidden = cards.some(c => c.classList.contains('project-hidden'));
-  const expandAll = hasHidden; // if any hidden -> expand, else collapse
-
-  if (expandAll) {
-    // show everything
-    cards.forEach(c => {
-      c.classList.remove('project-hidden');
-      c.classList.add('project-visible');
-    });
-  } else {
-    // collapse: keep first 2 visible, hide the rest
-    cards.forEach((card, idx) => {
-      const keepVisible = idx < INIT_VISIBLE_PROJECTS;
-      card.classList.toggle('project-visible', keepVisible);
-      card.classList.toggle('project-hidden', !keepVisible);
+        const textSpan = btn.querySelector('span');
+        const isExpanded = panel.classList.toggle('visible');
+        btn.setAttribute('aria-expanded', String(isExpanded));
+        if (textSpan) textSpan.textContent = isExpanded ? 'Hide' : 'Read More';
+      });
     });
   }
 
-  const btnText = $('#btnText');
-  const btnIcon = $('#btnIcon');
-  if (btnText) btnText.textContent = expandAll ? 'Show Less' : 'View All Projects';
-  if (btnIcon) btnIcon.style.transform = expandAll ? 'rotate(180deg)' : 'rotate(0deg)';
-});
-// View all Certifications
-const viewAllCertsBtn = $('#viewAllCertsBtn');
-const certGrid = $('#certGrid');
-const INIT_VISIBLE_CERTS = 3;
-
-viewAllCertsBtn?.addEventListener('click', () => {
-  if (!certGrid) return;
-
-  const cards = $$('.cert-card', certGrid);
-  const hasHidden = cards.some(c => c.classList.contains('cert-hidden'));
-  const makeVisible = hasHidden; // expand if any hidden
-
-  if (makeVisible) {
-    cards.forEach(c => {
-      c.classList.remove('cert-hidden');
-      c.classList.add('cert-visible');
+  function initViewAllToggles() {
+    // Projects
+    const projectsBtn  = $('#viewAllBtn');
+    const projectsGrid = $('#projectsGrid');
+    projectsBtn?.addEventListener('click', () => {
+      toggleViewAll(
+        projectsGrid, '.project-card', 'project-hidden', 'project-visible',
+        VISIBLE_PROJECTS, '#btnText', '#btnIcon',
+        'View All Projects', 'Show Less'
+      );
     });
-  } else {
-    // collapse: keep the first N visible, hide the rest
-    cards.forEach((card, idx) => {
-      const keepVisible = idx < INIT_VISIBLE_CERTS;
-      card.classList.toggle('cert-visible', keepVisible);
-      card.classList.toggle('cert-hidden', !keepVisible);
+
+    // Certifications
+    const certsBtn = $('#viewAllCertsBtn');
+    const certGrid = $('#certGrid');
+    certsBtn?.addEventListener('click', () => {
+      toggleViewAll(
+        certGrid, '.cert-card', 'cert-hidden', 'cert-visible',
+        VISIBLE_CERTS, '#certBtnText', '#certBtnIcon',
+        'View All Certifications', 'Show Less'
+      );
     });
   }
 
-  const btnText = $('#certBtnText');
-  const btnIcon = $('#certBtnIcon');
-  if (btnText) btnText.textContent = makeVisible ? 'Show Less' : 'View All Certifications';
-  if (btnIcon) btnIcon.style.transform = makeVisible ? 'rotate(180deg)' : 'rotate(0deg)';
-});
-  // Scroll-to-top
-  const topBtn = $('#scrollToTop');
-  function toggleTopBtn(){ if (!topBtn) return; const show = window.scrollY > 600; topBtn.classList.toggle('visible', show); }
-  topBtn?.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  function toggleViewAll(grid, cardSelector, hiddenClass, visibleClass, visibleCount, textSelector, iconSelector, showText, hideText) {
+    if (!grid) return;
+    const cards = $$(cardSelector, grid);
+    if (!cards.length) return;
 
-  // Contact form: validation + fetch submit to Formspree (progress UI)
-  const form = $('#contactForm');
-  const submitBtn = $('#submitBtn');
-  const submitText = $('#submitText');
-  const btnLoader = $('#btnLoader');
-  const success = $('#successMessage');
-  const note = $('#formNote');
-  const charCounter = $('#charCounter');
+    const hasHidden    = cards.some(card => card.classList.contains(hiddenClass));
+    const shouldExpand = hasHidden;
 
-  function showError(id, msg){ const el = $('#'+id+'Error'); if (el){ el.textContent = msg; el.classList.add('visible'); } }
-  function clearErrors(){ $$('.form-error').forEach(e=>{e.textContent=''; e.classList.remove('visible');}); }
-
-  // live char counter
-  $('#message')?.addEventListener('input', (e)=>{
-    const max = e.target.getAttribute('maxlength') || 2000;
-    charCounter.textContent = `${e.target.value.length} / ${max} characters`;
-  });
-
-  form?.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    clearErrors();
-
-    const name = $('#name').value.trim();
-    const email = $('#email').value.trim();
-    const subject = $('#subject').value.trim();
-    const message = $('#message').value.trim();
-
-    let valid = true;
-    if (name.length < 2){ showError('name','Please enter your full name.'); valid = false; }
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailOk){ showError('email','Please enter a valid email address.'); valid = false; }
-    if (subject.length < 3){ showError('subject','Please add a short subject.'); valid = false; }
-    if (message.length < 10){ showError('message','Please add a bit more detail.'); valid = false; }
-    if (!valid) return;
-
-    // lock UI
-    submitBtn.disabled = true;
-    submitText.style.display = 'none';
-    btnLoader.style.display = 'inline-flex';
-    note.style.display = 'none';
-
-    try{
-      const fd = new FormData(form);
-      const res = await fetch(form.action, { method:'POST', body:fd, headers:{'Accept':'application/json'} });
-      if (res.ok){
-        success.classList.add('visible');
-        form.reset();
-        charCounter.textContent = '0 / 2000 characters';
+    cards.forEach((card, i) => {
+      if (shouldExpand) {
+        card.classList.remove(hiddenClass);
+        card.classList.add(visibleClass);
       } else {
-        const data = await res.json().catch(()=>({}));
-        throw new Error(data.error || 'Submission failed. Please try again later.');
+        const keep = i < visibleCount;
+        card.classList.toggle(visibleClass, keep);
+        card.classList.toggle(hiddenClass, !keep);
       }
-    } catch(err){
-      note.textContent = err.message || 'Something went wrong. Please use the email/LinkedIn links below.';
-      note.className = 'form-note error';
-      note.style.display = 'block';
-    } finally {
-      submitBtn.disabled = false;
-      submitText.style.display = 'inline';
-      btnLoader.style.display = 'none';
-    }
-  });
+    });
 
-  // Touch gestures for navbar (optional but safe)
-  let touchStartY = 0;
-  document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, {passive:true});
-  document.addEventListener('touchend', e => {
-    const delta = e.changedTouches[0].screenY - touchStartY;
-    if (!navbar) return;
-    if (delta < -50 && window.pageYOffset > 150) navbar.style.transform = 'translateY(-100%)';
-    if (delta > 50) navbar.style.transform = 'translateY(0)';
-  }, {passive:true});
+    const btnText = $(textSelector);
+    const btnIcon = $(iconSelector);
+    if (btnText) btnText.textContent = shouldExpand ? hideText : showText;
+    if (btnIcon) btnIcon.style.transform = shouldExpand ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+
+  // ==== Contact Form ====
+  function initContactForm() {
+    const form           = $('#contactForm');
+    const submitBtn      = $('#submitBtn');
+    const submitText     = $('#submitText');
+    const btnLoader      = $('#btnLoader');
+    const successMessage = $('#successMessage');
+    const formNote       = $('#formNote');
+    const charCounter    = $('#charCounter');
+    const messageField   = $('#message');
+
+    if (!form) return;
+
+    messageField?.addEventListener('input', e => {
+      const maxLength = e.target.getAttribute('maxlength') || 2000;
+      if (charCounter) charCounter.textContent = `${e.target.value.length} / ${maxLength} characters`;
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (state.formSubmitting) return;
+
+      clearFormErrors();
+
+      const formData = {
+        name:   $('#name')   ?.value.trim() || '',
+        email:  $('#email')  ?.value.trim() || '',
+        subject:$('#subject')?.value.trim() || '',
+        message:$('#message')?.value.trim() || ''
+      };
+
+      if (!validateForm(formData)) return;
+      await submitForm();
+    });
+
+    function validateForm({ name, email, subject, message }) {
+      let ok = true;
+      if (name.length < 2)                                  { showFormError('name',   'Please enter your full name.'); ok = false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))      { showFormError('email',  'Please enter a valid email address.'); ok = false; }
+      if (subject.length < 3)                               { showFormError('subject','Please add a short subject.');   ok = false; }
+      if (message.length < 10)                              { showFormError('message','Please add a bit more detail.'); ok = false; }
+      return ok;
+    }
+
+    async function submitForm() {
+      state.formSubmitting = true;
+      setSubmitButtonState(true);
+      hideFormNote();
+
+      try {
+        const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        if (response.ok) {
+          showSuccess();
+          form.reset();
+          if (charCounter) charCounter.textContent = '0 / 2000 characters';
+        } else {
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data.error || 'Submission failed. Please try again later.');
+        }
+      } catch (err) {
+        showFormNote(err.message || 'Something went wrong. Please use the email/LinkedIn links below.', 'error');
+      } finally {
+        state.formSubmitting = false;
+        setSubmitButtonState(false);
+      }
+    }
+
+    function setSubmitButtonState(isSubmitting) {
+      if (!submitBtn || !submitText || !btnLoader) return;
+      submitBtn.disabled = isSubmitting;
+      submitText.style.display = isSubmitting ? 'none' : 'inline';
+      btnLoader.style.display  = isSubmitting ? 'inline-flex' : 'none';
+    }
+
+    function showSuccess() { successMessage?.classList.add('visible'); }
+    function showFormError(field, msg) {
+      const el = $(`#${field}Error`);
+      if (el) { el.textContent = msg; el.classList.add('visible'); }
+    }
+    function clearFormErrors() { $$('.form-error').forEach(e => { e.textContent = ''; e.classList.remove('visible'); }); }
+    function showFormNote(message, type) {
+      if (!formNote) return;
+      formNote.textContent = message;
+      formNote.className = `form-note ${type}`;
+      formNote.style.display = 'block';
+    }
+    function hideFormNote() { if (formNote) formNote.style.display = 'none'; }
+  }
 })();
 </script>
+
 </body>
 </html>
