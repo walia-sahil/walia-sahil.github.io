@@ -1,890 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sahil Walia | Business Analytics & AI Expert</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Business Analytics Professional specializing in data analytics, machine learning, and AI-driven solutions. MS Business Analytics at ASU." />
-  <meta name="keywords" content="Business Analyst, Data Analytics, Machine Learning, Business Intelligence, Tableau, Python, Healthcare AI" />
-  <meta name="author" content="Sahil Walia" />
-  <meta property="og:title" content="Sahil Walia - Business Analytics Portfolio" />
-  <meta property="og:description" content="Business Intelligence Expert specializing in data analytics and AI solutions" />
-  <meta property="og:type" content="website" />
-
-  <!-- Performance: preconnect + font-display swap -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <style>
-/* ================= CSS Variables ================= */
-:root{
-  --primary-purple:#7c3aed;--primary-blue:#3b82f6;--accent-purple:#8b5cf6;--accent-blue:#60a5fa;
-  --bg-primary:#ffffff;--bg-secondary:#f8fafc;--bg-card:rgba(255,255,255,.95);--bg-card-hover:rgba(248,250,252,.98);
-  --text-primary:#1e293b;--text-secondary:#475569;--text-muted:#64748b;
-  --border-color:rgba(226,232,240,.8);--border-hover:rgba(124,58,237,.3);
-  --nav-bg:rgba(255,255,255,.95);--nav-border:rgba(226,232,240,.6);
-  --gradient-card:linear-gradient(135deg,rgba(76,29,149,.03) 0%,rgba(30,64,175,.03) 100%);
-  --shadow-sm:0 2px 8px rgba(0,0,0,.04);--shadow-md:0 8px 24px rgba(0,0,0,.06);--shadow-lg:0 20px 40px rgba(0,0,0,.08);--shadow-glow:0 0 30px rgba(124,58,237,.3);
-  --gradient-primary:linear-gradient(135deg,#4c1d95 0%,#1e40af 100%);--gradient-secondary:linear-gradient(135deg,#7c3aed 0%,#2563eb 100%);--gradient-text:linear-gradient(135deg,#4c1d95 0%,#1e40af 50%,#6d28d9 100%);
-  --nav-height:72px;--radius:12px;--radius-lg:20px;--transition-fast:200ms ease;--transition-base:300ms ease;--transition-slow:500ms ease;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Sahil Walia – BI & Analytics Portfolio</title>
+<meta name="description" content="Portfolio of Sahil Walia, Business Intelligence & Analytics professional: dashboards, ML projects, and consulting work." />
+<meta name="theme-color" content="#0B1020" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+--bg: #0B1020;
+--bg-elev-1: #0E152B;
+--bg-elev-2: #121A35;
+--bg-card: #151F3D;
+--text: #E6EAF2;
+--text-secondary: #A8B3CF;
+--accent: #6C8CFF;
+--accent-2: #22D3EE;
+--muted: #0F1530;
+--border: #223059;
+--success: #22c55e;
+--danger: #ef4444;
+--warning: #f59e0b;
+--shadow-1: rgba(0,0,0,0.25);
+--shadow-2: rgba(0,0,0,0.35);
+--shadow-3: rgba(12,18,36,0.9);
+--muted-foam: rgba(100, 116, 139, 0.15);
+--card-foam: rgba(32, 49, 87, 0.6);
+--glass: rgba(18, 27, 54, 0.6);
+--blur: blur(12px);
+--bg-gradient: linear-gradient(180deg, #0B1020 0%, #0B1020 4%, #0E152B 28%, #101934 52%, #0B1020 100%);
+--glow-1: 0 10px 30px rgba(108, 140, 255, 0.25), 0 0 0 1px rgba(108, 140, 255, 0.1);
+--glow-2: 0 12px 35px rgba(34, 211, 238, 0.20), 0 0 0 1px rgba(34, 211, 238, 0.12);
+--hover: rgba(108, 140, 255, 0.08);
+--hero-gradient: radial-gradient(1200px 600px at 50% -100px, rgba(108,140,255,0.20) 0%, rgba(108,140,255,0.08) 45%, rgba(10,20,46,0) 80%);
+--hero-gradient-2: radial-gradient(900px 450px at 50% -50px, rgba(34, 211, 238, 0.20) 0%, rgba(34, 211, 238, 0.08) 45%, rgba(10,20,46,0) 80%);
+--transition-base: 240ms cubic-bezier(.2,.8,.2,1);
 }
-@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}}
 
-[data-theme="dark"]{
-  --bg-primary:#0f0f1a;--bg-secondary:#1a1a2e;--bg-card:rgba(26,26,46,.6);--bg-card-hover:rgba(26,26,46,.8);
-  --text-primary:#f8f9ff;--text-secondary:#c3c8e3;--text-muted:#8b92b9;
-  --border-color:rgba(167,139,250,.1);--border-hover:rgba(167,139,250,.3);
-  --nav-bg:rgba(15,15,26,.8);--nav-border:rgba(167,139,250,.1);
-  --gradient-card:linear-gradient(135deg,rgba(124,58,237,.1) 0%,rgba(59,130,246,.1) 100%);
-  --shadow-sm:0 2px 8px rgba(124,58,237,.1);--shadow-md:0 8px 24px rgba(124,58,237,.15);--shadow-lg:0 20px 40px rgba(124,58,237,.2);
+html { scroll-behavior: smooth; }
+
+/* Reset / base */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg);
+color: var(--text); line-height: 1.6; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: auto;
 }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
 
-/* Base */
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Inter',sans-serif;line-height:1.6;color:var(--text-primary);background:var(--bg-primary);transition:background-color var(--transition-base),color var(--transition-base)}
-img{max-width:100%;display:block}
-
-/* Loader */
-.loader{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary-purple),var(--primary-blue));display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .8s ease,visibility .8s ease}
-.loader.hidden{opacity:0;visibility:hidden}
-.loader-content{text-align:center;color:#fff}
-.loader-spinner{width:80px;height:80px;border:4px solid rgba(255,255,255,.1);border-top:4px solid #fff;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 2rem}
-.loader-text{font-size:1.5rem;font-weight:700;opacity:0;animation:fadeInUp .6s ease forwards .3s}
-.loader-subtext{font-size:1rem;opacity:0;animation:fadeInUp .6s ease forwards .6s}
-
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* Background */
-.bg-canvas{position:fixed;inset:0;z-index:-2;background:var(--bg-primary);
-  background-image:radial-gradient(circle at 20% 50%,rgba(124,58,237,.08),transparent 50%),
-                   radial-gradient(circle at 80% 20%,rgba(59,130,246,.08),transparent 50%),
-                   radial-gradient(circle at 40% 80%,rgba(139,92,246,.05),transparent 50%)}
-
-/* Skip link */
-.skip-link{position:absolute;top:-40px;left:6px;background:var(--primary-purple);color:#fff;padding:8px;text-decoration:none;border-radius:4px;z-index:1000;transition:top .2s}
-.skip-link:focus{top:6px}
+/* Layout helpers */
+.container { width: min(1200px, 92%); margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: clamp(1.2rem, 2.5vw, 2.4rem); }
+.section-label { display: inline-block; padding: 0.4rem 0.75rem; font-size: 0.85rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text-secondary); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0)); }
+.section-title { margin: 0.7rem 0 0.5rem; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.2; }
+.section-subtitle { margin: 0; color: var(--text-secondary); }
 
 /* Navbar */
-.navbar{position:fixed;top:0;inset-inline:0;background:rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1);z-index:1000;transition:all var(--transition-base)}
-.navbar.scrolled{background:var(--nav-bg);box-shadow:var(--shadow-md)}
-.nav-content{display:flex;align-items:center;justify-content:space-between;height:var(--nav-height);max-width:1400px;margin:0 auto;padding:0 2rem}
-.logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.25rem;color:var(--text-primary);font-family:'Manrope',sans-serif}
-.logo-icon{width:40px;height:40px;background:var(--gradient-primary);border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:.9rem;transition:transform var(--transition-base),box-shadow var(--transition-base)}
-.logo-icon:hover{transform:rotate(360deg) scale(1.1);box-shadow:var(--shadow-glow)}
-.nav-links{display:flex;list-style:none;gap:2rem;align-items:center}
-.nav-links a{color:var(--text-secondary);text-decoration:none;font-weight:500;position:relative;transition:all var(--transition-base);padding:8px 16px;border-radius:8px}
-.nav-links a::before{content:'';position:absolute;inset:0;background:var(--gradient-primary);opacity:0;border-radius:8px;transition:opacity var(--transition-base);z-index:-1}
-.nav-links a:hover::before,.nav-links a.active::before{opacity:.1}
-.nav-links a:hover,.nav-links a.active{color:var(--primary-purple);transform:translateY(-2px)}
-.menu-toggle{display:none;background:none;border:0;color:var(--text-primary);cursor:pointer;padding:8px;border-radius:8px}
-.menu-toggle:hover{background:var(--bg-secondary)}
-.theme-toggle{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:25px;width:50px;height:28px;position:relative;cursor:pointer;transition:all var(--transition-base);margin-left:1rem}
-.theme-toggle-slider{position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;display:grid;place-items:center;font-size:11px;transition:all var(--transition-base)}
-[data-theme="dark"] .theme-toggle{background:var(--primary-purple);border-color:var(--primary-purple)}
-[data-theme="dark"] .theme-toggle-slider{transform:translateX(22px)}
+.navbar { position: sticky; top: 0; z-index: 50; background: rgba(12,18,36, 0.88); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); border-bottom: 1px solid rgba(255,255,255, 0.06); box-shadow: 0 6px 20px rgba(0,0,0, 0.25); }
+.navbar-inner { display:flex; align-items:center; justify-content:space-between; height: 64px; }
+.logo { font-weight: 700; letter-spacing: 0.35px; }
+.nav-links { display:flex; align-items:center; gap: clamp(0.3rem, 1.5vw, 1.2rem); }
+.nav-links a { color: var(--text-secondary); font-weight: 500; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; transition: all var(--transition-base); }
+.nav-links a:hover { color: var(--text); border-color: rgba(255,255,255, 0.07); background: rgba(255,255,255, 0.04); box-shadow: 0 10px 28px rgba(0,0,0, 0.25); transform: translateY(-2px); }
+.menu-toggle { display:none; background:none; border: 1px solid rgba(255,255,255, 0.10); border-radius: 12px; padding: 7px 10px; color:var(--text); }
 
-.container{max-width:1200px;margin:0 auto;padding:0 2rem}
-
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;border:0;cursor:pointer;transition:all var(--transition-base);font-size:.95rem;position:relative;overflow:hidden}
-.btn::before{content:'';position:absolute;inset:50% auto auto 50%;width:0;height:0;background:rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%);transition:all .5s}
-.btn:hover::before{width:300px;height:300px}
-.btn svg{width:18px;height:18px;transition:transform var(--transition-base)}
-.btn:hover svg{transform:translateX(4px)}
-.btn-primary{background:var(--gradient-primary);color:#fff;box-shadow:var(--shadow-sm)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.btn-secondary{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color)}
-.btn-secondary:hover{background:var(--bg-card-hover);border-color:var(--border-hover);transform:translateY(-2px)}
-
-/* Cards */
-.card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:2rem;transition:all var(--transition-base);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;inset:0;background:var(--gradient-card);opacity:0;transition:opacity var(--transition-base);pointer-events:none}
-.card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--border-hover)}
-.card:hover::before{opacity:1}
-
-/* Sections */
-section{padding:6rem 0;position:relative}
-.section-header{text-align:center;margin-bottom:4rem}
-.section-label{display:inline-block;background:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem;position:relative}
-.section-label::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:50px;height:2px;background:var(--gradient-primary)}
-.section-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:3rem;margin-bottom:1rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.section-subtitle{font-size:1.1rem;color:var(--text-secondary);max-width:700px;margin:0 auto}
+/* Scroll Progress */
+.scroll-progress { position: fixed; top: 64px; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); z-index: 40; box-shadow: 0 4px 14px rgba(108,140,255, 0.28), 0 0 0 1px rgba(108,140,255, 0.10); }
 
 /* Hero */
-.hero{min-height:100vh;display:flex;align-items:center;text-align:center;padding-top:var(--nav-height)}
-.hero-image{width:200px;height:200px;margin:0 auto 2rem;border-radius:50%;overflow:hidden;border:4px solid var(--border-color);box-shadow:var(--shadow-md);transition:all var(--transition-base)}
-.hero-image:hover{transform:scale(1.05);border-color:var(--primary-purple);box-shadow:var(--shadow-glow)}
-.hero-image img{width:100%;height:100%;object-fit:cover;border:none}
-.hero-badge{display:inline-block;background:var(--gradient-secondary);color:#fff;padding:10px 20px;border-radius:25px;font-size:.9rem;font-weight:600;margin-bottom:2rem}
-.hero-title{font-family:'Inter',sans-serif;font-weight:500;font-size:4.25rem;margin-bottom:1rem;letter-spacing:-0.02em;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-subtitle{font-size:1.4rem;color:var(--text-secondary);margin-bottom:1rem;font-weight:600}
-.hero-description{font-size:1.1rem;color:var(--text-secondary);max-width:760px;margin:0 auto 2.5rem;line-height:1.7}
+.hero { position: relative; padding: clamp(2rem, 6vw, 4rem) 0 clamp(1rem, 4vw, 2rem); background: var(--bg-gradient); overflow: clip; }
+.hero .container { position: relative; }
+.hero::before { content: ""; position: absolute; inset: 0; background: var(--hero-gradient); pointer-events: none; opacity: 1; }
+.hero::after { content: ""; position: absolute; inset: 0; background: var(--hero-gradient-2); pointer-events: none; opacity: 1; mix-blend-mode: screen; }
+.hero-inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(1.5rem, 3vw, 2rem); align-items: center; }
+.hero-content { padding-right: 1rem; }
+.hero-title { margin: 0 0 0.6rem; font: 700 clamp(1.6rem, 4.5vw, 3.4rem) / 1.07 Manrope, system-ui, Inter;
+letter-spacing: 0.4px; color: #F1F5FF; text-shadow: 0 3px 18px rgba(10,20,46, 0.65), 0 2px 0 rgba(75, 85, 111, 0.45); }
+.hero-subtitle { color: var(--text-secondary); margin: 0 0 clamp(0.8rem, 2.5vw, 1.2rem); }
+.hero-cta { display:flex; align-items:center; gap: 12px; flex-wrap: wrap; }
+.btn { display:inline-flex; align-items:center; gap: 10px; padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255, 0.10); background: rgba(255,255,255, 0.04); color: var(--text); transition: all var(--transition-base); text-decoration: none; cursor: pointer; }
+.btn:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25), var(--glow-1); }
+.btn-accent { background: linear-gradient(135deg, rgba(108,140,255, 0.16), rgba(34, 211, 238, 0.12)); border-color: rgba(108,140,255, 0.25); }
+.btn-accent:hover { box-shadow: var(--glow-1); background: linear-gradient(135deg, rgba(108,140,255, 0.28), rgba(34, 211, 238, 0.20)); }
+.hero-stats { display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(1rem, 2.5vw, 1.4rem); }
+.stat-card { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0)); border: 1px solid rgba(255,255,255,0.08);
+border-radius: 16px; padding: 12px 14px; box-shadow: 0 10px 25px rgba(0,0,0, 0.25), 0 0 0 1px rgba(255,255,255, 0.06); }
+.stat-number { font: 700 clamp(1.2rem, 4vw, 2.1rem) / 1 Manrope, Inter; letter-spacing: -0.3px; color: #dce7ff; text-shadow: 0 1px 0 rgba(0,0,0, 0.40); }
+.stat-desc { color: var(--text-secondary); margin-top: 4px; font-size: 0.96rem; }
 
-/* Stats */
-.stats-bar{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-top:1rem}
-.stat-item{text-align:center;min-width:140px}
-.stat-number{font-size:2.4rem;font-weight:700;background:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;position:relative}
-.stat-number::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:30px;height:3px;background:var(--gradient-primary);border-radius:2px}
-.stat-label{font-size:.95rem;color:var(--text-muted);font-weight:500;margin-top:8px}
+/* Intro Cards */
+.intro-cards { margin-top: clamp(1.2rem, 3.5vw, 2rem); display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
 
-/* About */
-.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-.skill-category-icon{font-size:2.4rem;opacity:.85;margin-bottom:1rem;display:block}
-
-/* Projects */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:2rem;margin-bottom:2rem}
-.project-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column}
-.project-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border-color);position:relative}
-.project-badge{position:absolute;top:1rem;right:1rem;background:var(--gradient-primary);color:#fff;padding:4px 12px;border-radius:12px;font-size:.75rem;font-weight:700}
-.project-icon{font-size:2rem;margin-bottom:.5rem}
-.project-title{font-size:1.3rem;margin-bottom:.25rem;color:var(--text-primary)}
-.project-type{font-size:.9rem;color:var(--text-muted);font-weight:500}
-.project-content{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
-.project-description{color:var(--text-secondary)}
-.project-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1rem;padding:1rem;background:var(--bg-secondary);border-radius:var(--radius)}
-.metric-item{text-align:center}
-.metric-value{display:block;font-weight:700;font-size:1.05rem;color:var(--primary-purple)}
-.metric-label{font-size:.8rem;color:var(--text-muted)}
-.tech-stack{display:flex;flex-wrap:wrap;gap:.5rem}
-.tech-tag{background:var(--bg-secondary);color:var(--text-secondary);padding:4px 12px;border-radius:16px;font-size:.8rem;font-weight:500;border:1px solid var(--border-color)}
-.project-links{display:flex;gap:.8rem;flex-wrap:wrap}
-.project-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg-secondary);color:var(--text-primary);text-decoration:none;border-radius:var(--radius);border:1px solid var(--border-color);font-size:.9rem;font-weight:600;transition:all var(--transition-fast)}
-.project-link:hover{background:var(--primary-purple);color:#fff;border-color:var(--primary-purple);transform:translateY(-2px)}
-.project-hidden{display:none}
-.project-visible{display:flex}
-
-/* Timeline (Journey) */
-.journey-timeline{max-width:800px;margin:0 auto;position:relative}
-.timeline-line-vertical{position:absolute;left:2rem;top:0;bottom:0;width:2px;background:var(--gradient-primary);opacity:.25}
-.journey-item{position:relative;margin-bottom:2.25rem;padding-left:5rem}
-.journey-dot{position:absolute;left:1.25rem;top:.95rem;width:1.5rem;height:1.5rem;background:var(--gradient-primary);border-radius:50%;border:4px solid var(--bg-primary);box-shadow:0 0 0 4px var(--border-color)}
-.journey-card-modern{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden}
-.journey-card-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border-color);background:var(--gradient-card)}
-.journey-title-modern{font-size:1.15rem;margin-bottom:.35rem;color:var(--text-primary)}
-.journey-meta{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
-.journey-institution{font-weight:700;color:var(--primary-purple)}
-.journey-period-modern{color:var(--text-muted);font-size:.9rem}
-.journey-gpa{background:var(--gradient-secondary);color:#fff;padding:2px 8px;border-radius:12px;font-size:.8rem;font-weight:700}
-.journey-card-content{padding:1.25rem 1.5rem}
-.journey-summary{color:var(--text-secondary);line-height:1.6;margin-bottom:.5rem}
-
-/* Read More Button (deduped, single source of truth) */
-.read-more-btn-modern{
-  background:none;border:0;color:var(--primary-purple);
-  font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
-  padding:8px 12px;border-radius:var(--radius);transition:all var(--transition-base);
-  white-space:nowrap;position:relative;overflow:hidden
-}
-.read-more-btn-modern::before{content:'';position:absolute;inset:0;background:var(--gradient-card);opacity:0;transition:opacity var(--transition-base);border-radius:var(--radius)}
-.read-more-btn-modern:hover{background:var(--bg-secondary);color:var(--accent-purple);transform:translateX(4px);box-shadow:var(--shadow-sm)}
-.read-more-btn-modern:hover::before{opacity:1}
-.read-more-btn-modern svg{transition:all var(--transition-base);flex-shrink:0}
-.read-more-btn-modern[aria-expanded="true"] svg{transform:rotate(180deg)}
-.read-more-btn-modern:active{transform:translateX(2px) scale(.98)}
-.journey-details-modern{max-height:0;overflow:hidden;transition:max-height .45s ease,opacity .45s ease;margin-top:0;opacity:0}
-.journey-details-modern.visible{max-height:520px;opacity:1;margin-top:.5rem}
-.details-list{list-style:none;margin:1rem 0}
-.details-list li{margin-bottom:.8rem;padding-left:1.25rem;position:relative;color:var(--text-secondary)}
-.details-list li::before{content:'→';position:absolute;left:0;color:var(--primary-purple);font-weight:700}
-.journey-achievements{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
-.achievement-tag{background:var(--gradient-secondary);color:#fff;padding:4px 12px;border-radius:16px;font-size:.75rem;font-weight:700}
-
-/* Skills */
-.skills-showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-.skill-list{display:flex;flex-direction:column;gap:1.25rem}
-.skill-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
-.skill-name{font-weight:700}
-.skill-percentage{font-size:.9rem;font-weight:700;color:var(--primary-purple)}
-.skill-progress-bar{width:100%;height:8px;background:var(--bg-secondary);border-radius:4px;overflow:hidden}
-.skill-progress-fill{height:100%;background:var(--gradient-primary);border-radius:4px;position:relative}
-.skill-progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 2s infinite}
-@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-
-/* Certifications */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-bottom:2rem}
-.cert-card{display:flex;flex-direction:column}
-.cert-image{width:100%;height:200px;overflow:hidden}
-.cert-image img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-base)}
-.cert-card:hover .cert-image img{transform:scale(1.05)}
-.cert-title{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;color:var(--text-primary);line-height:1.3;min-height:2.4rem;display:flex;align-items:center;justify-content:center;text-align:center}
-.cert-issuer{color:var(--primary-purple);font-weight:700;font-size:.9rem;margin-bottom:.25rem;text-align:center}
-.cert-date{color:var(--text-muted);font-size:.85rem;margin-bottom:1rem;font-weight:600;text-align:center}
-.cert-link-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;background:var(--gradient-primary);color:#fff !important;text-decoration:none;border-radius:var(--radius);font-weight:700;font-size:.9rem;transition:transform var(--transition-base),box-shadow var(--transition-base);border:0;width:100%}
-.cert-link-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,.35)}
-.cert-hidden{display:none}
-.cert-visible{display:flex}
-
-/* Beyond */
-.interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;align-items:stretch}
-.interest-card{text-align:center;display:flex;flex-direction:column;height:100%}
-.interest-image{width:100%;height:250px;overflow:hidden;border-radius:var(--radius);margin-bottom:1.5rem;flex-shrink:0}
-.interest-image img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-base)}
-.interest-card:hover .interest-image img{transform:scale(1.05)}
-.interest-card h3{color:var(--accent-purple);margin-bottom:1rem;font-size:1.25rem;font-weight:600;flex-shrink:0}
-.interest-card p{color:var(--text-secondary);line-height:1.6;flex-grow:1;display:flex;align-items:center;justify-content:center;text-align:center}
-
-/* Modern Contact Section Styles */
-.contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:3rem;align-items:start;max-width:1200px;margin:0 auto}
-.contact-cards-modern{display:flex;flex-direction:column;gap:1rem}
-.contact-card-modern{display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:1.25rem;transition:all var(--transition-base);position:relative;overflow:hidden}
-.contact-card-modern::before{content:'';position:absolute;inset:0;background:var(--gradient-card);opacity:0;transition:opacity var(--transition-base);pointer-events:none}
-.contact-card-modern:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--border-hover)}
-.contact-card-modern:hover::before{opacity:1}
-.contact-icon-modern{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--gradient-primary);border-radius:var(--radius);color:#fff;flex-shrink:0;transition:all var(--transition-base)}
-.contact-card-modern:hover .contact-icon-modern{transform:scale(1.1);box-shadow:0 4px 15px rgba(124,58,237,.3)}
-.contact-info-modern{flex:1;min-width:0}
-.contact-label-modern{font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.5px}
-.contact-link-modern{color:var(--primary-purple);text-decoration:none;font-weight:600;font-size:.95rem;transition:all var(--transition-fast);word-break:break-all}
-.contact-link-modern:hover{color:var(--accent-purple);text-decoration:underline}
-.contact-text-modern{color:var(--text-primary);font-weight:500;font-size:.95rem}
-.contact-form-modern{position:relative}
-.contact-form-title{font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:1.5rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.fallback-section-modern{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border-color);text-align:center}
-.fallback-text{font-size:.9rem;color:var(--text-muted);margin-bottom:.75rem;font-weight:500}
-.fallback-links-modern{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
-.fallback-link-modern{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg-secondary);color:var(--text-primary);text-decoration:none;border-radius:var(--radius);border:1px solid var(--border-color);font-size:.85rem;font-weight:600;transition:all var(--transition-fast)}
-.fallback-link-modern:hover{background:var(--primary-purple);color:#fff;border-color:var(--primary-purple);transform:translateY(-2px)}
-
-/* Responsive Design */
-@media (max-width:1024px){
-  .contact-layout{grid-template-columns:1fr;gap:2rem}
-  .contact-cards-modern{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
-}
-@media (max-width:768px){
-  .contact-cards-modern{grid-template-columns:1fr}
-  .contact-card-modern{padding:1rem}
-  .contact-icon-modern{width:40px;height:40px}
-  .fallback-links-modern{flex-direction:column;align-items:center}
-  .fallback-link-modern{width:100%;max-width:200px;justify-content:center}
-}
-
-/* Extra small */
-@media (max-width:480px){
-  .contact-layout{gap:1.5rem}
-  .contact-card-modern{flex-direction:column;text-align:center;gap:.75rem;padding:1rem}
-  .contact-info-modern{text-align:center}
-}
-
-/* Contact form */
-.contact-form.card{position:relative}
-.form-group{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.25rem}
-.form-label{font-weight:700;color:var(--text-secondary);font-size:.95rem}
-.input,.textarea{width:100%;padding:14px 16px;border-radius:var(--radius);border:2px solid var(--border-color);background:var(--bg-card);color:var(--text-primary);outline:0;transition:all var(--transition-base);font-family:inherit;font-size:.95rem}
-.input:focus,.textarea:focus{border-color:var(--primary-purple);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-.textarea{min-height:120px;resize:vertical;line-height:1.6}
-.form-error{font-size:.85rem;color:#ef4444;margin-top:.25rem;display:none;font-weight:600}
-.form-error.visible{display:block}
-.char-counter{font-size:.8rem;color:var(--text-muted);text-align:right;margin-top:-.25rem;font-weight:600}
-.btn-submit{width:100%;padding:16px 20px;border:0;border-radius:var(--radius);background:var(--gradient-primary);color:#fff;font-weight:800;font-size:1rem;cursor:pointer;transition:transform var(--transition-base),box-shadow var(--transition-base)}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.35)}
-.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.btn-loader{display:inline-flex;align-items:center;gap:8px}
-.success-message{position:absolute;inset:0;background:var(--bg-card);padding:2rem;display:none;align-items:center;justify-content:center;border-radius:var(--radius-lg);backdrop-filter:blur(10px);z-index:2}
-.success-message.visible{display:flex}
-.success-content{text-align:center;max-width:320px}
-.success-icon{font-size:2.5rem;margin-bottom:.5rem}
-.fallback-links{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
-.fallback-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg-secondary);color:var(--text-primary);text-decoration:none;border-radius:var(--radius);border:1px solid var(--border-color);font-weight:600}
-
-/* Utilities */
-.fade-in{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1)}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-.scroll-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--gradient-primary);z-index:1001;transition:width .1s}
-
-.scroll-to-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--gradient-primary);border:0;border-radius:50%;color:#fff;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(20px);transition:all var(--transition-base);z-index:1000}
-.scroll-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
-.scroll-to-top:hover{transform:translateY(-5px);box-shadow:var(--shadow-glow)}
-
-/* Responsive tweaks */
-@media(max-width:1024px){.nav-content{padding:0 1.25rem}.nav-links{gap:.5rem}}
-@media(max-width:900px){
-  .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--border-color);flex-direction:column;padding:1rem 2rem;gap:1rem;visibility:hidden;opacity:0;transform:translateY(-100%);transition:all var(--transition-base)}
-  .nav-links.active{visibility:visible;opacity:1;transform:translateY(0)}
-  .menu-toggle{display:block}
-  .nav-links a{padding:12px 16px;font-size:1rem;width:100%;text-align:center}
-  .contact-two-col{grid-template-columns:1fr}
-}
-@media(max-width:768px){
-  .hero-title{font-size:3rem}.section-title{font-size:2.4rem}
-  .projects-grid{grid-template-columns:1fr}
-  .journey-item{padding-left:3rem}.timeline-line-vertical{left:1rem}.journey-dot{left:.25rem}
-  .contact-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:480px){
-  .container{padding:0 1rem}
-  .hero-title{font-size:2.4rem}
-  .contact-grid{grid-template-columns:1fr}
-  .project-metrics{grid-template-columns:1fr}
-}
-
-/* Tech/Code Font Styling */
-.tech-tag,.metric-label,.achievement-tag{font-family:'Source Code Pro',monospace !important;font-weight:500}
-.contact-label-modern,.form-label{font-family:'Source Code Pro',monospace;font-weight:600}
-.stat-label,.cert-date{font-family:'Source Code Pro',monospace;font-weight:500}
-
-/* Interest Button Styling */
-.interest-button{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg-secondary);color:var(--text-primary);text-decoration:none;border-radius:var(--radius);border:1px solid var(--border-color);font-size:.9rem;font-weight:600;transition:all var(--transition-base);font-family:'Source Code Pro',monospace}
-.interest-button:hover{background:var(--primary-purple);color:#fff;border-color:var(--primary-purple);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-.interest-button svg{width:16px;height:16px;transition:transform var(--transition-base)}
-.interest-button:hover svg{transform:scale(1.1)}
-@media (max-width:768px){.interest-button{width:100%;justify-content:center}}
-  </style>
-</head>
-
-<body data-theme="light">
-  <!-- Loader -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-content">
-      <div class="loader-spinner" role="status" aria-label="Loading"></div>
-      <div class="loader-text">Sahil Walia</div>
-      <div class="loader-subtext">Loading Analytics Portfolio…</div>
-    </div>
-  </div>
-
-  <!-- Scroll Progress -->
-  <div class="scroll-progress" id="scrollProgress"></div>
-
-  <!-- Background -->
-  <div class="bg-canvas" aria-hidden="true"></div>
-
-  <!-- Skip link -->
-  <a href="#main" class="skip-link">Skip to main content</a>
-
-  <!-- NAV -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-content">
-      <div class="logo">
-        <div class="logo-icon">SW</div>
-        <span>Sahil Walia</span>
-      </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
-        </svg>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#journey" class="nav-link">Experience</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#certifications" class="nav-link">Certifications</a></li>
-        <li><a href="#beyond" class="nav-link">Beyond Work</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-        <div class="theme-toggle-slider" aria-hidden="true">☀️</div>
-      </button>
-    </div>
-  </nav>
-
-  <main id="main">
-    <!-- HERO -->
-    <section id="home" class="hero" aria-label="Intro">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-image">
-            <img src="./images/Profile%20pic%20framed.png" alt="Portrait of Sahil Walia" loading="eager" />
-          </div>
-          <div class="hero-badge">Graduate • Open to Opportunities</div>
-          <h1 class="hero-title" id="heroTitle">Sahil Walia</h1>
-          <p class="hero-subtitle">Business Intelligence & Analytics Professional</p>
-          <p class="hero-description">
-            Business Analytics professional specializing in statistical modeling and business intelligence.
-            Experienced in designing BI and analytics frameworks that consolidate large datasets and deliver
-            executive-ready insights, improving operational efficiency and driving business impact.
-          </p>
-
-          <div class="hero-cta">
-            <a href="#projects" class="btn btn-primary">
-              <span>View My Work</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
-            </a>
-            <a href="./Sahil Walia - Resume.pdf" download class="btn btn-secondary">
-              <span>Download Resume</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m7-5l5 5m0 0l5-5m-5 5V3"/></svg>
-            </a>
-          </div>
-
-          <div class="stats-bar" aria-label="Key stats">
-            <div class="stat-item">
-              <div class="stat-number" data-count="3.5">0</div>
-              <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="15">0</div>
-              <div class="stat-label">Projects Delivered</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="10">0</div>
-              <div class="stat-label">Certifications</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" aria-label="About Me">
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" aria-label="Certifications">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">About Me</span>
-          <h2 class="section-title">My Approach to Analytics</h2>
-          <p class="section-subtitle">Bridging the gap between data complexity and business clarity</p>
+          <span class="section-label">Credentials</span>
+          <h2 class="section-title">Certifications</h2>
+          <p class="section-subtitle">Validations across Analytics, AI, and Clinical Research</p>
         </div>
-        <div class="about-grid">
-          <div class="card fade-in about-card">
-            <div class="skill-category-icon" aria-hidden="true">🎯</div>
-            <h3>Strategic Analysis</h3>
-            <p>I start with the business context, stakeholder needs, and clear success criteria so every analysis drives meaningful impact.</p>
+
+        <div class="cert-grid" id="certGrid">
+          <!-- visible 3 -->
+          <div class="cert-card card fade-in cert-visible">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera-%20Foundations%20of%20BI%20-%20Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Foundations of Business Intelligence</h3>
+              <p class="cert-issuer">Google via Coursera</p>
+              <p class="cert-date">2025</p>
+              <a href="./documents/certifications/Coursera- Foundations of BI - Google.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+            </div>
           </div>
-          <div class="card fade-in about-card">
-            <div class="skill-category-icon" aria-hidden="true">⚡</div>
-            <h3>Advanced Tools</h3>
-            <p>Python, SQL, Tableau, and ML frameworks to turn raw data into predictive insights and interactive visualizations.</p>
+
+          <div class="cert-card card fade-in cert-visible">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/IBM%20AI%20Foundations%20for%20Everyone%20Coursera%2081KHE539ONWB-1.png" alt="IBM AI Foundations for Everyone" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">AI Foundations for Everyone</h3>
+              <p class="cert-issuer">IBM via Coursera</p>
+              <p class="cert-date">2025</p>
+              <a href="./documents/certifications/IBM AI Foundations for Everyone Coursera 81KHE539ONWB.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+            </div>
           </div>
-          <div class="card fade-in about-card">
-            <div class="skill-category-icon" aria-hidden="true">💡</div>
-            <h3>Impactful Solutions</h3>
-            <p>Scalable BI solutions that move beyond reporting — enabling proactive decisions and measurable business outcomes.</p>
+
+          <div class="cert-card card fade-in cert-visible">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera-%20GenAI-%20Intro%20%26%20Applications-%20IBM%20CHKHEVSPNRSS-1.png" alt="IBM Generative AI Introduction and Applications" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Generative AI: Introduction and Applications</h3>
+              <p class="cert-issuer">IBM via Coursera</p>
+              <p class="cert-date">2025</p>
+              <a href="./documents/certifications/Coursera- GenAI- Intro & Applications- IBM CHKHEVSPNRSS.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" aria-label="Featured Projects">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Portfolio</span>
-          <h2 class="section-title">Featured Projects</h2>
-          <p class="section-subtitle">From NLP to healthcare diagnostics and urban analytics — solving real problems with data and strategy.</p>
-        </div>
+          <!-- hidden others -->
+          <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Tableau%20Certified%20Data%20Analyst%20certificate.png" alt="Tableau Certified Data Analyst" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Tableau Certified Data Analyst</h3>
+              <p class="cert-issuer">Salesforce</p>
+              <p class="cert-date">2023</p>
+              <a href="./documents/certifications/Tableau Certified Data Analyst certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+            </div>
+          </div>
 
-        <div class="projects-grid" id="projectsGrid">
-          <!-- 1 -->
-          <article class="project-card fade-in project-visible">
-            <div class="project-header">
-              <span class="project-badge">Capstone</span>
-              <div class="project-icon">🤖</div>
-              <h3 class="project-title">Capstone — AI Sentiment Analyzer</h3>
-              <div class="project-type">ASU Capstone • NLP Analytics</div>
+          <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Tableau%20Desktop%20Specialist%20certificate.png" alt="Tableau Desktop Specialist" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Tableau Desktop Specialist</h3>
+              <p class="cert-issuer">Salesforce</p>
+              <p class="cert-date">2022</p>
+              <a href="./documents/certifications/Tableau Desktop Specialist certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
-            <div class="project-content">
-              <p class="project-description">Built RoBERTa-based NLP pipeline (Python, Tableau) analyzing 100K+ comments across Reddit/YouTube. Delivered executive dashboards surfacing brand perception and product pain points; presented to CIO & global leadership.</p>
-              <div class="project-metrics" aria-label="Key results">
-                <div class="metric-item"><span class="metric-value">100K+</span><div class="metric-label">Comments</div></div>
-                <div class="metric-item"><span class="metric-value">Executive</span><div class="metric-label">Presentation</div></div>
-                <div class="metric-item"><span class="metric-value">Multi-platform</span><div class="metric-label">Sources</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Python</span><span class="tech-tag">RoBERTa</span><span class="tech-tag">Tableau</span><span class="tech-tag">NLP</span><span class="tech-tag">Sentiment</span>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          <!-- 2 -->
-          <article class="project-card fade-in project-visible">
-            <div class="project-header">
-              <span class="project-badge">Research</span>
-              <div class="project-icon">🧠</div>
-              <h3 class="project-title">Breast Cancer Detection with Explainable AI</h3>
-              <div class="project-type">Student Research • Healthcare AI</div>
+          <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Power BI Introduction</h3>
+              <p class="cert-issuer">Coursera</p>
+              <p class="cert-date">2024</p>
+              <a href="./documents/certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
-            <div class="project-content">
-              <p class="project-description">Trained YOLOv8 on 5,000+ mammograms (VinDr-Mammo) for multi-lesion detection (~85% accuracy). Applied Grad-CAM, LIME, SHAP to enhance interpretability and clinician trust.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">5,000+</span><div class="metric-label">Images</div></div>
-                <div class="metric-item"><span class="metric-value">~85%</span><div class="metric-label">Accuracy</div></div>
-                <div class="metric-item"><span class="metric-value">XAI</span><div class="metric-label">Methods</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">YOLOv8</span><span class="tech-tag">Python</span><span class="tech-tag">Computer Vision</span><span class="tech-tag">Grad-CAM</span><span class="tech-tag">LIME</span><span class="tech-tag">SHAP</span>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          <!-- 3 (hidden by default) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Academic</span>
-              <div class="project-icon">🏢</div>
-              <h3 class="project-title">Property Maintenance Trends in Phoenix</h3>
-              <div class="project-type">Data Analysis • Urban Planning</div>
+          <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop" alt="AWS Proficiency Certificates" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">AWS Proficiency Certificates</h3>
+              <p class="cert-issuer">AWS</p>
+              <p class="cert-date">2022</p>
+              <a href="./documents/certifications/AWS_Proficiency_Certificates-1-6.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
-            <div class="project-content">
-              <p class="project-description">Analyzed city complaint data to identify neighborhoods by response time & issue frequency; visualized concerns and resolution times with Python.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">City-wide</span><div class="metric-label">Scope</div></div>
-                <div class="metric-item"><span class="metric-value">Multiple</span><div class="metric-label">Districts</div></div>
-                <div class="metric-item"><span class="metric-value">Actionable</span><div class="metric-label">Insights</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span><span class="tech-tag">Data Viz</span><span class="tech-tag">Urban Analytics</span>
-              </div>
-              <div class="project-links">
-                <!-- FIXED: real links + proper icons -->
-                <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix/blob/ffbae6768a13b7f30b8b53761052378f12c5556e/Property-Maintenance-Trends-in-Phoenix-Analysis.ipynb" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6"/>
-                  </svg>
-                  <span>Analysis</span>
-                </a>
-                <a href="https://github.com/walia-sahil/Property-Maintenance-Trends-in-Phoenix" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M4 4h16v16H4z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          <!-- 4 (hidden) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Strategy</span>
-              <div class="project-icon">🛍️</div>
-              <h3 class="project-title">Zudio Market Expansion Strategy</h3>
-              <div class="project-type">Marketing Analytics • Business Strategy</div>
+          <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Clinical Trials & Monitoring Proficiency</h3>
+              <p class="cert-issuer">Professional Certification</p>
+              <p class="cert-date">2022</p>
+              <a href="./documents/certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
-            <div class="project-content">
-              <p class="project-description">Assessed US market entry: risks, cultural fit, supply chain; recommended phased rollout via ethnic urban clusters.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">Market</span><div class="metric-label">Assessment</div></div>
-                <div class="metric-item"><span class="metric-value">Strategic</span><div class="metric-label">Planning</div></div>
-                <div class="metric-item"><span class="metric-value">Phased</span><div class="metric-label">Rollout</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Market Research</span><span class="tech-tag">Competitive Analysis</span><span class="tech-tag">Business Planning</span>
-              </div>
-              <div class="project-links">
-                <!-- FIXED: real links + proper icons -->
-                <a href="https://github.com/walia-sahil/Zudio-Marketing-Analysis/blob/main/Zudio_marketing_analysis.pdf" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6"/>
-                  </svg>
-                  <span>Presentation</span>
-                </a>
-                <a href="https://github.com/walia-sahil/Zudio-Marketing-Analysis" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M4 4h16v16H4z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          <!-- 5 (hidden) -->
-          <article class="project-card fade-in project-hidden">
-            <div class="project-header">
-              <span class="project-badge">Computer Vision</span>
-              <div class="project-icon">🅿️</div>
-              <h3 class="project-title">ASU Parking Problem Analysis</h3>
-              <div class="project-type">Computer Vision • Campus Solutions</div>
+            <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image">
+              <img src="./images/certifications/thumbnail%20images/six%20sigma%20green%20belt.png" alt="Six Sigma Green Belt" loading="lazy" />
             </div>
-            <div class="project-content">
-              <p class="project-description">Applied CV to detect congestion & illegal usage zones; proposed app-guided parking and behavioral nudges.</p>
-              <div class="project-metrics">
-                <div class="metric-item"><span class="metric-value">Real-world</span><div class="metric-label">Impact</div></div>
-                <div class="metric-item"><span class="metric-value">CV</span><div class="metric-label">Approach</div></div>
-                <div class="metric-item"><span class="metric-value">Cost-effective</span><div class="metric-label">Solutions</div></div>
-              </div>
-              <div class="tech-stack">
-                <span class="tech-tag">Computer Vision</span><span class="tech-tag">Python</span><span class="tech-tag">Image Processing</span><span class="tech-tag">Data Analysis</span>
-              </div>
-              <div class="project-links">
-                <!-- FIXED: real links + proper icons -->
-                <a href="https://github.com/walia-sahil/CV-Based-Parking-Solution/blob/2dad89f265a0d1a1941fbfe424ae6d9735b0619b/Team312_CV_Based_Parking_Monitoring_Solution_discussion.pdf" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <path d="M14 2v6h6"/>
-                  </svg>
-                  <span>Presentation</span>
-                </a>
-                <a href="https://github.com/walia-sahil/CV-Based-Parking-Solution" class="project-link" target="_blank" rel="noopener">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M4 4h16v16H4z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-              </div>
+            <div class="cert-content">
+              <h3 class="cert-title">Six Sigma — Green Belt</h3>
+              <p class="cert-issuer">MSME (Govt. of India)</p>
+              <p class="cert-date">2019</p>
+              <a href="./documents/certifications/six%20sigma%20green%20belt.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
-          </article>
-        </div>
+          </div>
 
-        <div style="text-align:center;margin-top:2rem">
-          <button id="viewAllBtn" class="btn btn-secondary" aria-expanded="false">
-            <span id="btnText">View All Projects</span>
-            <svg id="btnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="cert-button-container">
+          <button id="viewAllCertsBtn" class="btn btn-secondary">
+            <span id="certBtnText">View All Certifications</span>
+            <svg id="certBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- JOURNEY -->
-    <section id="journey" aria-label="Professional Journey">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Career Path</span>
-          <h2 class="section-title">Professional Journey</h2>
-          <p class="section-subtitle">From engineering foundations to analytics excellence</p>
-        </div>
-
-        <div class="journey-timeline">
-          <div class="timeline-line-vertical" aria-hidden="true"></div>
-
-          <!-- items -->
-          <div class="journey-item fade-in">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card-modern">
-              <div class="journey-card-header">
-                <h3 class="journey-title-modern">Student Volunteer Researcher</h3>
-                <div class="journey-meta"><span class="journey-institution">Arizona State University</span><span class="journey-period-modern">Aug 2024 — Present</span></div>
-              </div>
-              <div class="journey-card-content">
-                <p class="journey-summary">Researching explainable AI for healthcare while advancing coursework in analytics & ML.</p>
-                <button class="read-more-btn-modern" data-target="journey-current" aria-expanded="false">
-                  <span>Read More</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                <div class="journey-details-modern" id="journey-current">
-                  <div class="details-content">
-                    <p><strong>Synopsis:</strong> This research project applies state-of-the-art Ultralytics YOLOv8–YOLOv12 models to medical imaging, focusing on detecting breast cancer abnormalities such as masses, calcifications, and distortions. 
-                      By leveraging ensembling methods on multi-class trained models, the study aims to improve accuracy and speed in computer-aided diagnosis. 
-                      The ultimate goal is to publish a peer-reviewed research paper in a data science journal, demonstrating how optimized YOLO models can advance early cancer detection and clinical decision support.</p>
-                    <div class="journey-achievements"><span class="achievement-tag">Healthcare AI</span><span class="achievement-tag">Executive Briefing</span><span class="achievement-tag">Advanced Analytics</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="journey-item fade-in">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card-modern">
-              <div class="journey-card-header">
-                <h3 class="journey-title-modern">M.S. Business Analytics (STEM)</h3>
-                <div class="journey-meta"><span class="journey-institution">Arizona State University | WP Carey School of Business</span><span class="journey-period-modern">Aug 2024 — May 2025</span><span class="journey-gpa">GPA: 3.78 / 4.0</span></div>
-              </div>
-              <div class="journey-card-content">
-                <p class="journey-summary">In search of constant upskilling and learning, I moved to Arizona, USA, to pursue my Master's degree in Analytics.</p>
-                <button class="read-more-btn-modern" data-target="journey-1" aria-expanded="false">
-                  <span>Read More</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                <div class="journey-details-modern" id="journey-1">
-                  <div class="details-content">
-                    <p><strong>Synopsis:</strong> The MS Business Analytics helped me explore various courses, through gruntwork and real-world projects, it helped me deliver impactful projects including an AI Sentiment Analyzer for a leading motorcycle brand and Explainable AI models for breast cancer detection. 
-                     These projects spanning data engineering, machine learning, and executive storytelling, prepared me for global business impact.</p>
-                    <p><strong>Coursework:</strong> Descriptive &amp; Predictive Statistics, Machine Learning for Business Applications, Data Visualization, Enterprise Data Analytics, Business Data Analytics Strategy, Big Data Analytics, AI &amp; Ethics in Business</p>
-                    <div class="journey-achievements"><span class="achievement-tag">STEM</span><span class="achievement-tag">Research</span><span class="achievement-tag">Industry Partner</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="journey-item fade-in">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card-modern">
-              <div class="journey-card-header">
-                <h3 class="journey-title-modern">Decision Analytics Associate Consultant</h3>
-                <div class="journey-meta"><span class="journey-institution">ZS Associates, India</span><span class="journey-period-modern">Jan 2024 — Jun 2024</span></div>
-              </div>
-              <div class="journey-card-content">
-                <p class="journey-summary">In this role, I stepped into a senior client-facing position, leading a team of analysts to deliver complex, multi-source data solutions in clinical trial operations. 
-                  My focus was on improving diversity recruitment, building scalable BI pipelines, and ensuring seamless adoption of analytics tools by clinical and strategy stakeholders.</p>
-                <button class="read-more-btn-modern" data-target="journey-2" aria-expanded="false">
-                  <span>Read More</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                <div class="journey-details-modern" id="journey-2">
-                  <div class="details-content">
-                    <ul class="details-list">
-                      <li>Directed a 4-member analyst team on multi-source data projects, optimizing trial recruitment strategies and improving representation of underserved populations by 20% in priority study cohorts.</li>
-                      <li>Designed and automated BI pipelines (Python + SQL) integrating real-world and clinical datasets, cutting data preparation effort by 40% and enabling faster trial insights.</li>
-                      <li>Served as primary Tableau SME across global geographies, resolving 90% of stakeholder support requests within 24 hours to ensure uninterrupted access to dashboards.</li>
-                      <li>Developed 20+ client-facing decks and requirements documents, streamlining tool onboarding by 30% and automating BRD generation via agent-based AI workflows.</li>
-                      <li>Coached junior analysts on data governance, visualization standards, and DEI-driven analytics, reducing onboarding time by 40% and scaling team-wide BI expertise.</li>
-                    </ul>
-                    <div class="journey-achievements"><span class="achievement-tag">Clinical Analytics</span><span class="achievement-tag">Exec Enablement</span><span class="achievement-tag">Pipelines</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- additional journey items would continue unchanged -->
+  <!-- BEYOND WORK -->
+<section id="beyond" aria-label="Beyond Work">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Personal</span>
+      <h2 class="section-title">Beyond Work</h2>
+      <p class="section-subtitle">Interests that fuel creativity</p>
+    </div>
+    <div class="interests-grid">
+      <div class="interest-card card fade-in">
+     <div class="interest-image"><img src="images/medium%20profile%20SW.png" alt="Technology & Innovation" loading="lazy" /></div>
+        <h3 style="color:var(--accent-purple);margin-bottom:1rem">Technology & Innovation</h3>
+        <p style="color:var(--text-secondary)">An active contributor to data forums such as Tableau and Google Cloud, I stay engaged with emerging technological trends and recently began publishing data-driven insights on Medium.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://medium.com/@sahilwalia1" target="_blank" rel="noopener noreferrer" class="interest-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+            <span>Read on Medium</span>
+          </a>
         </div>
       </div>
-    </section>
+      
+      <div class="interest-card card fade-in">
+        <div class="interest-image"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Automotive Engineering" loading="lazy" /></div>
+        <h3 style="color:var(--accent-purple);margin-bottom:1rem">Automotive Engineering</h3>
+        <p style="color:var(--text-secondary)">Lifelong motorsports enthusiast with extensive experience in student motorsports. Led Team Enigmatic Plodder through multiple collegiate championships, applying data‑driven performance optimization to racing dynamics.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://www.instagram.com/team_enigmaticplodder/" target="_blank" rel="noopener noreferrer" class="interest-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <path d="M17.5 6.5h.01"/>
+            </svg>
+            <span>Team Instagram</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="interest-card card fade-in">
+  <div class="interest-image"><img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&h=250&fit=crop" alt="Community & Mentorship" loading="lazy" /></div>
+  <h3 style="color:var(--accent-purple);margin-bottom:1rem">Community & Mentorship</h3>
+  <p style="color:var(--text-secondary)">Mentoring aspiring analysts through workshops and collaborations. Previously involved in CSR programs (ZS Cares, Blooming Beacon), contributing to educational outreach through structured guidance.</p>
+  <div style="margin-top:1.5rem;">
+    <a href="https://www.zs.com/life-at-zs-insights/zs-cares-day-2023" target="_blank" rel="noopener noreferrer" class="interest-button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2v-5.5A4.5 4.5 0 0 1 7.5 9h1a4.5 4.5 0 0 1 4.5 4.5V19a2 2 0 0 1-2 2Z"/>
+        <path d="M12 9V7a3 3 0 0 0-6 0v2"/>
+        <path d="M15 17h.01"/>
+        <path d="M12 17h.01"/>
+        <path d="M9 17h.01"/>
+      </svg>
+      <span>Learn More</span>
+    </a>
+  </div>
+</div>
+  </div>
+</section>
 
-    <!-- SKILLS, CERTIFICATIONS, BEYOND, CONTACT (unchanged content/structure) -->
-    <!-- ... Keep your existing markup for these sections as-is ... -->
+    <!-- CONTACT -->
+<section id="contact" aria-label="Contact Information">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">Connect</span>
+      <h2 class="section-title">Let's Collaborate</h2>
+      <p class="section-subtitle">Open to discussing analytics projects, opportunities, and innovative solutions</p>
+    </div>
+
+    <div class="contact-layout">
+      <!-- Contact Cards - Modern Compact Design -->
+      <div class="contact-cards-modern">
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">Email</h3>
+            <a href="mailto:sahilwalia2598@gmail.com" class="contact-link-modern">sahilwalia2598@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">LinkedIn</h3>
+            <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener noreferrer" class="contact-link-modern">linkedin.com/in/sahilwalia1</a>
+          </div>
+        </div>
+
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">GitHub</h3>
+            <a href="https://github.com/walia-sahil" target="_blank" rel="noopener noreferrer" class="contact-link-modern">github.com/walia-sahil</a>
+          </div>
+        </div>
+
+        <div class="contact-card-modern fade-in">
+          <div class="contact-icon-modern">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="contact-info-modern">
+            <h3 class="contact-label-modern">Location</h3>
+            <span class="contact-text-modern">United States</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form - Unchanged Functionality -->
+      <div class="contact-form-modern card fade-in">
+        <h3 class="contact-form-title">Send a Message</h3>
+
+        <form id="contactForm" action="https://formspree.io/f/mnnbadpg" method="POST" novalidate>
+          <input type="text" name="_gotcha" style="display:none!important" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="_subject" value="New Portfolio Contact - Sahil Walia">
+          <input type="hidden" name="_next" value="#contact">
+          <input type="hidden" name="_autoresponse" value="Thanks for your message! I'll get back to you soon.">
+
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name *</label>
+            <input class="input" id="name" name="name" type="text" placeholder="Enter your full name" required minlength="2" maxlength="100" autocomplete="name" />
+            <div class="form-error" id="nameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Your Email *</label>
+            <input class="input" id="email" name="email" type="email" placeholder="your.email@example.com" required maxlength="100" autocomplete="email" />
+            <div class="form-error" id="emailError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject *</label>
+            <input class="input" id="subject" name="subject" type="text" placeholder="What's this about?" required minlength="3" maxlength="150" />
+            <div class="form-error" id="subjectError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Your Message *</label>
+            <textarea class="textarea" id="message" name="message" placeholder="Tell me about your project or opportunity..." required minlength="10" maxlength="2000" rows="6"></textarea>
+            <div class="form-error" id="messageError"></div>
+            <div class="char-counter" id="charCounter">0 / 2000 characters</div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span id="submitText">Send Message</span>
+            <span class="btn-loader" id="btnLoader" style="display:none"><span class="spinner" aria-hidden="true"></span>Sending…</span>
+          </button>
+
+          <div id="formNote" class="form-note" aria-live="polite" style="display:none"></div>
+          <div id="sessionLimit" class="session-limit-notice" style="display:none"></div>
+        </form>
+
+        <div id="successMessage" class="success-message">
+          <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h4>Message Sent Successfully!</h4>
+            <p>Thanks for reaching out. I'll get back to you shortly.</p>
+            <div class="success-actions" style="display:flex;flex-direction:column;gap:.6rem">
+              <a href="mailto:sahilwalia2598@gmail.com" class="fallback-link">📧 Email Directly</a>
+              <a href="https://linkedin.com/in/sahilwalia1" target="_blank" rel="noopener" class="fallback-link">💼 Connect on LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </div>
+</section>
   </main>
 
   <!-- Scroll to Top -->
-  <button id="scrollTopBtn" class="scroll-to-top" aria-label="Scroll to top">
-    ↑
+  <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
 
-  <script>
-/* ===== Utilities ===== */
-const $ = (sel, ctx=document) => ctx.querySelector(sel);
-const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+  <!-- Footer -->
+  <footer style="text-align:center;padding:3rem 2rem;color:var(--text-muted);border-top:1px solid var(--border-color);background:var(--bg-secondary)">
+    <div class="container">
+      <p style="margin-bottom:1rem;font-size:1rem">© 2025 Sahil Walia. Built with passion for data and innovation.</p>
+      <p style="font-size:.9rem;opacity:.85">Accessible • Performant • Modern</p>
+    </div>
+  </footer>
 
-/* ===== Loader ===== */
-window.addEventListener('load', () => {
-  const loader = $('#loader');
-  if (loader) {
-    requestAnimationFrame(() => loader.classList.add('hidden'));
-    setTimeout(() => loader.remove(), 1000);
-  }
+<script>
+certGrid, '.cert-card', 'cert-hidden', 'cert-visible',
+VISIBLE_CERTS, '#certBtnText', '#certBtnIcon', 'View All Certifications', 'Show Less'
+);
+});
+}
+
+function toggleViewAll(grid, cardSelector, hiddenClass, visibleClass, visibleCount, textSelector, iconSelector, showText, hideText) {
+if (!grid) return;
+const cards = $$(cardSelector, grid);
+if (!cards.length) return;
+
+const hasHidden = cards.some(card => card.classList.contains(hiddenClass));
+const shouldExpand = hasHidden;
+
+cards.forEach((card, i) => {
+if (shouldExpand) {
+card.classList.remove(hiddenClass);
+card.classList.add(visibleClass);
+} else {
+const keep = i < visibleCount;
+card.classList.toggle(visibleClass, keep);
+card.classList.toggle(hiddenClass, !keep);
+}
 });
 
-/* ===== Mobile Menu ===== */
-(() => {
-  const toggle = $('#menuToggle');
-  const nav = $('#navLinks');
-  if (!toggle || !nav) return;
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-    const expanded = nav.classList.contains('active');
-    toggle.setAttribute('aria-expanded', String(expanded));
-  });
-  // Close on link click (single handler, event delegation)
-  nav.addEventListener('click', (e) => {
-    const link = e.target.closest('a');
-    if (!link) return;
-    nav.classList.remove('active');
-    toggle.setAttribute('aria-expanded', 'false');
-  });
-})();
+const label = $(textSelector);
+if (label) label.textContent = shouldExpand ? hideText : showText;
+const icon = $(iconSelector);
+if (icon) icon.style.transform = shouldExpand ? 'rotate(180deg)' : 'rotate(0deg)';
+}
 
-/* ===== Theme Toggle (persist) ===== */
-(() => {
-  const btn = $('#themeToggle');
-  const root = document.body;
-  const key = 'theme';
-  const apply = (mode) => root.setAttribute('data-theme', mode);
-  const saved = localStorage.getItem(key);
-  if (saved) apply(saved);
-  btn?.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    apply(next);
-    localStorage.setItem(key, next);
-  });
-})();
+// ==== Contact form (optional; keep API wiring intact) ====
+function initContactForm() {
+const form = $('#contactForm');
+if (!form) return;
 
-/* ===== Navbar + Scroll Progress ===== */
-(() => {
-  const progress = $('#scrollProgress');
-  const navbar = $('.navbar');
-  const onScroll = () => {
-    const y = window.scrollY || document.documentElement.scrollTop;
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    if (progress) progress.style.width = `${(y / h) * 100}%`;
-    if (navbar) navbar.classList.toggle('scrolled', y > 10);
-  };
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
+const name = $('#name');
+const email = $('#email');
+const message = $('#message');
+const submitBtn = $('#submitBtn');
+const submitText = $('#submitText');
+const btnLoader = $('#btnLoader');
+const formNote = $('#formNote');
+const successBox = $('#successBox');
+const charCounter = $('#charCounter');
 
-/* ===== Fade-in Observer ===== */
-(() => {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
-  }, { threshold: 0.15 });
-  $$('.fade-in').forEach(el => io.observe(el));
-})();
+message?.addEventListener('input', () => {
+const len = message.value.length; if (charCounter) charCounter.textContent = `${len} / 2000 characters`;
+});
 
-/* ===== Stats Counter ===== */
-(() => {
-  const counters = $$('.stat-number');
-  if (!counters.length) return;
-  const animate = (el) => {
-    const target = parseFloat(el.getAttribute('data-count')) || 0;
-    const isFloat = !Number.isInteger(target);
-    const duration = 1200;
-    const start = performance.now();
-    const step = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      const val = target * p;
-      el.textContent = isFloat ? val.toFixed(1) : Math.round(val).toString();
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        animate(e.target);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  counters.forEach(el => io.observe(el));
-})();
+form.addEventListener('submit', (e) => {
+e.preventDefault(); if (state.formSubmitting) return; clearFormErrors();
+const data = new FormData(form);
+const n = data.get('name')?.toString().trim();
+const em = data.get('email')?.toString().trim();
+const msg = data.get('message')?.toString().trim();
+let ok = true;
+if (!n) { ok = false; showFormError('name', 'Please enter your name.'); }
+if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { ok = false; showFormError('email', 'Enter a valid email.'); }
+if (!msg || msg.length < 5) { ok = false; showFormError('message', 'Message is too short.'); }
+if (!ok) return;
+submitForm();
+});
 
-/* ===== View All Projects toggle ===== */
-(() => {
-  const btn = $('#viewAllBtn');
-  const btnText = $('#btnText');
-  const icon = $('#btnIcon');
-  if (!btn || !btnText || !icon) return;
-  btn.addEventListener('click', () => {
-    const hidden = $$('.project-hidden');
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    hidden.forEach(card => card.style.display = expanded ? 'none' : 'flex');
-    btn.setAttribute('aria-expanded', String(!expanded));
-    btnText.textContent = expanded ? 'View All Projects' : 'Show Fewer';
-    icon.style.transform = expanded ? 'rotate(0deg)' : 'rotate(180deg)';
-  });
-  // Ensure initial hidden state via inline style for robust toggling
-  $$('.project-hidden').forEach(card => card.style.display = 'none');
-})();
+async function submitForm() {
+state.formSubmitting = true; setSubmitButtonState(true); hideFormNote();
+try {
+const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+if (response.ok) {
+showSuccess(); form.reset(); if (charCounter) charCounter.textContent = '0 / 2000 characters';
+} else {
+const data = await response.json().catch(() => ({}));
+throw new Error(data.error || 'Submission failed. Please try again later.');
+}
+} catch (err) {
+showFormNote(err.message || 'Something went wrong. Please use the email/LinkedIn links below.', 'error');
+} finally {
+state.formSubmitting = false; setSubmitButtonState(false);
+}
+}
 
-/* ===== Read More toggles (Journey) ===== */
-(() => {
-  $$('.read-more-btn-modern').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-target');
-      const panel = id ? document.getElementById(id) : null;
-      if (!panel) return;
-      const open = panel.classList.toggle('visible');
-      btn.setAttribute('aria-expanded', String(open));
-    });
-  });
+function setSubmitButtonState(isSubmitting) {
+if (!submitBtn || !submitText || !btnLoader) return;
+submitBtn.disabled = isSubmitting;
+submitText.style.display = isSubmitting ? 'none' : 'inline';
+btnLoader.style.display = isSubmitting ? 'inline-flex' : 'none';
+}
+function showSuccess() { successBox?.classList.add('visible'); window.scrollTo({ top: successBox?.offsetTop ?? 0, behavior: prefersReduced ? 'auto' : 'smooth' }); }
+function showFormError(field, msg) { const el = $(`#${field}Error`); if (el) { el.textContent = msg; el.classList.add('visible'); } }
+function clearFormErrors() { $$('.form-error').forEach(e => { e.textContent = ''; e.classList.remove('visible'); }); }
+function showFormNote(message, type) { if (!formNote) return; formNote.textContent = message; formNote.className = `form-note ${type}`; formNote.style.display = 'block'; }
+function hideFormNote() { if (formNote) formNote.style.display = 'none'; }
+}
 })();
-
-/* ===== Scroll to Top ===== */
-(() => {
-  const btn = $('#scrollTopBtn');
-  if (!btn) return;
-  const toggle = () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
-  };
-  document.addEventListener('scroll', toggle, { passive: true });
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  toggle();
-})();
-
-/* ===== Lazy-load non-critical images in grids ===== */
-(() => {
-  // Applies only to images that aren't already eager
-  $$('img').forEach(img => {
-    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-  });
-})();
-  </script>
+</script>
 </body>
 </html>

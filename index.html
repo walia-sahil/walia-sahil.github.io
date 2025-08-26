@@ -2207,10 +2207,7 @@ footer p:last-child {
   }
   
   .intro-cards {
-    top: 55%;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem;
+    display: none !important;
   }
   
   .intro-card {
@@ -2240,9 +2237,7 @@ footer p:last-child {
   }
   
   .intro-cards {
-    top: 60%;
-    padding: 0.75rem;
-    gap: 1rem;
+    display: none !important;
   }
   
   .intro-card {
@@ -3495,17 +3490,17 @@ window.addEventListener('load', () => {
     // Add escape key listener
     document.addEventListener('keydown', handleEscapeKey);
     
-    // Store timeout reference for cancellation
-    loaderTimeout = setTimeout(() => {
-      loaderOverlay.classList.add('hidden');
-      initializeAll();
-      loaderActive = false;
-      document.removeEventListener('keydown', handleEscapeKey);
-    }, 5000);
-  } else {
-    initializeAll();
-  }
-});
+// Detect mobile and set appropriate timeout
+const isMobile = window.matchMedia('(max-width: 768px)').matches;
+const loaderDuration = isMobile ? 1000 : 5000; // 1 second on mobile, 5 seconds on desktop
+
+// Store timeout reference for cancellation
+loaderTimeout = setTimeout(() => {
+  loaderOverlay.classList.add('hidden');
+  initializeAll();
+  loaderActive = false;
+  document.removeEventListener('keydown', handleEscapeKey);
+}, loaderDuration);
 
 function initializeAll() {
   initTheme();
