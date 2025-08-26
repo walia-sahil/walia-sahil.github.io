@@ -2217,17 +2217,46 @@ footer p:last-child {
     padding: 1.5rem 1.25rem;
   }
   
-  /* Mobile: cards stack vertically with same timing */
+  /* Mobile Responsive */
+@media (max-width: 768px) {
+  .loader-main {
+    top: 20%;
+  }
+  
+  .intro-cards {
+    top: 55%;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .intro-card {
+    min-width: 280px;
+    max-width: calc(100vw - 2rem);
+    min-height: 160px;
+    padding: 1.5rem 1.25rem;
+  }
+  
+  /* Hide card 1 (scroll card) on mobile */
   .intro-card-scroll {
-    order: 1;
+    display: none !important;
+  }
+  
+  /* Show cards 2 and 3, make them immediately visible */
+  .intro-card-nav,
+  .intro-card-theme {
+    display: flex !important;
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+    order: 1; /* Both will stack vertically */
   }
   
   .intro-card-nav {
-    order: 2;
+    order: 1;
   }
   
   .intro-card-theme {
-    order: 3;
+    order: 2;
   }
 }
 
@@ -2237,13 +2266,28 @@ footer p:last-child {
   }
   
   .intro-cards {
-    display: none !important;
+    top: 60%;
+    padding: 0.75rem;
+    gap: 1rem;
   }
   
   .intro-card {
     min-width: calc(100vw - 1.5rem);
     padding: 1.5rem 1rem;
     min-height: 150px;
+  }
+  
+  /* Keep cards 2 and 3 visible even on smallest screens */
+  .intro-card-nav,
+  .intro-card-theme {
+    display: flex !important;
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+  
+  /* Hide card 1 on smallest screens too */
+  .intro-card-scroll {
+    display: none !important;
   }
   
   .theme-toggle-preview {
@@ -3485,22 +3529,34 @@ function handleEscapeKey(event) {
 // ==== Boot ====
 window.addEventListener('load', () => {
   const loaderOverlay = $('#loaderOverlay');
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
   
+  // Skip loader entirely on mobile
+  if (isMobile) {
+    if (loaderOverlay) {
+      loaderOverlay.classList.add('hidden');
+    }
+    initializeAll();
+    loaderActive = false;
+    return;
+  }
+  
+  // Desktop loader behavior (unchanged)
   if (loaderOverlay) {
     // Add escape key listener
     document.addEventListener('keydown', handleEscapeKey);
     
-// Detect mobile and set appropriate timeout
-const isMobile = window.matchMedia('(max-width: 768px)').matches;
-const loaderDuration = isMobile ? 1000 : 5000; // 1 second on mobile, 5 seconds on desktop
-
-// Store timeout reference for cancellation
-loaderTimeout = setTimeout(() => {
-  loaderOverlay.classList.add('hidden');
-  initializeAll();
-  loaderActive = false;
-  document.removeEventListener('keydown', handleEscapeKey);
-}, loaderDuration);
+    // Store timeout reference for cancellation
+    loaderTimeout = setTimeout(() => {
+      loaderOverlay.classList.add('hidden');
+      initializeAll();
+      loaderActive = false;
+      document.removeEventListener('keydown', handleEscapeKey);
+    }, 5000);
+  } else {
+    initializeAll();
+  }
+});
 
 function initializeAll() {
   initTheme();
