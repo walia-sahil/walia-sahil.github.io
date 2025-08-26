@@ -549,18 +549,18 @@ section {
 }
 
 .hero-image {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   margin: 0 auto 2rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid var(--border-color);
+  border: 2px solid var(--border-color);
   box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
 }
 
 .hero-image:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   border-color: var(--primary-purple);
   box-shadow: var(--shadow-glow);
 }
@@ -574,6 +574,7 @@ section {
 .hero-badge {
   display: inline-block;
   background: var(--gradient-secondary);
+  opacity: 0.8;
   color: #fff;
   padding: 10px 20px;
   border-radius: 25px;
@@ -1873,7 +1874,7 @@ footer p:last-child {
   font-size: 0.9rem;
   opacity: 0.85;
 }
-/* ================= Enhanced Loader with Side-by-Side Sequential Cards (5s Total) ================= */
+/* ================= Enhanced Loader with Side-by-Side Sequential Cards ================= */
 .loader-overlay {
   position: fixed;
   inset: 0;
@@ -1901,12 +1902,12 @@ footer p:last-child {
 
 .loader-main {
   position: absolute;
-  top: 25%; /* Position in upper portion of screen */
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   color: var(--text-primary);
-  z-index: 4; /* Higher than cards */
+  z-index: 4;
   width: 100%;
 }
 
@@ -1917,36 +1918,32 @@ footer p:last-child {
   border-top: 3px solid var(--primary-purple);
   border-radius: 50%;
   animation: loaderSpin 1s linear infinite;
-  margin: 0 auto 1rem; /* Reduced margin since no text above */
+  margin: 0 auto 1rem;
 }
 
-/* Hide the loader-text (name) since it's been removed */
 .loader-main .loader-text {
   display: none;
 }
 
-/* Updated subtext - now the main text below spinner */
 .loader-main .loader-subtext {
-  font-size: 1.1rem; /* Slightly larger since it's the main text now */
-  font-weight: 600; /* Bolder for better visibility */
+  font-size: 1.1rem;
+  font-weight: 600;
   opacity: 0;
-  animation: fadeInUp 0.6s ease forwards 0.4s; /* Slightly faster since no delay for title */
-  color: var(--bg-secondary); /* Better contrast color */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* Subtle shadow for definition */
+  animation: fadeInUp 0.6s ease forwards 0.4s;
+  color: var(--bg-secondary);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   margin-top: 0.5rem;
 }
 
-/* Dark theme override for loader text */
 [data-theme="dark"] .loader-main .loader-subtext {
   color: var(--accent-purple);
   text-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
 }
 
-/* Introduction Cards - Side by Side Sequential */
-/* Also update intro-cards positioning to account for loader above */
+/* Introduction Cards */
 .intro-cards {
   position: absolute;
-  top: 50%; /* Move cards to center/lower portion */
+  top: 50%;
   left: 0;
   right: 0;
   transform: translateY(-50%);
@@ -2023,29 +2020,28 @@ footer p:last-child {
   margin-bottom: 1rem;
 }
 
-/* Sequential Side-by-Side Animation Classes */
+/* Desktop Animation Classes */
 .intro-card-scroll {
-  order: 1; /* Left position */
-  animation: cardSlideIn 0.6s ease forwards 1s; /* 1 second delay */
+  order: 1;
+  animation: cardSlideIn 0.6s ease forwards 1s;
 }
 
 .intro-card-nav {
-  order: 2; /* Center position */
-  animation: cardSlideIn 0.6s ease forwards 2s; /* 2 second delay */
+  order: 2;
+  animation: cardSlideIn 0.6s ease forwards 2s;
 }
 
 .intro-card-theme {
-  order: 3; /* Right position */
-  animation: cardSlideIn 0.6s ease forwards 3s; /* 3 second delay */
+  order: 3;
+  animation: cardSlideIn 0.6s ease forwards 3s;
 }
 
-/* Scroll Arrow Animation */
+/* Interactive Elements */
 .scroll-arrow-bounce {
   animation: bounceDown 2s ease-in-out infinite;
   color: var(--primary-purple);
 }
 
-/* Click Animation */
 .click-animation {
   position: relative;
   width: 32px;
@@ -2076,7 +2072,6 @@ footer p:last-child {
   animation: clickRipple 2s ease-in-out infinite;
 }
 
-/* Theme Toggle Preview */
 .theme-toggle-preview {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -2108,9 +2103,7 @@ footer p:last-child {
 
 /* Animations */
 @keyframes loaderSpin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fadeInUp {
@@ -2150,74 +2143,29 @@ footer p:last-child {
 }
 
 @keyframes bounceDown {
-  0%, 20%, 50%, 80%, 100% { 
-    transform: translateY(0); 
-  }
-  40% { 
-    transform: translateY(8px); 
-  }
-  60% { 
-    transform: translateY(4px); 
-  }
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(8px); }
+  60% { transform: translateY(4px); }
 }
 
 @keyframes clickPulse {
-  0%, 100% { 
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% { 
-    transform: scale(0.8);
-    opacity: 0.6;
-  }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.8); opacity: 0.6; }
 }
 
 @keyframes clickRipple {
-  0% { 
-    transform: scale(0.5);
-    opacity: 1;
-  }
-  100% { 
-    transform: scale(2.5);
-    opacity: 0;
-  }
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
 }
 
 @keyframes themeSliderMove {
-  0%, 100% { 
-    left: 4px;
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.1);
-  }
-  50% { 
-    left: 32px;
-    transform: scale(1);
-  }
-  75% {
-    transform: scale(1.1);
-  }
+  0%, 100% { left: 4px; transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { left: 32px; transform: scale(1); }
+  75% { transform: scale(1.1); }
 }
 
 /* Mobile Responsive */
-@media (max-width: 768px) {
-  .loader-main {
-    top: 20%;
-  }
-  
-  .intro-cards {
-    display: none !important;
-  }
-  
-  .intro-card {
-    min-width: 280px;
-    max-width: calc(100vw - 2rem);
-    min-height: 160px;
-    padding: 1.5rem 1.25rem;
-  }
-  
-  /* Mobile Responsive */
 @media (max-width: 768px) {
   .loader-main {
     top: 20%;
@@ -2237,27 +2185,21 @@ footer p:last-child {
     padding: 1.5rem 1.25rem;
   }
   
-  /* Hide card 1 (scroll card) on mobile */
+  /* Hide scroll card, show nav and theme cards immediately */
   .intro-card-scroll {
     display: none !important;
   }
   
-  /* Show cards 2 and 3, make them immediately visible */
   .intro-card-nav,
   .intro-card-theme {
     display: flex !important;
     opacity: 0.95;
     transform: translateY(0) scale(1);
-    order: 1; /* Both will stack vertically */
+    animation: none;
   }
   
-  .intro-card-nav {
-    order: 1;
-  }
-  
-  .intro-card-theme {
-    order: 2;
-  }
+  .intro-card-nav { order: 1; }
+  .intro-card-theme { order: 2; }
 }
 
 @media (max-width: 480px) {
@@ -2277,17 +2219,16 @@ footer p:last-child {
     min-height: 150px;
   }
   
-  /* Keep cards 2 and 3 visible even on smallest screens */
+  .intro-card-scroll {
+    display: none !important;
+  }
+  
   .intro-card-nav,
   .intro-card-theme {
     display: flex !important;
     opacity: 0.95;
     transform: translateY(0) scale(1);
-  }
-  
-  /* Hide card 1 on smallest screens too */
-  .intro-card-scroll {
-    display: none !important;
+    animation: none;
   }
   
   .theme-toggle-preview {
@@ -3531,15 +3472,6 @@ window.addEventListener('load', () => {
   const loaderOverlay = $('#loaderOverlay');
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   
-  // Skip loader entirely on mobile
-  if (isMobile) {
-    if (loaderOverlay) {
-      loaderOverlay.classList.add('hidden');
-    }
-    initializeAll();
-    loaderActive = false;
-    return;
-  }
   
   // Desktop loader behavior (unchanged)
   if (loaderOverlay) {
@@ -3552,7 +3484,7 @@ window.addEventListener('load', () => {
       initializeAll();
       loaderActive = false;
       document.removeEventListener('keydown', handleEscapeKey);
-    }, 5000);
+    }, 4000);
   } else {
     initializeAll();
   }
