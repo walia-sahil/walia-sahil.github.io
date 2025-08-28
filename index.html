@@ -657,12 +657,11 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
 <div class="loader-overlay" id="loaderOverlay" aria-hidden="true">
   <div class="loader-backdrop"></div>
   
-  <!-- Main Loader Content -->
-  <div class="loader-main">
-    <div class="loader-spinner" role="status" aria-label="Loading"></div>
-    <div class="loader-subtext">Loading Analytics Portfolio…</div>
-  </div>
-
+<!-- Main Loader Content -->
+<div class="loader-main">
+  <div class="loader-spinner" role="status" aria-label="Loading"></div>
+  <div class="loader-subtext">Namaste 🙏</div>
+</div>
   <!-- Introduction Cards -->
   <div class="intro-cards" id="introCards">
     <!-- Left Card - Scroll Down -->
@@ -751,10 +750,10 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
               <div class="stat-number" data-count="15">0</div>
               <div class="stat-label">Projects Delivered</div>
             </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="9">0</div>
-              <div class="stat-label">Certifications</div>
-            </div>
+          <div class="stat-item">
+           <div class="stat-number" data-count="8000" data-suffix="+">0</div>
+           <div class="stat-label">Linkedin Members Reached</div>
+          </div>
           </div>
         </div>
       </div>
@@ -2009,39 +2008,46 @@ function initializeAll() {
     elements.forEach(el => observer.observe(el));
   }
 
-  function initCounterAnimations() {
-    const counters = $$('.stat-number[data-count]');
-    if (!counters.length) return;
+function initCounterAnimations() {
+  const counters = $$('.stat-number[data-count]');
+  if (!counters.length) return;
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(({ isIntersecting, target }) => {
-        if (!isIntersecting) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (!isIntersecting) return;
 
-        const endValue = parseFloat(target.dataset.count);
-        const isFloat  = !Number.isInteger(endValue);
+      const endValue = parseFloat(target.dataset.count);
+      const suffix = target.dataset.suffix || ''; // Get suffix (like "+")
+      const isFloat = !Number.isInteger(endValue);
 
-        if (prefersReduced) {
-          target.textContent = isFloat ? endValue.toFixed(1) : Math.round(endValue);
-          observer.unobserve(target);
-          return;
-        }
-
-        const duration  = 1600;
-        const startTime = performance.now();
-
-        function tick(now) {
-          const p = Math.min(1, (now - startTime) / duration);
-          const val = endValue * p;
-          target.textContent = isFloat ? val.toFixed(1) : Math.round(val);
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
+      if (prefersReduced) {
+        const finalText = isFloat ? endValue.toFixed(1) : Math.round(endValue);
+        target.textContent = finalText + suffix;
         observer.unobserve(target);
-      });
-    }, { threshold: 0.6 });
+        return;
+      }
 
-    counters.forEach(c => observer.observe(c));
-  }
+      const duration = 1600;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const p = Math.min(1, (now - startTime) / duration);
+        const val = endValue * p;
+        const currentText = isFloat ? val.toFixed(1) : Math.round(val);
+        
+        // Add suffix only when animation is complete or nearly complete (95%+)
+        const showSuffix = p >= 0.95 ? suffix : '';
+        target.textContent = currentText + showSuffix;
+        
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      observer.unobserve(target);
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(c => observer.observe(c));
+}
 
   // ==== Interactions ====
   function initInteractions() {

@@ -392,7 +392,7 @@ section{padding:var(--space-4xl) 0;position:relative}
 
 /* ================= Certifications Section (Enhanced) ================= */
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-xl);margin-bottom:var(--space-xl)}
-/* .cert-button-container{display:flex;justify-content:center;align-items:center;width:100%;margin-top:var(--space-xl);text-align:center} */
+.cert-button-container{display:flex;justify-content:center;align-items:center;width:100%;margin-top:var(--space-xl);text-align:center}
 .cert-card{display:flex;flex-direction:column;transition:all var(--transition-base)}
 .cert-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--border-hover)}
 .cert-image{width:100%;height:200px;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
@@ -413,7 +413,7 @@ section{padding:var(--space-4xl) 0;position:relative}
 .cert-link-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,.35)}
 .cert-hidden{display:none}
 .cert-visible{display:flex}
-@media(max-width:100%){.cert-button-container{margin-top:var(--space-lg)}}
+@media(max-width:768px){.cert-button-container{margin-top:var(--space-lg)}}
 
 /* ================= Beyond Work Section (Enhanced) ================= */
 .interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-xl);align-items:stretch}
@@ -657,12 +657,11 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
 <div class="loader-overlay" id="loaderOverlay" aria-hidden="true">
   <div class="loader-backdrop"></div>
   
-  <!-- Main Loader Content -->
-  <div class="loader-main">
-    <div class="loader-spinner" role="status" aria-label="Loading"></div>
-    <div class="loader-subtext">Loading Analytics Portfolio…</div>
-  </div>
-
+<!-- Main Loader Content -->
+<div class="loader-main">
+  <div class="loader-spinner" role="status" aria-label="Loading"></div>
+  <div class="loader-subtext">Namaste 🙏</div>
+</div>
   <!-- Introduction Cards -->
   <div class="intro-cards" id="introCards">
     <!-- Left Card - Scroll Down -->
@@ -751,10 +750,10 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
               <div class="stat-number" data-count="15">0</div>
               <div class="stat-label">Projects Delivered</div>
             </div>
-            <div class="stat-item">
-              <div class="stat-number" data-count="9">0</div>
-              <div class="stat-label">Certifications</div>
-            </div>
+          <div class="stat-item">
+           <div class="stat-number" data-count="8000" data-suffix="+">0</div>
+           <div class="stat-label">Linkedin Members Reached</div>
+          </div>
           </div>
         </div>
       </div>
@@ -1534,6 +1533,16 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
           </div>
 
           <!-- hidden others -->
+    <div class="cert-card card fade-in cert-hidden">
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
+            <div class="cert-content">
+              <h3 class="cert-title">Power BI Introduction</h3>
+              <p class="cert-issuer">Coursera</p>
+              <p class="cert-date">2025</p>
+              <a href="./documents/certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+            </div>
+          </div>
+
           <div class="cert-card card fade-in cert-hidden">
             <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Tableau%20Certified%20Data%20Analyst%20certificate.png" alt="Tableau Certified Data Analyst" loading="lazy" /></div>
             <div class="cert-content">
@@ -1555,32 +1564,22 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
           </div>
 
           <div class="cert-card card fade-in cert-hidden">
-            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera%20-%20Power%20BI%20Introduction%20LO2XHKFW1H52-1.png" alt="Power BI Introduction" loading="lazy" /></div>
+            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/AWS%20Machine%20Learning%20Services.png" alt="Amazon Web Services" loading="lazy" /></div>
             <div class="cert-content">
-              <h3 class="cert-title">Power BI Introduction</h3>
-              <p class="cert-issuer">Coursera</p>
-              <p class="cert-date">2024</p>
-              <a href="./documents/certifications/Coursera - Power BI Introduction LO2XHKFW1H52.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
-            </div>
-          </div>
-
-          <div class="cert-card card fade-in cert-hidden">
-            <div class="cert-image"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop" alt="AWS Proficiency Certificates" loading="lazy" /></div>
-            <div class="cert-content">
-              <h3 class="cert-title">AWS Proficiency Certificates</h3>
-              <p class="cert-issuer">AWS</p>
-              <p class="cert-date">2022</p>
-              <a href="./documents/certifications/AWS_Proficiency_Certificates-1-6.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+              <h3 class="cert-title">AWS- AI and Clinical Research</h3>
+              <p class="cert-issuer">Amazon Web Services (AWS)</p>
+              <p class="cert-date">2021</p>
+              <a href="./documents/certifications/AWS_Certificates.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificates</a>
             </div>
           </div>
 
           <div class="cert-card card fade-in cert-hidden">
             <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Proficiency-%20Clinical%20Trials%20%26%20Monitoring%20certifications-%20Sahil%20Walia-1.png" alt="Clinical Trials & Monitoring Proficiency" loading="lazy" /></div>
             <div class="cert-content">
-              <h3 class="cert-title">Clinical Trials & Monitoring Proficiency</h3>
-              <p class="cert-issuer">Professional Certification</p>
-              <p class="cert-date">2022</p>
-              <a href="./documents/certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+              <h3 class="cert-title">Clinical Research Proficiency</h3>
+              <p class="cert-issuer">Association of Clinical Research Professionals (ACRP)</p>
+              <p class="cert-date">2021</p>
+              <a href="./documents/certifications/Proficiency- Clinical Trials & Monitoring certifications- Sahil Walia.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificates</a>
             </div>
           </div>
 
@@ -1596,12 +1595,12 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
             </div>
           </div>
 
-       
+       <div class="cert-button-container">
   <button id="viewAllCertsBtn" class="btn btn-secondary">
             <span id="certBtnText">View All Certifications</span>
             <svg id="certBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-   
+        </div>
       </div>
     </section>
 
@@ -2009,39 +2008,46 @@ function initializeAll() {
     elements.forEach(el => observer.observe(el));
   }
 
-  function initCounterAnimations() {
-    const counters = $$('.stat-number[data-count]');
-    if (!counters.length) return;
+function initCounterAnimations() {
+  const counters = $$('.stat-number[data-count]');
+  if (!counters.length) return;
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(({ isIntersecting, target }) => {
-        if (!isIntersecting) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (!isIntersecting) return;
 
-        const endValue = parseFloat(target.dataset.count);
-        const isFloat  = !Number.isInteger(endValue);
+      const endValue = parseFloat(target.dataset.count);
+      const suffix = target.dataset.suffix || ''; // Get suffix (like "+")
+      const isFloat = !Number.isInteger(endValue);
 
-        if (prefersReduced) {
-          target.textContent = isFloat ? endValue.toFixed(1) : Math.round(endValue);
-          observer.unobserve(target);
-          return;
-        }
-
-        const duration  = 1600;
-        const startTime = performance.now();
-
-        function tick(now) {
-          const p = Math.min(1, (now - startTime) / duration);
-          const val = endValue * p;
-          target.textContent = isFloat ? val.toFixed(1) : Math.round(val);
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
+      if (prefersReduced) {
+        const finalText = isFloat ? endValue.toFixed(1) : Math.round(endValue);
+        target.textContent = finalText + suffix;
         observer.unobserve(target);
-      });
-    }, { threshold: 0.6 });
+        return;
+      }
 
-    counters.forEach(c => observer.observe(c));
-  }
+      const duration = 1600;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const p = Math.min(1, (now - startTime) / duration);
+        const val = endValue * p;
+        const currentText = isFloat ? val.toFixed(1) : Math.round(val);
+        
+        // Add suffix only when animation is complete or nearly complete (95%+)
+        const showSuffix = p >= 0.95 ? suffix : '';
+        target.textContent = currentText + showSuffix;
+        
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      observer.unobserve(target);
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(c => observer.observe(c));
+}
 
   // ==== Interactions ====
   function initInteractions() {
