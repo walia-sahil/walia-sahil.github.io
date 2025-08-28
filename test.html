@@ -392,7 +392,7 @@ section{padding:var(--space-4xl) 0;position:relative}
 
 /* ================= Certifications Section (Enhanced) ================= */
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-xl);margin-bottom:var(--space-xl)}
-.cert-button-container{display:flex;justify-content:center;align-items:center;width:100%;margin-top:var(--space-xl);text-align:center}
+/* .cert-button-container{display:flex;justify-content:center;align-items:center;width:100%;margin-top:var(--space-xl);text-align:center} */
 .cert-card{display:flex;flex-direction:column;transition:all var(--transition-base)}
 .cert-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--border-hover)}
 .cert-image{width:100%;height:200px;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
@@ -413,7 +413,7 @@ section{padding:var(--space-4xl) 0;position:relative}
 .cert-link-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,.35)}
 .cert-hidden{display:none}
 .cert-visible{display:flex}
-@media(max-width:768px){.cert-button-container{margin-top:var(--space-lg)}}
+@media(max-width:100%){.cert-button-container{margin-top:var(--space-lg)}}
 
 /* ================= Beyond Work Section (Enhanced) ================= */
 .interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-xl);align-items:stretch}
@@ -1596,12 +1596,12 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
             </div>
           </div>
 
-       <div class="cert-button-container">
+       
   <button id="viewAllCertsBtn" class="btn btn-secondary">
             <span id="certBtnText">View All Certifications</span>
             <svg id="certBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-        </div>
+   
       </div>
     </section>
 
