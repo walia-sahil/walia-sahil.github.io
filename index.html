@@ -606,27 +606,30 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
 @keyframes clickPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.8);opacity:.6}}
 @keyframes clickRipple{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.5);opacity:0}}
 @keyframes themeSliderMove{0%,100%{left:4px;transform:scale(1)}25%{transform:scale(1.1)}50%{left:32px;transform:scale(1)}75%{transform:scale(1.1)}}
-/* Mobile Responsive for Loader — DISABLE loader & intro cards on mobile */
+/* Mobile Responsive for Loader — Mobile shows spinner + Namaste + Theme card only */
 @media (max-width:768px){
-  /* Hide all loader/intro layers completely */
-  .loader-overlay,
-  .loader-main,
-  .intro-cards,
-  .intro-card,
-  .intro-card-scroll,
-  .intro-card-nav,
-  .intro-card-theme { display: none !important; }
+  /* Ensure overlay and main loader content are visible */
+  .loader-overlay{ display:flex !important; }
+  .loader-main{ display:block !important; }
+  .loader-spinner{ display:block !important; }
+  .loader-subtext{ display:block !important; }
+
+  /* Intro cards container visible to host only the theme card */
+  .intro-cards{ display:flex !important; align-items:center; justify-content:center; gap: var(--space-md); top:60%; padding: var(--space-md); }
+
+  /* Hide all intro cards by default on mobile */
+  .intro-cards .intro-card{ display:none !important; }
+
+  /* Re-enable ONLY the Theme Toggle card */
+  .intro-cards .intro-card-theme{ display:flex !important; opacity:.95; transform:translateY(0) scale(1); animation:none; }
 }
 
 @media (max-width:480px){
-  /* Redundant safeguard for smaller phones */
-  .loader-overlay,
-  .loader-main,
-  .intro-cards,
-  .intro-card,
-  .intro-card-scroll,
-  .intro-card-nav,
-  .intro-card-theme { display: none !important; }
+  /* Slightly adjust positions and sizes for small phones */
+  .loader-main{ top:15%; }
+  .intro-cards{ top:62%; }
+  .theme-toggle-preview{ width:50px; height:28px; }
+  .theme-toggle-slider-preview{ width:20px; height:20px; font-size:10px; }
 }
   </style>
 </head>
@@ -2193,7 +2196,7 @@ function initCounterAnimations() {
           throw new Error(data.error || 'Submission failed. Please try again later.');
         }
       } catch (err) {
-        showFormNote(err.message || 'Something went wrong. Please use the email/LinkedIn links below.', 'error');
+        showFormNote(err.message || 'Something went wrong. Please use the Email id/ LinkedIn profile to contact.', 'error');
       } finally {
         state.formSubmitting = false;
         setSubmitButtonState(false);
