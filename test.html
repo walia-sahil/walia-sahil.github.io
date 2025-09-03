@@ -278,6 +278,15 @@ section{padding:var(--space-4xl) 0;position:relative}
   .projects-grid{grid-template-columns:1fr}
   .project-metrics{grid-template-columns:1fr}
   .projects-button-container{margin-top:var(--space-lg)}
+  /* Prevent badge overlap on mobile */
+  .project-header{ padding-right: calc(var(--space-lg) + 90px); }
+  .project-badge{ z-index: 2; pointer-events: none; }
+}
+
+@media(max-width:480px){
+  /* Tighter phones: slightly less reserved space, reposition badge */
+  .project-header{ padding-right: calc(var(--space-lg) + 80px); }
+  .project-badge{ top: var(--space-sm); right: var(--space-md); }
 }
 
 /* ================= Journey/Timeline Section (Enhanced) ================= */
@@ -545,12 +554,12 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
 }
 .loader-overlay.hidden{opacity:0;visibility:hidden}
 .loader-backdrop{position:absolute;inset:0;background:linear-gradient(135deg,var(--primary-purple),var(--primary-blue));opacity:.08}
-.loader-main{position:absolute;top:25%;left:50%;transform:translateX(-50%);text-align:center;color:var(--text-primary);z-index:4;width:100%}
+.loader-main{position:absolute;top:15%;left:50%;transform:translateX(-50%);text-align:center;color:var(--text-primary);z-index:4;width:100%}
 .loader-main .loader-spinner{width:60px;height:60px;border:3px solid var(--border-color);border-top:3px solid var(--primary-purple);border-radius:50%;animation:loaderSpin 1s linear infinite;margin:0 auto var(--space-md)}
 .loader-main .loader-text{display:none}
 .loader-main .loader-subtext{
-  font-size:var(--font-size-lg);font-weight:600;opacity:0;animation:fadeInUp .6s ease forwards .4s;color:var(--bg-secondary);
-  text-shadow:0 1px 3px rgba(0,0,0,.6);margin-top:var(--space-xs);line-height:1.4;
+  font-size:var(--font-size-3xl);font-weight:600;opacity:0;animation:fadeInUp .6s ease forwards .4s;color:var(--text-primary);
+  text-shadow:0 1px 3px rgba(234, 231, 231, 0.6);margin-top:var(--space-xs);line-height:1.4;
 }
 [data-theme="dark"] .loader-main .loader-subtext{color:var(--accent-purple);text-shadow:0 1px 3px rgba(124,58,237,.3)}
 /* Introduction Cards */
@@ -597,23 +606,27 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
 @keyframes clickPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.8);opacity:.6}}
 @keyframes clickRipple{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.5);opacity:0}}
 @keyframes themeSliderMove{0%,100%{left:4px;transform:scale(1)}25%{transform:scale(1.1)}50%{left:32px;transform:scale(1)}75%{transform:scale(1.1)}}
-/* Mobile Responsive for Loader */
-@media(max-width:768px){
-  .loader-main{top:20%}
-  .intro-cards{top:55%;flex-direction:column;gap:var(--space-lg);padding:var(--space-md)}
-  .intro-card{min-width:280px;max-width:calc(100vw - var(--space-xl));min-height:160px;padding:var(--space-lg) calc(var(--space-md) + var(--space-xs))}
-  .intro-card-scroll{display:none!important}
-  .intro-card-nav,.intro-card-theme{display:flex!important;opacity:.95;transform:translateY(0) scale(1);animation:none}
-  .intro-card-nav{order:1}.intro-card-theme{order:2}
+/* Mobile Responsive for Loader — DISABLE loader & intro cards on mobile */
+@media (max-width:768px){
+  /* Hide all loader/intro layers completely */
+  .loader-overlay,
+  .loader-main,
+  .intro-cards,
+  .intro-card,
+  .intro-card-scroll,
+  .intro-card-nav,
+  .intro-card-theme { display: none !important; }
 }
-@media(max-width:480px){
-  .loader-main{top:15%}
-  .intro-cards{top:60%;padding:var(--space-sm);gap:var(--space-md)}
-  .intro-card{min-width:calc(100vw - var(--space-lg));padding:var(--space-lg) var(--space-md);min-height:150px}
-  .intro-card-scroll{display:none!important}
-  .intro-card-nav,.intro-card-theme{display:flex!important;opacity:.95;transform:translateY(0) scale(1);animation:none}
-  .theme-toggle-preview{width:50px;height:28px}
-  .theme-toggle-slider-preview{width:20px;height:20px;font-size:10px}
+
+@media (max-width:480px){
+  /* Redundant safeguard for smaller phones */
+  .loader-overlay,
+  .loader-main,
+  .intro-cards,
+  .intro-card,
+  .intro-card-scroll,
+  .intro-card-nav,
+  .intro-card-theme { display: none !important; }
 }
   </style>
 </head>
@@ -1503,12 +1516,12 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
         <div class="cert-grid" id="certGrid">
           <!-- visible 3 -->
           <div class="cert-card card fade-in cert-visible">
-            <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera-%20Foundations%20of%20BI%20-%20Google-1.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
+          <div class="cert-image"><img src="./images/certifications/thumbnail%20images/Coursera%20Google-%20Foundations%20of%20Business%20Intelligence-%2040NF9EBUO2N8.png" alt="Google Foundations of Business Intelligence" loading="lazy" /></div>
             <div class="cert-content">
               <h3 class="cert-title">Foundations of Business Intelligence</h3>
               <p class="cert-issuer">Google via Coursera</p>
               <p class="cert-date">2025</p>
-              <a href="./documents/certifications/Coursera- Foundations of BI - Google.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
+              <a href="./documents/certifications/Coursera Google- Foundations of Business Intelligence- 40NF9EBUO2N8.pdf" target="_blank" rel="noopener noreferrer" class="cert-link-button">View Certificate</a>
             </div>
           </div>
 
@@ -1631,7 +1644,7 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
       <div class="interest-card card fade-in">
         <div class="interest-image"><img src="./images/qbdc champion.png" alt="Automotive Engineering" loading="lazy" /></div>
         <h3 style="color:var(--accent-purple);margin-bottom:1rem">Automotive Engineering</h3>
-        <p style="color:var(--text-secondary)">Lifelong motorsports enthusiast with extensive experience in student motorsports. Led Team Enigmatic Plodder through multiple collegiate championships, applying data‑driven performance optimization to racing dynamics.</p>
+        <p style="color:var(--text-secondary)">Lifelong motorsports enthusiast with extensive experience in student motorsports. Led Team Enigmatic Plodder through multiple collegiate championships, applying data‑driven performance optimization to off-roading dynamics.</p>
         <div style="margin-top:1.5rem;">
           <a href="https://www.instagram.com/team_enigmaticplodder/" target="_blank" rel="noopener noreferrer" class="interest-button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

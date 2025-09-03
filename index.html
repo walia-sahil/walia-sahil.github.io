@@ -278,6 +278,15 @@ section{padding:var(--space-4xl) 0;position:relative}
   .projects-grid{grid-template-columns:1fr}
   .project-metrics{grid-template-columns:1fr}
   .projects-button-container{margin-top:var(--space-lg)}
+  /* Prevent badge overlap on mobile */
+  .project-header{ padding-right: calc(var(--space-lg) + 90px); }
+  .project-badge{ z-index: 2; pointer-events: none; }
+}
+
+@media(max-width:480px){
+  /* Tighter phones: slightly less reserved space, reposition badge */
+  .project-header{ padding-right: calc(var(--space-lg) + 80px); }
+  .project-badge{ top: var(--space-sm); right: var(--space-md); }
 }
 
 /* ================= Journey/Timeline Section (Enhanced) ================= */
