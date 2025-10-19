@@ -1505,6 +1505,29 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
     </div>
 
     <div class="contact-layout">
+        <!-- LEFT COLUMN -->
+      <div>
+        <!-- ===== LinkedIn Smart Display ===== -->
+        <div class="card linkedin-panel fade-in" aria-label="LinkedIn Profile">
+          <h3 style="margin-bottom: var(--space-sm); text-align: center;">LinkedIn</h3>
+          <div class="badge-base LI-profile-badge"
+               data-locale="en_US"
+               data-size="large"
+               data-theme="light"
+               data-type="HORIZONTAL"
+               data-vanity="sahilwalia1"
+               data-version="v1">
+            <a class="badge-base__link LI-simple-link"
+               href="https://www.linkedin.com/in/sahilwalia1?trk=profile-badge">Sahil Walia</a>
+          </div>
+          <noscript>
+            <p style="text-align:center;">
+              View my profile on
+              <a href="https://www.linkedin.com/in/sahilwalia1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+            </p>
+          </noscript>
+        </div>
+     
       <!-- Contact Cards - Modern Compact Design -->
       <div class="contact-cards-modern">
         <div class="contact-card-modern fade-in">
@@ -1635,86 +1658,63 @@ footer p:last-child{font-size:var(--font-size-sm);opacity:.85;line-height:1.4}
       <p style="font-size:.9rem;opacity:.85">Accessible • Performant • Modern</p>
     </div>
   </footer>
-
 <script>
-  // ==== JAVASCRIPT //
+// ==== JAVASCRIPT Core ====
 (() => {
   'use strict';
 
-  // ==== Utilities (null-safe roots; tiny but important hardening) ====
+  // Utilities
   const $  = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
-  // ==== State / Constants ====
+  // State & constants
   const state = { formSubmitting: false };
   const VISIBLE_PROJECTS = 2;
   const VISIBLE_CERTS    = 3;
-  const prefersReduced   = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+  const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
 
-  // Ensure we start at the top (your design expects this)
+  // Prevent scroll restoration
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
-// Escape key loader cancellation
-let loaderActive = true;
-let loaderTimeout;
-
-function handleEscapeKey(event) {
-  if (event.key === 'Escape' && loaderActive) {
-    // Cancel the loader timeout
-    if (loaderTimeout) {
-      clearTimeout(loaderTimeout);
-    }
-    
-    // Hide loader immediately
-    const loaderOverlay = $('#loaderOverlay');
-    if (loaderOverlay) {
-      loaderOverlay.classList.add('hidden');
-    }
-    
-    // Initialize website
-    initializeAll();
-    
-    // Mark loader as inactive
-    loaderActive = false;
-    
-    // Remove event listener
-    document.removeEventListener('keydown', handleEscapeKey);
-  }
-}
-
-// ==== Boot ====
-window.addEventListener('load', () => {
-  const loaderOverlay = $('#loaderOverlay');
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  
-  
-  // Desktop loader behavior (unchanged)
-  if (loaderOverlay) {
-    // Add escape key listener
-    document.addEventListener('keydown', handleEscapeKey);
-    
-    // Store timeout reference for cancellation
-    loaderTimeout = setTimeout(() => {
-      loaderOverlay.classList.add('hidden');
+  // Loader / escape key logic
+  let loaderActive = true;
+  let loaderTimeout;
+  function handleEscapeKey(event) {
+    if (event.key === 'Escape' && loaderActive) {
+      if (loaderTimeout) clearTimeout(loaderTimeout);
+      const loaderOverlay = $('#loaderOverlay');
+      if (loaderOverlay) loaderOverlay.classList.add('hidden');
       initializeAll();
       loaderActive = false;
       document.removeEventListener('keydown', handleEscapeKey);
-    }, 4000);
-  } else {
-    initializeAll();
+    }
   }
-});
+  window.addEventListener('load', () => {
+    const loaderOverlay = $('#loaderOverlay');
+    if (loaderOverlay) {
+      document.addEventListener('keydown', handleEscapeKey);
+      loaderTimeout = setTimeout(() => {
+        loaderOverlay.classList.add('hidden');
+        initializeAll();
+        loaderActive = false;
+        document.removeEventListener('keydown', handleEscapeKey);
+      }, 4000);
+    } else {
+      initializeAll();
+    }
+  });
 
-function initializeAll() {
-  initTheme();
-  initNavigation();
-  initScrollHandling();
-  initAnimations();
-  initInteractions();
-  initContactForm();
-}
-  // ==== Theme ====
+  function initializeAll() {
+    initTheme();
+    initNavigation();
+    initScrollHandling();
+    initAnimations();
+    initInteractions();
+    initContactForm();
+  }
+
+  // Theme toggle logic
   function initTheme() {
     const themeToggle = document.getElementById('themeToggle');
     const slider = themeToggle ? themeToggle.querySelector('.theme-toggle-slider') : null;
@@ -1724,11 +1724,9 @@ function initializeAll() {
       if (slider) slider.textContent = mode === 'dark' ? '🌙' : '☀️';
     };
 
-    // If the user has a saved choice, honor it. Otherwise, default to light.
     const saved = (() => { try { return localStorage.getItem('theme'); } catch { return null; } })();
     apply((saved === 'light' || saved === 'dark') ? saved : 'light');
 
-    // Keep the toggle working; save only on user action.
     themeToggle?.addEventListener('click', () => {
       const current = document.body.getAttribute('data-theme') || 'light';
       const next = current === 'light' ? 'dark' : 'light';
@@ -1737,35 +1735,31 @@ function initializeAll() {
     });
   }
 
-  // ==== Navigation ====
+  // Navigation, scroll, animations, etc.
   function initNavigation() {
     const menuToggle = $('#menuToggle');
     const navLinks   = $('#navLinks');
     const navbar     = $('.navbar');
-
     menuToggle?.addEventListener('click', () => {
       if (!navLinks) return;
       const isOpen = navLinks.classList.toggle('active');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       if (isOpen) navLinks.querySelector('a')?.focus();
     });
-
     $$('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks?.classList.remove('active');
         menuToggle?.setAttribute('aria-expanded', 'false');
       });
     });
-
     initActiveLinks();
-
     let touchStartY = 0;
     document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
-    document.addEventListener('touchend',   e => {
+    document.addEventListener('touchend', e => {
       const delta = e.changedTouches[0].screenY - touchStartY;
       if (!navbar || Math.abs(delta) < 50) return;
       if (delta < 0 && window.pageYOffset > 150) navbar.style.transform = 'translateY(-100%)';
-      else if (delta > 0)                       navbar.style.transform = 'translateY(0)';
+      else if (delta > 0) navbar.style.transform = 'translateY(0)';
     }, { passive: true });
   }
 
@@ -1773,7 +1767,6 @@ function initializeAll() {
     const sections = $$('section[id]');
     const navItems = $$('.nav-links a');
     if (!sections.length || !navItems.length) return;
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -1781,43 +1774,35 @@ function initializeAll() {
         navItems.forEach(item => item.classList.toggle('active', item.getAttribute('href') === id));
       });
     }, { rootMargin: '-20% 0px -70% 0px', threshold: [0, .25, .5, .75, 1] });
-
     sections.forEach(section => observer.observe(section));
   }
 
-  // ==== Scroll / Progress / Back-to-top ====
   function initScrollHandling() {
-    const navbar  = $('.navbar');
-    const bar     = $('#scrollProgress');
-    const topBtn  = $('#scrollToTop');
-
+    const navbar = $('.navbar');
+    const bar = $('#scrollProgress');
+    const topBtn = $('#scrollToTop');
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
       requestAnimationFrame(() => {
         const y = window.scrollY;
         if (navbar) navbar.classList.toggle('scrolled', y > 100);
-
         if (bar) {
           const doc = document.documentElement;
           const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
           bar.style.width = pct + '%';
         }
-
         if (topBtn) topBtn.classList.toggle('visible', y > 600);
         ticking = false;
       });
       ticking = true;
     };
-
     document.addEventListener('scroll', onScroll, { passive: true });
-
     topBtn?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     });
   }
 
-  // ==== Animations ====
   function initAnimations() {
     initFadeInAnimations();
     initCounterAnimations();
@@ -1826,7 +1811,6 @@ function initializeAll() {
   function initFadeInAnimations() {
     const elements = $$('.fade-in');
     if (!elements.length) return;
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1835,52 +1819,41 @@ function initializeAll() {
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
     elements.forEach(el => observer.observe(el));
   }
 
-function initCounterAnimations() {
-  const counters = $$('.stat-number[data-count]');
-  if (!counters.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(({ isIntersecting, target }) => {
-      if (!isIntersecting) return;
-
-      const endValue = parseFloat(target.dataset.count);
-      const suffix = target.dataset.suffix || ''; // Get suffix (like "+")
-      const isFloat = !Number.isInteger(endValue);
-
-      if (prefersReduced) {
-        const finalText = isFloat ? endValue.toFixed(1) : Math.round(endValue);
-        target.textContent = finalText + suffix;
+  function initCounterAnimations() {
+    const counters = $$('.stat-number[data-count]');
+    if (!counters.length) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(({ isIntersecting, target }) => {
+        if (!isIntersecting) return;
+        const endValue = parseFloat(target.dataset.count);
+        const suffix = target.dataset.suffix || '';
+        const isFloat = !Number.isInteger(endValue);
+        if (prefersReduced) {
+          const finalText = isFloat ? endValue.toFixed(1) : Math.round(endValue);
+          target.textContent = finalText + suffix;
+          observer.unobserve(target);
+          return;
+        }
+        const duration = 1600;
+        const startTime = performance.now();
+        function tick(now) {
+          const p = Math.min(1, (now - startTime) / duration);
+          const val = endValue * p;
+          const currentText = isFloat ? val.toFixed(1) : Math.round(val);
+          const showSuffix = p >= 0.95 ? suffix : '';
+          target.textContent = currentText + showSuffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
         observer.unobserve(target);
-        return;
-      }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => observer.observe(c));
+  }
 
-      const duration = 1600;
-      const startTime = performance.now();
-
-      function tick(now) {
-        const p = Math.min(1, (now - startTime) / duration);
-        const val = endValue * p;
-        const currentText = isFloat ? val.toFixed(1) : Math.round(val);
-        
-        // Add suffix only when animation is complete or nearly complete (95%+)
-        const showSuffix = p >= 0.95 ? suffix : '';
-        target.textContent = currentText + showSuffix;
-        
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      observer.unobserve(target);
-    });
-  }, { threshold: 0.6 });
-
-  counters.forEach(c => observer.observe(c));
-}
-
-  // ==== Interactions ====
   function initInteractions() {
     initReadMore();
     initViewAllToggles();
@@ -1893,7 +1866,6 @@ function initCounterAnimations() {
         if (!targetId) return;
         const panel = document.getElementById(targetId);
         if (!panel) return;
-
         const textSpan = btn.querySelector('span');
         const isExpanded = panel.classList.toggle('visible');
         btn.setAttribute('aria-expanded', String(isExpanded));
@@ -1903,8 +1875,7 @@ function initCounterAnimations() {
   }
 
   function initViewAllToggles() {
-    // Projects
-    const projectsBtn  = $('#viewAllBtn');
+    const projectsBtn = $('#viewAllBtn');
     const projectsGrid = $('#projectsGrid');
     projectsBtn?.addEventListener('click', () => {
       toggleViewAll(
@@ -1914,7 +1885,6 @@ function initCounterAnimations() {
       );
     });
 
-    // Certifications
     const certsBtn = $('#viewAllCertsBtn');
     const certGrid = $('#certGrid');
     certsBtn?.addEventListener('click', () => {
@@ -1930,10 +1900,8 @@ function initCounterAnimations() {
     if (!grid) return;
     const cards = $$(cardSelector, grid);
     if (!cards.length) return;
-
-    const hasHidden    = cards.some(card => card.classList.contains(hiddenClass));
+    const hasHidden = cards.some(card => card.classList.contains(hiddenClass));
     const shouldExpand = hasHidden;
-
     cards.forEach((card, i) => {
       if (shouldExpand) {
         card.classList.remove(hiddenClass);
@@ -1951,16 +1919,16 @@ function initCounterAnimations() {
     if (btnIcon) btnIcon.style.transform = shouldExpand ? 'rotate(180deg)' : 'rotate(0deg)';
   }
 
-  // ==== Contact Form ====
+  // Contact form logic
   function initContactForm() {
-    const form           = $('#contactForm');
-    const submitBtn      = $('#submitBtn');
-    const submitText     = $('#submitText');
-    const btnLoader      = $('#btnLoader');
+    const form = $('#contactForm');
+    const submitBtn = $('#submitBtn');
+    const submitText = $('#submitText');
+    const btnLoader = $('#btnLoader');
     const successMessage = $('#successMessage');
-    const formNote       = $('#formNote');
-    const charCounter    = $('#charCounter');
-    const messageField   = $('#message');
+    const formNote = $('#formNote');
+    const charCounter = $('#charCounter');
+    const messageField = $('#message');
 
     if (!form) return;
 
@@ -1972,26 +1940,23 @@ function initCounterAnimations() {
     form.addEventListener('submit', async e => {
       e.preventDefault();
       if (state.formSubmitting) return;
-
       clearFormErrors();
-
       const formData = {
-        name:   $('#name')   ?.value.trim() || '',
-        email:  $('#email')  ?.value.trim() || '',
-        subject:$('#subject')?.value.trim() || '',
-        message:$('#message')?.value.trim() || ''
+        name: $('#name')?.value.trim() || '',
+        email: $('#email')?.value.trim() || '',
+        subject: $('#subject')?.value.trim() || '',
+        message: $('#message')?.value.trim() || ''
       };
-
       if (!validateForm(formData)) return;
       await submitForm();
     });
 
     function validateForm({ name, email, subject, message }) {
       let ok = true;
-      if (name.length < 2)                                  { showFormError('name',   'Please enter your full name.'); ok = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))      { showFormError('email',  'Please enter a valid email address.'); ok = false; }
-      if (subject.length < 3)                               { showFormError('subject','Please add a short subject.');   ok = false; }
-      if (message.length < 10)                              { showFormError('message','Please add a bit more detail.'); ok = false; }
+      if (name.length < 2) { showFormError('name', 'Please enter your full name.'); ok = false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFormError('email', 'Please enter a valid email address.'); ok = false; }
+      if (subject.length < 3) { showFormError('subject', 'Please add a short subject.'); ok = false; }
+      if (message.length < 10) { showFormError('message', 'Please add a bit more detail.'); ok = false; }
       return ok;
     }
 
@@ -1999,9 +1964,12 @@ function initCounterAnimations() {
       state.formSubmitting = true;
       setSubmitButtonState(true);
       hideFormNote();
-
       try {
-        const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
         if (response.ok) {
           showSuccess();
           form.reset();
@@ -2011,7 +1979,7 @@ function initCounterAnimations() {
           throw new Error(data.error || 'Submission failed. Please try again later.');
         }
       } catch (err) {
-        showFormNote(err.message || 'Something went wrong. Please use the Email id/ LinkedIn profile to contact.', 'error');
+        showFormNote(err.message || 'Something went wrong. Please use the Email or LinkedIn to contact.', 'error');
       } finally {
         state.formSubmitting = false;
         setSubmitButtonState(false);
@@ -2022,7 +1990,7 @@ function initCounterAnimations() {
       if (!submitBtn || !submitText || !btnLoader) return;
       submitBtn.disabled = isSubmitting;
       submitText.style.display = isSubmitting ? 'none' : 'inline';
-      btnLoader.style.display  = isSubmitting ? 'inline-flex' : 'none';
+      btnLoader.style.display = isSubmitting ? 'inline-flex' : 'none';
     }
 
     function showSuccess() { successMessage?.classList.add('visible'); }
@@ -2039,7 +2007,32 @@ function initCounterAnimations() {
     }
     function hideFormNote() { if (formNote) formNote.style.display = 'none'; }
   }
+
 })();
+</script>
+
+<!-- LinkedIn Badge Script -->
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+
+<script>
+  // Sync LinkedIn Badge theme with your toggle
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    function rerenderLinkedInBadge() {
+      const badge = document.querySelector('.LI-profile-badge');
+      if (!badge) return;
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      badge.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      if (window.LIRenderAll) window.LIRenderAll();
+    }
+    if (btn) {
+      btn.addEventListener('click', () => {
+        // allow theme toggle to take effect first
+        setTimeout(rerenderLinkedInBadge, 150);
+      });
+    }
+    window.addEventListener('load', rerenderLinkedInBadge);
+  })();
 </script>
 
 </body>
